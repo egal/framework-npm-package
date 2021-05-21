@@ -1,5 +1,5 @@
 {
-  "name": "@egalteam/framework",
+  "name": "@egalteam/egal",
   "description": "Egal",
   "main": "index.js",
   "typings": "dist/index.d.ts",
