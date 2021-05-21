@@ -1,0 +1,14 @@
+# Main directories and files of project
+.DS_Store
+node_modules
+package-lock.json
+
+# Editor directories and files
+.idea
+.vscode
+
+# Compiled js files from ts
+src/*.js
+src/**/*.js
+
+.npmrc
