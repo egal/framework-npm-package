@@ -1,4 +1,7 @@
-on: push
+on:
+  create:
+    tags:
+      - 'v*'
 
 jobs:
   publish:
@@ -8,6 +11,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10
+      - run: |
+        sed -i -e "0,/{/ s/{/{\n\t\"version\": \"${GITHUB_REF##*/v}\",/" package.json
+      - run: echo package.json
       - run: npm install
 #       - run: npm test
       - uses: JS-DevTools/npm-publish@v1
