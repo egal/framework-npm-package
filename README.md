@@ -1,10 +1,10 @@
 <p align="center"><img src="https://raw.githubusercontent.com/smartworldteam/art/main/logo.svg" height="150"></p>
 
 [comment]: <> (Replase Name)
-<p align="center" style="font-size: 35px; font-weight: bold;">Name</p>
+<p align="center" style="font-size: 35px; font-weight: bold;">Egal</p>
 
 [comment]: <> (Replase Description)
-<p align="center" style="font-size: 18px; font-weight: bold;">Description</p>
+<p align="center" style="font-size: 18px; font-weight: bold;">Npm package </p>
 
 [comment]: <> (Replase badges)
 
