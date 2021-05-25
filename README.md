@@ -7,10 +7,18 @@
 <p align="center" style="font-size: 18px; font-weight: bold;">Npm package </p>
 
 [comment]: <> (Replase badges)
+<p align="center">
+  <a href="https://github.com/smartworldteam/egal-framework-npm-package">
+    <img src="https://badge.fury.io/js/%40egalteam%2Fegal.svg"></img>
+  </a>
+  <a href="https://github.com/smartworldteam/egal-framework-npm-package">
+    <img src="https://img.shields.io/npm/dt/@egalteam/egal"></img>
+  </a>
+  <a href="https://github.com/smartworldteam/egal-framework-npm-package">
+    <img src="https://img.shields.io/npm/l/@egalteam/egal"></img>
+  </a>
+</p>
 
-[![npm version](https://badge.fury.io/js/%40egalteam%2Fegal.svg)](https://badge.fury.io/js/%40egalteam%2Fegal)
-[![](https://img.shields.io/npm/dt/@egalteam/egal)](https://www.npmjs.com/package/@egalteam/egal)
-[![](https://img.shields.io/npm/l/@egalteam/egal)](https://www.npmjs.com/package/@egalteam/egal)
 
 ## Новости
 
