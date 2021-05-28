@@ -4,7 +4,6 @@
 <a href="https://www.npmjs.com/package/@egalteam/egal"><img src="https://badge.fury.io/js/%40egalteam%2Fegal.svg"></a>
  <a href="https://www.npmjs.com/package/@egalteam/egal"><img src="https://img.shields.io/npm/dt/@egalteam/egal"></a>
  <a href="https://www.npmjs.com/package/@egalteam/egal"><img src="https://img.shields.io/npm/l/@egalteam/egal"></a>
- <a href="https://github.com/smartworldteam/egal-framework-npm-package"><img src="https://img.shields.io/github/last-commit/smartworldteam/egal-framework-npm-package"></a>
 </p>
 
 
