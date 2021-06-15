@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GlobalVariables = exports.Model = exports.ActionMessage = exports.SocketRequest = exports.HttpRequest = exports.EventObserver = exports.CRUDAction = exports.GetModelMetadataAction = exports.GetAllMetaDataAction = exports.GetItemsFilterParams = exports.GetItemsSortingParams = exports.GetItemsAction = exports.AuthAction = void 0;
+exports.GlobalVariables = exports.Model = exports.ActionMessage = exports.SocketRequest = exports.HttpRequest = exports.EventObserver = exports.CustomAction = exports.CRUDAction = exports.GetModelMetadataAction = exports.GetAllMetaDataAction = exports.GetItemsFilterParams = exports.GetItemsSortingParams = exports.GetItemsAction = exports.AuthAction = void 0;
 const AuthAction_1 = require("./src/Auth/AuthAction");
 Object.defineProperty(exports, "AuthAction", { enumerable: true, get: function () { return AuthAction_1.AuthAction; } });
 const GetItemsAction_1 = require("./src/Actions/GetItemsAction/GetItemsAction");
@@ -15,6 +15,8 @@ const GetModelMetadataAction_1 = require("./src/Actions/GetMetadataAction/GetMod
 Object.defineProperty(exports, "GetModelMetadataAction", { enumerable: true, get: function () { return GetModelMetadataAction_1.GetModelMetadataAction; } });
 const CRUDAction_1 = require("./src/Actions/CRUDActions/CRUDAction");
 Object.defineProperty(exports, "CRUDAction", { enumerable: true, get: function () { return CRUDAction_1.CRUDAction; } });
+const CustomAction_1 = require("./src/Actions/CustomAction/CustomAction");
+Object.defineProperty(exports, "CustomAction", { enumerable: true, get: function () { return CustomAction_1.CustomAction; } });
 const Observer_1 = require("./src/Actions/NetworkRequests/SocketConnection/Observer");
 Object.defineProperty(exports, "EventObserver", { enumerable: true, get: function () { return Observer_1.EventObserver; } });
 const HttpRequest_1 = require("./src/Actions/NetworkRequests/HttpRequest");
@@ -35,6 +37,7 @@ exports.default = {
     GetAllMetaDataAction: GetAllMetaDataAction_1.GetAllMetaDataAction,
     GetModelMetadataAction: GetModelMetadataAction_1.GetModelMetadataAction,
     CRUDAction: CRUDAction_1.CRUDAction,
+    CustomAction: CustomAction_1.CustomAction,
     EventObserver: Observer_1.EventObserver,
     HttpRequest: HttpRequest_1.HttpRequest,
     SocketRequest: SocketRequest_1.SocketRequest,

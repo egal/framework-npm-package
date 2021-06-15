@@ -12,7 +12,6 @@ let isRefreshing = false;
 let refreshSubscribers = [];
 class HttpRequest {
     constructor() {
-        this.httpMethod = 'POST';
         this.actionResult = {};
         this.actionError = {};
     }
@@ -101,7 +100,7 @@ class HttpRequest {
             if (GlobalVariables_1.GlobalVariables.httpBaseUrl || GlobalVariables_1.GlobalVariables.authBaseUrl) {
                 instance({
                     url: `${domain}/${serviceName}/${modelName}/${actionName}`,
-                    method: this.httpMethod,
+                    method: httpMethod,
                     data: data
                 })
                     .then((response) => {

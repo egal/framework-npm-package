@@ -1,4 +1,4 @@
-import {ActionMessage} from "../../../index";
+import {ActionMessage} from "../ActionMessage";
 import {Method} from "axios";
 
 export class CustomAction extends ActionMessage {

@@ -6,7 +6,7 @@ const SocketRequest_1 = require("./NetworkRequests/SocketRequest");
 const Observer_1 = require("./NetworkRequests/SocketConnection/Observer");
 const observer = new Observer_1.EventObserver();
 class ActionMessage {
-    constructor(userName, password, microserviceName, actionName, modelName, actionParameters, channelParameters) {
+    constructor(userName, password, microserviceName, actionName, modelName, requestType, actionParameters, channelParameters) {
         this.userName = userName;
         this.password = password;
         this.serviceName = microserviceName;
@@ -14,7 +14,7 @@ class ActionMessage {
         this.actionName = actionName;
         this.actionParameters = actionParameters;
         this.channelParameters = channelParameters;
-        this.httpMethod = 'POST';
+        this.httpMethod = requestType ? requestType : 'POST';
         this.httpRequest = new HttpRequest_1.HttpRequest();
         this.socketRequest = new SocketRequest_1.SocketRequest(this.userName, this.password, this.serviceName, this.actionName, this.modelName, this.actionParameters, this.channelParameters);
     }
