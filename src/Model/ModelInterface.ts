@@ -6,7 +6,6 @@ export interface ModelInterface {
   actionGetItem(
     microserviceName: string,
     connectionType: string,
-    actionName: string,
     id: string,
     filter?: (string | object)[] | undefined,
     orders?: object[]
@@ -15,7 +14,6 @@ export interface ModelInterface {
   actionGetItems(
     microserviceName: string,
     connectionType: string,
-    actionName: string,
     perPage?: number,
     page?: number,
     filter?: (string | object)[] | undefined,
@@ -25,7 +23,6 @@ export interface ModelInterface {
 
   actionCreate(
     microserviceName: string,
-    actionName: string,
     connectionType: string,
     actionParams?: any,
     channelParameters?: RoutingKeyParams | undefined
@@ -33,16 +30,33 @@ export interface ModelInterface {
 
   actionUpdate(
     microserviceName: string,
-    actionName: string,
     connectionType: string,
     actionParams?: any
   ): void;
 
   actionDelete(
     microserviceName: string,
-    actionName: string,
     connectionType: string,
     actionParams?: any
+  ): void;
+
+  actionCreateMany(
+      microserviceName: string,
+      connectionType: string,
+      actionParams?: any,
+      channelParameters?: RoutingKeyParams | undefined
+  ): void;
+
+  actionUpdateMany(
+      microserviceName: string,
+      connectionType: string,
+      actionParams?: any
+  ): void;
+
+  actionDeleteMany(
+      microserviceName: string,
+      connectionType: string,
+      actionParams?: any
   ): void;
 
   getModelMetadata(): void;
