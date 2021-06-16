@@ -6,8 +6,8 @@ import {deleteCookie, getCookie, GlobalVariables, setCookie} from '../../GlobalV
 import {ParametersInterface} from "./ParametersInterface";
 
 
-let isRefreshing = false;
-let refreshSubscribers: any[] = [];
+// let isRefreshing = false;
+// let refreshSubscribers: any[] = [];
 
 export class HttpRequest {
     actionResult: ActionResult;
@@ -18,39 +18,39 @@ export class HttpRequest {
         this.actionError = {} as ActionError;
     }
 
-    subscribeTokenRefresh(cb: any) {
-        refreshSubscribers.push(cb);
-    }
-
-    onRefreshed(token: any) {
-        refreshSubscribers.map(cb => cb(token));
-    }
-
-    refreshAccessToken() {
-        return new Promise((resolve, reject) => {
-            if (getCookie('umt')) {
-                let domain = GlobalVariables.httpBaseUrl ? GlobalVariables.httpBaseUrl : GlobalVariables.authBaseUrl
-                delete axios.defaults.headers.Authorization;
-                deleteCookie('mandate')
-                axios({
-                    url: `${domain}/auth/User/loginToService`,
-                    method: 'POST',
-                    data: {
-                        service_name: 'monolit',
-                        token: getCookie('umt')
-                    }
-                })
-                    .then((response) => {
-                        resolve(response.data.action_result.data)
-                    })
-                    .catch((error) => {
-                        reject(error)
-                    });
-            } else {
-                reject(new ActionError('Session expired!', 401).getMessage())
-            }
-        })
-    }
+    // subscribeTokenRefresh(cb: any) {
+    //     refreshSubscribers.push(cb);
+    // }
+    //
+    // onRefreshed(token: any) {
+    //     refreshSubscribers.map(cb => cb(token));
+    // }
+    //
+    // refreshAccessToken() {
+    //     return new Promise((resolve, reject) => {
+    //         if (getCookie('umt')) {
+    //             let domain = GlobalVariables.httpBaseUrl ? GlobalVariables.httpBaseUrl : GlobalVariables.authBaseUrl
+    //             delete axios.defaults.headers.Authorization;
+    //             deleteCookie('mandate')
+    //             axios({
+    //                 url: `${domain}/auth/User/loginToService`,
+    //                 method: 'POST',
+    //                 data: {
+    //                     service_name: 'monolit',
+    //                     token: getCookie('umt')
+    //                 }
+    //             })
+    //                 .then((response) => {
+    //                     resolve(response.data.action_result.data)
+    //                 })
+    //                 .catch((error) => {
+    //                     reject(error)
+    //                 });
+    //         } else {
+    //             reject(new ActionError('Session expired!', 401).getMessage())
+    //         }
+    //     })
+    // }
 
     axiosConnect(
         serviceName: string,
@@ -65,33 +65,33 @@ export class HttpRequest {
                 'Authorization': getCookie('mandate')
             }
         });
-        instance.interceptors.response.use(response => {
-            return response;
-        }, error => {
-            const {config} = error;
-            const originalRequest = config;
-            if (error.response.data.action_error.code === 401 && error.response.data.action_error.message === 'Token expired!') {
-                if (!isRefreshing) {
-                    isRefreshing = true;
-                    this.refreshAccessToken()
-                        .then(newToken => {
-                            isRefreshing = false;
-                            this.onRefreshed(newToken);
-                        });
-                }
-                return new Promise((resolve, reject) => {
-                    this.subscribeTokenRefresh((token: any) => {
-                        originalRequest.headers['Authorization'] = token;
-                        deleteCookie('mandate')
-                        setCookie('mandate', token)
-                        refreshSubscribers = []
-                        resolve(instance(originalRequest));
-                    });
-                });
-            } else {
-                return Promise.reject(error);
-            }
-        });
+        // instance.interceptors.response.use(response => {
+        //     return response;
+        // }, error => {
+        //     const {config} = error;
+        //     const originalRequest = config;
+        //     if (error.response.data.action_error.code === 401 && error.response.data.action_error.message === 'Token expired!') {
+        //         if (!isRefreshing) {
+        //             isRefreshing = true;
+        //             this.refreshAccessToken()
+        //                 .then(newToken => {
+        //                     isRefreshing = false;
+        //                     this.onRefreshed(newToken);
+        //                 });
+        //         }
+        //         return new Promise((resolve, reject) => {
+        //             this.subscribeTokenRefresh((token: any) => {
+        //                 originalRequest.headers['Authorization'] = token;
+        //                 deleteCookie('mandate')
+        //                 setCookie('mandate', token)
+        //                 refreshSubscribers = []
+        //                 resolve(instance(originalRequest));
+        //             });
+        //         });
+        //     } else {
+        //         return Promise.reject(error);
+        //     }
+        // });
         return new Promise((resolve, reject) => {
             let data
             if (
