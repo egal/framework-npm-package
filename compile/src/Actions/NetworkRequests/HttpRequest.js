@@ -8,45 +8,46 @@ const axios_1 = __importDefault(require("axios"));
 const ActionResult_1 = require("../ActionResponses/ActionResult");
 const ActionError_1 = require("../ActionResponses/ActionError");
 const GlobalVariables_1 = require("../../GlobalVariables");
-let isRefreshing = false;
-let refreshSubscribers = [];
+// let isRefreshing = false;
+// let refreshSubscribers: any[] = [];
 class HttpRequest {
     constructor() {
         this.actionResult = {};
         this.actionError = {};
     }
-    subscribeTokenRefresh(cb) {
-        refreshSubscribers.push(cb);
-    }
-    onRefreshed(token) {
-        refreshSubscribers.map(cb => cb(token));
-    }
-    refreshAccessToken() {
-        return new Promise((resolve, reject) => {
-            if (GlobalVariables_1.getCookie('umt')) {
-                let domain = GlobalVariables_1.GlobalVariables.httpBaseUrl ? GlobalVariables_1.GlobalVariables.httpBaseUrl : GlobalVariables_1.GlobalVariables.authBaseUrl;
-                delete axios_1.default.defaults.headers.Authorization;
-                GlobalVariables_1.deleteCookie('mandate');
-                axios_1.default({
-                    url: `${domain}/auth/User/loginToService`,
-                    method: 'POST',
-                    data: {
-                        service_name: 'monolit',
-                        token: GlobalVariables_1.getCookie('umt')
-                    }
-                })
-                    .then((response) => {
-                    resolve(response.data.action_result.data);
-                })
-                    .catch((error) => {
-                    reject(error);
-                });
-            }
-            else {
-                reject(new ActionError_1.ActionError('Session expired!', 401).getMessage());
-            }
-        });
-    }
+    // subscribeTokenRefresh(cb: any) {
+    //     refreshSubscribers.push(cb);
+    // }
+    //
+    // onRefreshed(token: any) {
+    //     refreshSubscribers.map(cb => cb(token));
+    // }
+    //
+    // refreshAccessToken() {
+    //     return new Promise((resolve, reject) => {
+    //         if (getCookie('umt')) {
+    //             let domain = GlobalVariables.httpBaseUrl ? GlobalVariables.httpBaseUrl : GlobalVariables.authBaseUrl
+    //             delete axios.defaults.headers.Authorization;
+    //             deleteCookie('mandate')
+    //             axios({
+    //                 url: `${domain}/auth/User/loginToService`,
+    //                 method: 'POST',
+    //                 data: {
+    //                     service_name: 'monolit',
+    //                     token: getCookie('umt')
+    //                 }
+    //             })
+    //                 .then((response) => {
+    //                     resolve(response.data.action_result.data)
+    //                 })
+    //                 .catch((error) => {
+    //                     reject(error)
+    //                 });
+    //         } else {
+    //             reject(new ActionError('Session expired!', 401).getMessage())
+    //         }
+    //     })
+    // }
     axiosConnect(serviceName, modelName, actionName, httpMethod, actionParameters) {
         let domain = GlobalVariables_1.GlobalVariables.httpBaseUrl ? GlobalVariables_1.GlobalVariables.httpBaseUrl : GlobalVariables_1.GlobalVariables.authBaseUrl;
         const instance = axios_1.default.create({
@@ -54,34 +55,33 @@ class HttpRequest {
                 'Authorization': GlobalVariables_1.getCookie('mandate')
             }
         });
-        instance.interceptors.response.use(response => {
-            return response;
-        }, error => {
-            const { config } = error;
-            const originalRequest = config;
-            if (error.response.data.action_error.code === 401 && error.response.data.action_error.message === 'Token expired!') {
-                if (!isRefreshing) {
-                    isRefreshing = true;
-                    this.refreshAccessToken()
-                        .then(newToken => {
-                        isRefreshing = false;
-                        this.onRefreshed(newToken);
-                    });
-                }
-                return new Promise((resolve, reject) => {
-                    this.subscribeTokenRefresh((token) => {
-                        originalRequest.headers['Authorization'] = token;
-                        GlobalVariables_1.deleteCookie('mandate');
-                        GlobalVariables_1.setCookie('mandate', token);
-                        refreshSubscribers = [];
-                        resolve(instance(originalRequest));
-                    });
-                });
-            }
-            else {
-                return Promise.reject(error);
-            }
-        });
+        // instance.interceptors.response.use(response => {
+        //     return response;
+        // }, error => {
+        //     const {config} = error;
+        //     const originalRequest = config;
+        //     if (error.response.data.action_error.code === 401 && error.response.data.action_error.message === 'Token expired!') {
+        //         if (!isRefreshing) {
+        //             isRefreshing = true;
+        //             this.refreshAccessToken()
+        //                 .then(newToken => {
+        //                     isRefreshing = false;
+        //                     this.onRefreshed(newToken);
+        //                 });
+        //         }
+        //         return new Promise((resolve, reject) => {
+        //             this.subscribeTokenRefresh((token: any) => {
+        //                 originalRequest.headers['Authorization'] = token;
+        //                 deleteCookie('mandate')
+        //                 setCookie('mandate', token)
+        //                 refreshSubscribers = []
+        //                 resolve(instance(originalRequest));
+        //             });
+        //         });
+        //     } else {
+        //         return Promise.reject(error);
+        //     }
+        // });
         return new Promise((resolve, reject) => {
             let data;
             if (actionName !== 'registerByEmailAndPassword' &&

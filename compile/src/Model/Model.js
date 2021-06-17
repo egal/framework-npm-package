@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Model = void 0;
 const GetItemsAction_1 = require("../Actions/GetItemsAction/GetItemsAction");
 const CRUDAction_1 = require("../Actions/CRUDActions/CRUDAction");
+const CustomAction_1 = require("../Actions/CustomAction/CustomAction");
 const GetModelMetadataAction_1 = require("../Actions/GetMetadataAction/GetModelMetadataAction");
 const DataFormatter_1 = require("./DataFormatter");
 const Observer_1 = require("../Actions/NetworkRequests/SocketConnection/Observer");
@@ -41,16 +42,16 @@ class Model {
                     case 'getMetadata':
                         this.modelMetaData.push(data);
                         break;
-                    case 'create':
-                    case 'update':
-                    case 'delete':
-                    case 'createMany':
-                    case 'updateMany':
-                    case 'deleteMany':
-                    case 'updateManyRaw':
-                    case 'deleteManyRaw':
-                        this.actionGetItems(this.modelName, 'socket', actionName);
-                        break;
+                    // case 'create':
+                    // case 'update':
+                    // case 'delete':
+                    // case 'createMany':
+                    // case 'updateMany':
+                    // case 'deleteMany':
+                    // case 'updateManyRaw':
+                    // case 'deleteManyRaw':
+                    //     this.actionGetItems(this.modelName, 'socket', actionName);
+                    //     break;
                     case 'loginByEmailAndPassword':
                         GlobalVariables_1.setCookie('umt', data[0]);
                         break;
@@ -74,26 +75,24 @@ class Model {
     /**
      * Получение метаданных модели
      * @param microserviceName
-     * @param actionName
      * @param connectionType
      */
-    async actionGetMetadata(microserviceName, actionName, connectionType) {
-        const initializeGetMetadataRequest = new GetModelMetadataAction_1.GetModelMetadataAction(this.username, this.password, microserviceName, actionName, this.modelName);
+    actionGetMetadata(microserviceName, connectionType) {
+        const initializeGetMetadataRequest = new GetModelMetadataAction_1.GetModelMetadataAction(this.username, this.password, microserviceName, 'getMetadata', this.modelName);
         Model.setConnectionType(connectionType, initializeGetMetadataRequest);
     }
     /**
      * Получение данных модели с возможными параметрами, юзер передает все данные вместе, но в экшен их нужно передавать отдельно
      * @param microserviceName
      * @param connectionType
-     * @param actionName
      * @param withs
      * @param filter
      * @param orders
      * @param page
      * @param perPage
      */
-    async actionGetItems(microserviceName, actionName, connectionType, perPage, page, filter, withs, orders) {
-        const initializeGetItems = new GetItemsAction_1.GetItemsAction(this.username, this.password, microserviceName, this.modelName, actionName);
+    actionGetItems(microserviceName, connectionType, perPage, page, filter, withs, orders) {
+        const initializeGetItems = new GetItemsAction_1.GetItemsAction(this.username, this.password, microserviceName, this.modelName, 'getItems');
         initializeGetItems.actionParameters.with(withs);
         initializeGetItems.actionParameters.filters(filter);
         initializeGetItems.actionParameters.orders(orders);
@@ -106,14 +105,13 @@ class Model {
      * Отличается от getItems тем, что отдельно должен быть передан айди нужной записи
      * @param microserviceName
      * @param connectionType
-     * @param actionName
      * @param id
      * @param withs
      * @param filter
      * @param orders
      */
-    async actionGetItem(microserviceName, actionName, connectionType, id, filter, withs, orders) {
-        const initializeGetItem = new GetItemsAction_1.GetItemsAction(this.username, this.password, microserviceName, this.modelName, actionName);
+    actionGetItem(microserviceName, connectionType, id, filter, withs, orders) {
+        const initializeGetItem = new GetItemsAction_1.GetItemsAction(this.username, this.password, microserviceName, this.modelName, 'getItem');
         initializeGetItem.actionParameters.with(withs);
         initializeGetItem.actionParameters.filters(filter);
         initializeGetItem.actionParameters.orders(orders);
@@ -123,12 +121,21 @@ class Model {
     /**
      * Экшен обновления записи
      * @param microserviceName
-     * @param actionName
      * @param connectionType
      * @param actionParams
      */
-    async actionUpdate(microserviceName, actionName, connectionType, actionParams) {
-        const initializeActionUpdate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, actionName, actionParams);
+    actionUpdate(microserviceName, connectionType, actionParams) {
+        const initializeActionUpdate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'update', actionParams);
+        Model.setConnectionType(connectionType, initializeActionUpdate);
+    }
+    /**
+     *
+     * @param microserviceName
+     * @param connectionType
+     * @param actionParams
+     */
+    actionUpdateMany(microserviceName, connectionType, actionParams) {
+        const initializeActionUpdate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'updateMany', actionParams);
         Model.setConnectionType(connectionType, initializeActionUpdate);
     }
     /**
@@ -137,31 +144,49 @@ class Model {
      * @param connectionType
      * @param actionParams
      */
-    async actionUpdateManyWithFilter(microserviceName, connectionType, actionParams) {
+    actionUpdateManyWithFilter(microserviceName, connectionType, actionParams) {
         const initializeActionUpdateManyWithFilter = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'updateManyRaw', actionParams);
         Model.setConnectionType(connectionType, initializeActionUpdateManyWithFilter);
     }
     /**
      * Экшен создания записи
      * @param microserviceName
-     * @param actionName
      * @param connectionType
      * @param actionParams
      * @param channelParameters
      */
-    async actionCreate(microserviceName, actionName, connectionType, actionParams, channelParameters) {
-        const initializeActionCreate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, actionName, actionParams, channelParameters);
+    actionCreate(microserviceName, connectionType, actionParams, channelParameters) {
+        const initializeActionCreate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'create', actionParams, channelParameters);
+        Model.setConnectionType(connectionType, initializeActionCreate);
+    }
+    /**
+     *
+     * @param microserviceName
+     * @param connectionType
+     * @param actionParams
+     */
+    actionCreateMany(microserviceName, connectionType, actionParams) {
+        const initializeActionCreate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'createMany', actionParams);
         Model.setConnectionType(connectionType, initializeActionCreate);
     }
     /**
      * Экшен удаления записи
      * @param microserviceName
-     * @param actionName
      * @param connectionType
      * @param actionParams
      */
-    async actionDelete(microserviceName, actionName, connectionType, actionParams) {
-        const initializeActionDelete = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, actionName, actionParams);
+    actionDelete(microserviceName, connectionType, actionParams) {
+        const initializeActionDelete = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'delete', actionParams);
+        Model.setConnectionType(connectionType, initializeActionDelete);
+    }
+    /**
+     *
+     * @param microserviceName
+     * @param connectionType
+     * @param actionParams
+     */
+    actionDeleteMany(microserviceName, connectionType, actionParams) {
+        const initializeActionDelete = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'deleteMany', actionParams);
         Model.setConnectionType(connectionType, initializeActionDelete);
     }
     /**
@@ -170,9 +195,21 @@ class Model {
      * @param connectionType
      * @param actionParams
      */
-    async actionDeleteManyWithFilter(microserviceName, connectionType, actionParams) {
+    actionDeleteManyWithFilter(microserviceName, connectionType, actionParams) {
         const initializeActionDeleteManyWithFilter = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'deleteManyRaw', actionParams);
         Model.setConnectionType(connectionType, initializeActionDeleteManyWithFilter);
+    }
+    /**
+     *
+     * @param microserviceName
+     * @param actionName
+     * @param connectionType
+     * @param requestType
+     * @param actionParams
+     */
+    actionCustom(microserviceName, actionName, connectionType, requestType, actionParams) {
+        const initializeActionCustom = new CustomAction_1.CustomAction(this.username, this.password, microserviceName, this.modelName, actionName, requestType, actionParams);
+        Model.setConnectionType(connectionType, initializeActionCustom);
     }
     /**
      *   позволяет получить метадату текущей модели
