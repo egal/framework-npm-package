@@ -42,28 +42,28 @@ export class AuthAction {
   }
   setAxiosRequest(actionName: string, params: ActionParameters | undefined) {
     this.httpRequest
-      .axiosConnect(this.microserviceName, this.modelName, actionName, this.httpMethod, params)
-      .then((response) => {
-        let typedResponse: (string | object)[] = response as (string | object)[];
-        let action = typedResponse.splice(1, 1).toString();
-        let items = typedResponse.splice(0, 1);
-        observer.broadcast(items, action, this.modelName);
-        return response;
-      })
-      .catch((error) => {
-        observer.broadcast(error, 'error', this.modelName);
-        return error;
-      });
+        .axiosConnect(this.microserviceName, this.modelName, actionName, this.httpMethod, params)
+        .then((response) => {
+          let typedResponse: (string | object)[] = response as (string | object)[];
+          let action = typedResponse.splice(1, 1).toString();
+          let items = typedResponse.splice(0, 1);
+          observer.broadcast(items, action, this.modelName);
+          return response;
+        })
+        .catch((error) => {
+          observer.broadcast(error, 'error', this.modelName);
+          return error;
+        });
   }
   registerNewUser(newUserData: ActionParameters | undefined) {
     let authParams = new AuthParams().setAuthParams(newUserData);
     let socketRequest = new SocketRequest(
         this.username,
-      this.password,
-      this.microserviceName,
-      register,
-      this.modelName,
-      authParams
+        this.password,
+        this.microserviceName,
+        register,
+        this.modelName,
+        authParams
     );
     if (this.requestType === 'socket') socketRequest.initSocketConnect();
     this.setAxiosRequest(register, authParams);
@@ -80,11 +80,11 @@ export class AuthAction {
     let authParams = new AuthParams().setAuthParams(userCred);
     let socketRequest = new SocketRequest(
         this.username,
-      this.password,
-      this.microserviceName,
-      loginIntoService,
-      this.modelName,
-      authParams
+        this.password,
+        this.microserviceName,
+        loginIntoService,
+        this.modelName,
+        authParams
     );
     if (this.requestType === 'socket') socketRequest.initSocketConnect();
     this.setAxiosRequest(loginIntoService, authParams);

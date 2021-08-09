@@ -53,7 +53,7 @@ class Model {
         if (perPage !== undefined && page !== undefined) {
             initializeGetItems.actionParameters.setPagination(perPage, page);
         }
-        new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeGetItems);
+        // new ModelConnection().createConnection(connectionType, initializeGetItems)
     }
     /**
      * Отличается от getItems тем, что отдельно должен быть передан айди нужной записи

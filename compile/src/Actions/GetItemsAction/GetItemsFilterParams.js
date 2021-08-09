@@ -23,6 +23,7 @@ class GetItemsFilterParams {
      * @param filterItem
      */
     createDefaultObjectInstance(filterItem) {
+        console.log(filterItem, 'create filter');
         let defaultFilterArr;
         let leftArrPart;
         let rightArrPart;
@@ -32,6 +33,7 @@ class GetItemsFilterParams {
             leftArrPart = [filterItem.left.field, filterItem.left.operator, filterItem.left.value];
             rightArrPart = [filterItem.right.field, filterItem.right.operator, filterItem.right.value];
             defaultFilterArr = [leftArrPart, filterItem.type, rightArrPart];
+            console.log(defaultFilterArr, this.tempArr, 'default filter arr');
             this.tempArr.push(defaultFilterArr);
         }
         else if (Array.isArray(filterItem.value)) {
@@ -52,13 +54,16 @@ class GetItemsFilterParams {
      * Функция формирует массив из всех примененных фильтров для отправки в запросе
      */
     formFilterObject() {
-        if (this.tempArr.length >= 1) {
+        if (this.tempArr.length > 1) {
+            console.log(this.tempArr.length, 'form filter object if filter longer temp arr');
             this.filter = this.tempArr
                 .map((e, i) => (i < this.tempArr.length - 1 ? [e, 'AND'] : [e]))
                 .reduce((a, b) => a.concat(b));
+            console.log(this.filter, 'form filter object if filter longer filter');
             return this.filter;
         }
         else {
+            console.log(this.filter, 'form filter object short filter');
             return this.filter;
         }
     }
