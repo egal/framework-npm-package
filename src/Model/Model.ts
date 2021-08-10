@@ -85,7 +85,7 @@ export class Model implements ModelInterface {
         if (perPage !== undefined && page !== undefined) {
             initializeGetItems.actionParameters.setPagination(perPage, page);
         }
-        // new ModelConnection().createConnection(connectionType, initializeGetItems)
+        new ModelConnection().createConnection(connectionType, initializeGetItems)
     }
 
     /**
