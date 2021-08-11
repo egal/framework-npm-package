@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EgalConstructor = exports.GlobalVariables = exports.Model = exports.ActionMessage = exports.SocketRequest = exports.HttpRequest = exports.EventObserver = exports.CustomAction = exports.CRUDAction = exports.GetModelMetadataAction = exports.GetAllMetaDataAction = exports.GetItemsFilterParams = exports.GetItemsSortingParams = exports.GetItemsAction = exports.AuthAction = void 0;
+exports.EgalAuthConstructor = exports.EgalConstructor = exports.GlobalVariables = exports.Model = exports.ActionMessage = exports.SocketRequest = exports.HttpRequest = exports.EventObserver = exports.CustomAction = exports.CRUDAction = exports.GetModelMetadataAction = exports.GetAllMetaDataAction = exports.GetItemsFilterParams = exports.GetItemsSortingParams = exports.GetItemsAction = exports.AuthAction = void 0;
 const AuthAction_1 = require("./src/Auth/AuthAction");
 Object.defineProperty(exports, "AuthAction", { enumerable: true, get: function () { return AuthAction_1.AuthAction; } });
 const GetItemsAction_1 = require("./src/Actions/GetItemsAction/GetItemsAction");
@@ -31,6 +31,8 @@ const GlobalVariables_1 = require("./src/GlobalVariables");
 Object.defineProperty(exports, "GlobalVariables", { enumerable: true, get: function () { return GlobalVariables_1.GlobalVariables; } });
 const EgalConstructor_1 = require("./src/Model/EgalConstructor");
 Object.defineProperty(exports, "EgalConstructor", { enumerable: true, get: function () { return EgalConstructor_1.EgalConstructor; } });
+const AuthConstructor_1 = require("./src/Model/AuthConstructor");
+Object.defineProperty(exports, "EgalAuthConstructor", { enumerable: true, get: function () { return AuthConstructor_1.EgalAuthConstructor; } });
 exports.default = {
     AuthAction: AuthAction_1.AuthAction,
     GetItemsAction: GetItemsAction_1.GetItemsAction,
@@ -46,5 +48,6 @@ exports.default = {
     ActionMessage: ActionMessage_1.ActionMessage,
     Model: Model_1.Model,
     GlobalVariables: GlobalVariables_1.GlobalVariables,
-    EgalConstructor: EgalConstructor_1.EgalConstructor
+    EgalConstructor: EgalConstructor_1.EgalConstructor,
+    EgalAuthConstructor: AuthConstructor_1.EgalAuthConstructor
 };

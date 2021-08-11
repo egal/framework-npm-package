@@ -4,12 +4,10 @@ import {SocketRequest} from '../Actions/NetworkRequests/SocketRequest';
 import {AuthParams} from './AuthParams';
 import {GlobalVariables} from '../GlobalVariables';
 import {ActionParameters} from '../Actions/Interfaces/ActionParameters';
-import {EventObserver} from '../Actions/NetworkRequests/SocketConnection/Observer';
 
 let register = 'registerByEmailAndPassword';
 let auth = 'loginByEmailAndPassword';
 let loginIntoService = 'loginToService';
-const observer: EventObserver = EventObserver.getInstance();
 
 export class AuthAction {
     private readonly microserviceName: string;

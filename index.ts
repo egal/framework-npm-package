@@ -13,6 +13,7 @@ import {ActionMessage} from './src/Actions/ActionMessage';
 import {Model} from "./src/Model/Model";
 import {GlobalVariables} from "./src/GlobalVariables";
 import {EgalConstructor} from "./src/Model/EgalConstructor";
+import {EgalAuthConstructor} from './src/Model/AuthConstructor'
 
 export default {
     AuthAction,
@@ -29,7 +30,8 @@ export default {
     ActionMessage,
     Model,
     GlobalVariables,
-    EgalConstructor
+    EgalConstructor,
+    EgalAuthConstructor
 }
 
 export {
@@ -47,5 +49,6 @@ export {
     ActionMessage,
     Model,
     GlobalVariables,
-    EgalConstructor
+    EgalConstructor,
+    EgalAuthConstructor
 }

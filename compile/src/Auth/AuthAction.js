@@ -5,11 +5,9 @@ const HttpRequest_1 = require("../Actions/NetworkRequests/HttpRequest");
 const SocketRequest_1 = require("../Actions/NetworkRequests/SocketRequest");
 const AuthParams_1 = require("./AuthParams");
 const GlobalVariables_1 = require("../GlobalVariables");
-const Observer_1 = require("../Actions/NetworkRequests/SocketConnection/Observer");
 let register = 'registerByEmailAndPassword';
 let auth = 'loginByEmailAndPassword';
 let loginIntoService = 'loginToService';
-const observer = Observer_1.EventObserver.getInstance();
 class AuthAction {
     constructor(username, password, modelName, requestType) {
         this.microserviceName = 'auth';
