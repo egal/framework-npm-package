@@ -22,7 +22,7 @@ class SocketRequest {
         this.actionName = actionName;
         this.channelParameters = channelParameters;
         this.actionParameters = actionParameters;
-        this.tokenUst = GlobalVariables_1.getCookie('mandate');
+        this.tokenUst = GlobalVariables_1.GlobalVariables.tokenUST;
         this.uuid = uuid_1.v4();
         this.token = null;
         this.authOptions = new GenerateJSON_1.GenerateJSON().generateJSONObj(this.type, this.serviceName, this.modelName, this.actionName, this.actionParameters, this.token, this.uuid);
@@ -120,7 +120,7 @@ class SocketRequest {
         });
     }
     refreshToken() {
-        let currentToken = GlobalVariables_1.decipherJWT(GlobalVariables_1.getCookie('mandate'));
+        let currentToken = GlobalVariables_1.decipherJWT(GlobalVariables_1.GlobalVariables.tokenUST);
         let tokenExpirationTime = currentToken.alive_until;
     }
 }

@@ -47,7 +47,7 @@ export class SocketRequest {
         this.actionName = actionName;
         this.channelParameters = channelParameters;
         this.actionParameters = actionParameters;
-        this.tokenUst = getCookie('mandate');
+        this.tokenUst = GlobalVariables.tokenUST;
         this.uuid = uuidv4();
         this.token = null;
         this.authOptions = new GenerateJSON().generateJSONObj(
@@ -161,7 +161,7 @@ export class SocketRequest {
     }
 
     refreshToken(){
-        let currentToken = decipherJWT(getCookie('mandate'))
+        let currentToken = decipherJWT(GlobalVariables.tokenUST)
         let tokenExpirationTime = currentToken.alive_until
     }
 }

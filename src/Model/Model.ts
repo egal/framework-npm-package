@@ -43,6 +43,9 @@ export class Model implements ModelInterface {
         this.tokenUmt = false;
     }
 
+    setAuthToken(token:string){
+        GlobalVariables.tokenUST = token
+    }
     /**
      * Получение метаданных модели
      * @param microserviceName

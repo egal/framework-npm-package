@@ -26,6 +26,9 @@ class Model {
         this.tokenUst = false;
         this.tokenUmt = false;
     }
+    setAuthToken(token) {
+        GlobalVariables_1.GlobalVariables.tokenUST = token;
+    }
     /**
      * Получение метаданных модели
      * @param microserviceName

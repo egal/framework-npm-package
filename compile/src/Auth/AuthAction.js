@@ -28,7 +28,7 @@ class AuthAction {
     setTokenUMT(tokenUMT) {
         GlobalVariables_1.GlobalVariables.tokenUMT = tokenUMT;
     }
-    setNetworkRequest(userData, requestType) {
+    setNetworkRequest(userData, requestType, tokenName) {
         return new Promise((resolve, reject) => {
             let authParams = new AuthParams_1.AuthParams().setAuthParams(userData);
             let socketRequest = new SocketRequest_1.SocketRequest(this.username, this.password, this.microserviceName, requestType, this.modelName, authParams);
@@ -37,7 +37,7 @@ class AuthAction {
             }
             else {
                 this.httpRequest
-                    .axiosConnect(this.microserviceName, this.modelName, requestType, this.httpMethod, authParams)
+                    .axiosConnect(this.microserviceName, this.modelName, requestType, this.httpMethod, authParams, tokenName)
                     .then((response) => {
                     let typedResponse = response;
                     let action = typedResponse.splice(1, 1).toString();
@@ -70,9 +70,9 @@ class AuthAction {
             });
         });
     }
-    loginToService(userCred) {
+    loginToService(userCred, tokenName) {
         return new Promise((resolve, reject) => {
-            this.setNetworkRequest(userCred, loginIntoService).then((data) => {
+            this.setNetworkRequest(userCred, loginIntoService, tokenName).then((data) => {
                 resolve(data);
             }).catch((error) => {
                 reject(error);
