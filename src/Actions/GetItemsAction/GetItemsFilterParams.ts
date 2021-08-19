@@ -74,7 +74,6 @@ export class GetItemsFilterParams {
                 this.formComplexRightNestedValue(filterItem)
             }
             if (filterItem.left.left && filterItem.right.left) {
-                this.formComplexDoubleNestedFilter(filterItem)
             }
         } else if (Array.isArray(filterItem.value)) {
             filterItem.value.forEach((valueItem:any) => {
@@ -203,14 +202,6 @@ export class GetItemsFilterParams {
             this.tempArr.push([this.defaultFilterArr]);
         }
     }
-
-    formComplexDoubleNestedFilter(filterItem: any) {
-        if (!Array.isArray(filterItem.left.left.value)
-            && !Array.isArray(filterItem.left.right.value)
-            && !Array.isArray(filterItem.right.left.value)
-            && !Array.isArray(filterItem.right.right.value)) {}
-    }
-
 
     /**
      * Функция формирует массив из всех примененных фильтров для отправки в запросе
