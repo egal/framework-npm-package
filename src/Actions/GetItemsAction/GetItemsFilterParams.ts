@@ -157,42 +157,41 @@ export class GetItemsFilterParams {
         let temporalFilterArr: any[][] = [];
         let multiFilterLeftField: any;
         let multiFilterRightField:any;
+        let multiFilterNestedLeftField: any[]
         let defaultNestedFilterArr: any[][] = []
         if (Array.isArray(filterItem.right.left.value)) {
             filterItem.right.left.value.forEach((valueItem: any) => {
-                temporalRightFilterArr = [filterItem.right.left.field, filterItem.right.left.operator, valueItem]
-                filterAllRight.push(temporalRightFilterArr)
-            })
-            multiFilterRightField = filterAllRight.map((e, i) => (i < filterAllRight.length - 1 ? [e, 'OR'] : [e]))
-                .reduce((a, b) => a.concat(b));
-            rightComplexFilter.push(multiFilterRightField)
-        } else {
-            rightComplexFilter = [filterItem.right.left.field, filterItem.right.left.operator, filterItem.right.left.value];
-        }
-        if (Array.isArray(filterItem.right.right.value)) {
-            filterItem.right.right.value.forEach((valueItem: any) => {
-                temporalLeftFilterArr = [filterItem.right.right.field, filterItem.right.right.operator, valueItem]
+                temporalLeftFilterArr = [filterItem.right.left.field, filterItem.right.left.operator, valueItem]
                 filterAllLeft.push(temporalLeftFilterArr)
             })
             multiFilterLeftField = filterAllLeft.map((e, i) => (i < filterAllLeft.length - 1 ? [e, 'OR'] : [e]))
                 .reduce((a, b) => a.concat(b));
             leftComplexFilter.push(multiFilterLeftField)
-            defaultNestedFilterArr.push(leftComplexFilter)
-            defaultNestedFilterArr.push(filterItem.right.type)
         } else {
-            leftComplexFilter = [filterItem.right.left.field, filterItem.right.left.operator, filterItem.right.left.value]
+            leftComplexFilter = [filterItem.right.left.field, filterItem.right.left.operator, filterItem.right.left.value];
+        }
+        if (Array.isArray(filterItem.right.right.value)) {
+            filterItem.right.right.value.forEach((valueItem: any) => {
+                temporalRightFilterArr = [filterItem.right.right.field, filterItem.right.right.operator, valueItem]
+                filterAllRight.push(temporalRightFilterArr)
+            })
+            multiFilterRightField = filterAllRight.map((e, i) => (i < filterAllRight.length - 1 ? [e, 'OR'] : [e]))
+                .reduce((a, b) => a.concat(b));
+            rightComplexFilter.push(multiFilterRightField)
+
+        } else {
+            rightComplexFilter = [filterItem.right.right.field, filterItem.right.right.operator, filterItem.right.right.value]
         }
         if(Array.isArray(filterItem.left.value)) {
             filterItem.left.value.forEach((valueItem: any) => {
                 temporalFilterArr = [filterItem.left.field, filterItem.left.operator, valueItem]
                 filterAllLeftPart.push(temporalFilterArr)
             })
-            multiFilterLeftField = filterAllLeftPart.map((e, i) => (i < filterAllLeftPart.length - 1 ? [e, 'OR'] : [e]))
+            multiFilterNestedLeftField = filterAllLeftPart.map((e, i) => (i < filterAllLeftPart.length - 1 ? [e, 'OR'] : [e]))
                 .reduce((a, b) => a.concat(b));
-            leftFilterPart.push(multiFilterLeftField)
-            defaultNestedFilterArr.push(leftFilterPart)
+            leftFilterPart.push(multiFilterNestedLeftField)
         } else {
-            leftFilterPart = [filterItem.right.field, filterItem.right.operator, filterItem.right.value];
+            leftFilterPart = [filterItem.left.field, filterItem.left.operator, filterItem.left.value];
         }
         defaultNestedFilterArr = [leftComplexFilter, filterItem.right.type, rightComplexFilter];
         this.defaultFilterArr = [leftFilterPart, filterItem.type, defaultNestedFilterArr];
@@ -212,7 +211,6 @@ export class GetItemsFilterParams {
             this.filter = this.tempArr
                 .map((e, i) => (i < this.tempArr.length - 1 ? [e, 'AND'] : [e]))
                 .reduce((a, b) => a.concat(b));
-            console.log(this.filter, 'this filter')
             return this.filter;
         } else {
             this.filter = this.tempArr

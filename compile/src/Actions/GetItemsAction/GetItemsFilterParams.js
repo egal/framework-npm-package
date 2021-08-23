@@ -163,10 +163,23 @@ class GetItemsFilterParams {
         let temporalFilterArr = [];
         let multiFilterLeftField;
         let multiFilterRightField;
+        let multiFilterNestedLeftField;
         let defaultNestedFilterArr = [];
         if (Array.isArray(filterItem.right.left.value)) {
             filterItem.right.left.value.forEach((valueItem) => {
-                temporalRightFilterArr = [filterItem.right.left.field, filterItem.right.left.operator, valueItem];
+                temporalLeftFilterArr = [filterItem.right.left.field, filterItem.right.left.operator, valueItem];
+                filterAllLeft.push(temporalLeftFilterArr);
+            });
+            multiFilterLeftField = filterAllLeft.map((e, i) => (i < filterAllLeft.length - 1 ? [e, 'OR'] : [e]))
+                .reduce((a, b) => a.concat(b));
+            leftComplexFilter.push(multiFilterLeftField);
+        }
+        else {
+            leftComplexFilter = [filterItem.right.left.field, filterItem.right.left.operator, filterItem.right.left.value];
+        }
+        if (Array.isArray(filterItem.right.right.value)) {
+            filterItem.right.right.value.forEach((valueItem) => {
+                temporalRightFilterArr = [filterItem.right.right.field, filterItem.right.right.operator, valueItem];
                 filterAllRight.push(temporalRightFilterArr);
             });
             multiFilterRightField = filterAllRight.map((e, i) => (i < filterAllRight.length - 1 ? [e, 'OR'] : [e]))
@@ -174,34 +187,19 @@ class GetItemsFilterParams {
             rightComplexFilter.push(multiFilterRightField);
         }
         else {
-            rightComplexFilter = [filterItem.right.left.field, filterItem.right.left.operator, filterItem.right.left.value];
-        }
-        if (Array.isArray(filterItem.right.right.value)) {
-            filterItem.right.right.value.forEach((valueItem) => {
-                temporalLeftFilterArr = [filterItem.right.right.field, filterItem.right.right.operator, valueItem];
-                filterAllLeft.push(temporalLeftFilterArr);
-            });
-            multiFilterLeftField = filterAllLeft.map((e, i) => (i < filterAllLeft.length - 1 ? [e, 'OR'] : [e]))
-                .reduce((a, b) => a.concat(b));
-            leftComplexFilter.push(multiFilterLeftField);
-            defaultNestedFilterArr.push(leftComplexFilter);
-            defaultNestedFilterArr.push(filterItem.right.type);
-        }
-        else {
-            leftComplexFilter = [filterItem.right.left.field, filterItem.right.left.operator, filterItem.right.left.value];
+            rightComplexFilter = [filterItem.right.right.field, filterItem.right.right.operator, filterItem.right.right.value];
         }
         if (Array.isArray(filterItem.left.value)) {
             filterItem.left.value.forEach((valueItem) => {
                 temporalFilterArr = [filterItem.left.field, filterItem.left.operator, valueItem];
                 filterAllLeftPart.push(temporalFilterArr);
             });
-            multiFilterLeftField = filterAllLeftPart.map((e, i) => (i < filterAllLeftPart.length - 1 ? [e, 'OR'] : [e]))
+            multiFilterNestedLeftField = filterAllLeftPart.map((e, i) => (i < filterAllLeftPart.length - 1 ? [e, 'OR'] : [e]))
                 .reduce((a, b) => a.concat(b));
-            leftFilterPart.push(multiFilterLeftField);
-            defaultNestedFilterArr.push(leftFilterPart);
+            leftFilterPart.push(multiFilterNestedLeftField);
         }
         else {
-            leftFilterPart = [filterItem.right.field, filterItem.right.operator, filterItem.right.value];
+            leftFilterPart = [filterItem.left.field, filterItem.left.operator, filterItem.left.value];
         }
         defaultNestedFilterArr = [leftComplexFilter, filterItem.right.type, rightComplexFilter];
         this.defaultFilterArr = [leftFilterPart, filterItem.type, defaultNestedFilterArr];
@@ -222,7 +220,6 @@ class GetItemsFilterParams {
             this.filter = this.tempArr
                 .map((e, i) => (i < this.tempArr.length - 1 ? [e, 'AND'] : [e]))
                 .reduce((a, b) => a.concat(b));
-            console.log(this.filter, 'this filter');
             return this.filter;
         }
         else {
