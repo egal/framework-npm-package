@@ -164,6 +164,7 @@ class GetItemsFilterParams {
         let multiFilterLeftField;
         let multiFilterRightField;
         let multiFilterNestedLeftField;
+        let multiFilterNestedLeftField;
         let defaultNestedFilterArr = [];
         if (Array.isArray(filterItem.right.left.value)) {
             filterItem.right.left.value.forEach((valueItem) => {
@@ -176,6 +177,18 @@ class GetItemsFilterParams {
         }
         else {
             leftComplexFilter = [filterItem.right.left.field, filterItem.right.left.operator, filterItem.right.left.value];
+        }
+        if (Array.isArray(filterItem.right.right.value)) {
+            filterItem.right.right.value.forEach((valueItem) => {
+                temporalRightFilterArr = [filterItem.right.right.field, filterItem.right.right.operator, valueItem];
+                filterAllRight.push(temporalRightFilterArr);
+            });
+            multiFilterRightField = filterAllRight.map((e, i) => (i < filterAllRight.length - 1 ? [e, 'OR'] : [e]))
+                .reduce((a, b) => a.concat(b));
+            rightComplexFilter.push(multiFilterRightField);
+        }
+        else {
+            rightComplexFilter = [filterItem.right.right.field, filterItem.right.right.operator, filterItem.right.right.value];
         }
         if (Array.isArray(filterItem.right.right.value)) {
             filterItem.right.right.value.forEach((valueItem) => {
