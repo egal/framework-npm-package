@@ -5,7 +5,7 @@ export class GetAllMetaDataAction extends ActionMessage {
   actionName: string;
   modelName: string;
   username: string;
-  password: string
+  password: string;
 
   constructor(username:string, password:string, microserviceName: string, actionName: string, modelName: string) {
     super(username, password, microserviceName, actionName, modelName);

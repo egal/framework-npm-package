@@ -8,7 +8,6 @@ export class EgalConstructor extends Model {
     modelName: string
     userName: string
     password: string
-    tokenName: string
     private readonly url: string
     private readonly connectionType: string
 
@@ -19,14 +18,12 @@ export class EgalConstructor extends Model {
         this.password = modelParams.password
         this.url = modelParams.url
         this.connectionType = modelParams.connectionType
-        this.tokenName = modelParams.tokenName
         this.egalModel = new Model(this.modelName, this.userName, this.password)
         this.initModel()
     }
 
     initModel() {
         this.egalModel.setBaseUrl(this.url, this.connectionType)
-        this.egalModel.setAuthToken(this.tokenName)
         return this.egalModel
     }
     initModelObserver() {

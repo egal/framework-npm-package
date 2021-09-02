@@ -11,7 +11,7 @@ export class GetItemsAction extends ActionMessage {
 
   constructor(username: string, password: string, microserviceName: string, modelName: string, actionName: string, actionParams?: any) {
     const params = actionParams ?? new GetItemsActionParams();
-    super(username, password, microserviceName, modelName, actionName, params);
+    super(username, password, microserviceName, actionName, modelName, params);
     this.actionParameters = params;
     this.microserviceName = microserviceName;
     this.modelName = modelName;

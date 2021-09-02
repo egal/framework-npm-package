@@ -12,13 +12,11 @@ class EgalConstructor extends Model_1.Model {
         this.password = modelParams.password;
         this.url = modelParams.url;
         this.connectionType = modelParams.connectionType;
-        this.tokenName = modelParams.tokenName;
         this.egalModel = new Model_1.Model(this.modelName, this.userName, this.password);
         this.initModel();
     }
     initModel() {
         this.egalModel.setBaseUrl(this.url, this.connectionType);
-        this.egalModel.setAuthToken(this.tokenName);
         return this.egalModel;
     }
     initModelObserver() {

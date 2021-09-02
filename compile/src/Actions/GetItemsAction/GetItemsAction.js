@@ -6,7 +6,7 @@ const GetItemsActionParams_1 = require("./GetItemsActionParams");
 class GetItemsAction extends ActionMessage_1.ActionMessage {
     constructor(username, password, microserviceName, modelName, actionName, actionParams) {
         const params = actionParams !== null && actionParams !== void 0 ? actionParams : new GetItemsActionParams_1.GetItemsActionParams();
-        super(username, password, microserviceName, modelName, actionName, params);
+        super(username, password, microserviceName, actionName, modelName, params);
         this.actionParameters = params;
         this.microserviceName = microserviceName;
         this.modelName = modelName;

@@ -58,7 +58,7 @@ export class HttpRequest {
         actionName: string,
         httpMethod: Method,
         actionParameters: ActionParameters | undefined,
-        tokenName?:string
+        tokenName?: string
     ) {
         let domain = GlobalVariables.httpBaseUrl ? GlobalVariables.httpBaseUrl : GlobalVariables.authBaseUrl
         let userTokenName = tokenName ? tokenName : GlobalVariables.tokenUST
