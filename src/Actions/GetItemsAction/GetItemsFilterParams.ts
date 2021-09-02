@@ -37,6 +37,7 @@ export class GetItemsFilterParams {
         let multiFilterFieldRight: any;
         let leftComplexFilter: any[][] = [];
         let rightComplexFilter: any[][] = [];
+
         if (filterItem?.left && !filterItem.left?.left && !filterItem.right?.left) {
             if (Array.isArray(filterItem.left.value)) {
                 filterItem.left.value.forEach((valueItem:any) => {
@@ -83,6 +84,8 @@ export class GetItemsFilterParams {
             this.multiFilterField = filterAll.map((e, i) => (i < filterAll.length - 1 ? [e, 'OR'] : [e]))
                 .reduce((a, b) => a.concat(b));
             this.tempArr.push(this.multiFilterField)
+        } else if (Array.isArray(filterItem)) {
+            this.tempArr.push(filterItem)
         } else {
             this.defaultFilterArr = [filterItem.field, filterItem.operator, filterItem.value];
             this.tempArr.push(this.defaultFilterArr);
@@ -211,6 +214,7 @@ export class GetItemsFilterParams {
             this.filter = this.tempArr
                 .map((e, i) => (i < this.tempArr.length - 1 ? [e, 'AND'] : [e]))
                 .reduce((a, b) => a.concat(b));
+            console.log(this.filter)
             return this.filter;
         } else {
             this.filter = this.tempArr

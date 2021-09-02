@@ -85,6 +85,9 @@ class GetItemsFilterParams {
                 .reduce((a, b) => a.concat(b));
             this.tempArr.push(this.multiFilterField);
         }
+        else if (Array.isArray(filterItem)) {
+            this.tempArr.push(filterItem);
+        }
         else {
             this.defaultFilterArr = [filterItem.field, filterItem.operator, filterItem.value];
             this.tempArr.push(this.defaultFilterArr);
@@ -220,6 +223,7 @@ class GetItemsFilterParams {
             this.filter = this.tempArr
                 .map((e, i) => (i < this.tempArr.length - 1 ? [e, 'AND'] : [e]))
                 .reduce((a, b) => a.concat(b));
+            console.log(this.filter);
             return this.filter;
         }
         else {
