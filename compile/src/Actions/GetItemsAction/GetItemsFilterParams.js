@@ -223,7 +223,6 @@ class GetItemsFilterParams {
             this.filter = this.tempArr
                 .map((e, i) => (i < this.tempArr.length - 1 ? [e, 'AND'] : [e]))
                 .reduce((a, b) => a.concat(b));
-            console.log(this.filter);
             return this.filter;
         }
         else {

@@ -10,10 +10,10 @@ class EventObserver {
     unsubscribe(modelName) {
         return exports.observers = exports.observers.filter((subscriber) => subscriber.modelName !== modelName);
     }
-    broadcast(data, actionName, receivedModelName) {
+    broadcast(data, actionName, receivedModelName, actionMessage) {
         exports.observers.forEach((subscriber) => {
             if (subscriber.modelName === receivedModelName) {
-                subscriber.fn(data, actionName, receivedModelName);
+                subscriber.fn(data, actionName, receivedModelName, actionMessage);
             }
         });
     }

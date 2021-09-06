@@ -17,11 +17,12 @@ export class EventObserver {
   broadcast(
       data: string[] | object[] | string | object,
       actionName?: string,
-      receivedModelName?: string
+      receivedModelName?: string,
+      actionMessage?:string|object
   ) {
     observers.forEach((subscriber) => {
       if (subscriber.modelName === receivedModelName) {
-        subscriber.fn(data, actionName, receivedModelName);
+        subscriber.fn(data, actionName, receivedModelName, actionMessage);
       }
     });
   }

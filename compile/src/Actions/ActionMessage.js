@@ -25,7 +25,8 @@ class ActionMessage {
             let typedResponse = response;
             let action = typedResponse.splice(1, 1).toString();
             let items = typedResponse.splice(0, 1);
-            observer.broadcast(items, action, typedResponse.toString());
+            let actionMessage = typedResponse.splice(1, 1);
+            observer.broadcast(items, action, typedResponse.toString(), actionMessage[0]);
             return response;
         })
             .catch((error) => {

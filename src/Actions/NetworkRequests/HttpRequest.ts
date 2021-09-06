@@ -130,7 +130,8 @@ export class HttpRequest {
                         this.actionResult = new ActionResult(
                             response.data?.action_result.data,
                             response.data?.action_result.action_message.action_name,
-                            response.data?.action_result.action_message.model_name
+                            response.data?.action_result.action_message.model_name,
+                            response.data?.action_result.action_message
                         );
                         resolve(this.actionResult.getData());
                     })
