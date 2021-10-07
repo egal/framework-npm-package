@@ -16,7 +16,9 @@ export class DataFormatter {
     for (const i in this.allItems) {
       this.formattedData.push(
         Object.fromEntries(
-          Object.entries(this.allItems[i]).filter(([key, val]) => this.receivedData.includes(key))
+          Object.entries(this.allItems[i]).filter(([key, val]) =>
+            this.receivedData.includes(key)
+          )
         )
       );
     }
@@ -32,7 +34,9 @@ export class DataFormatter {
     for (const i in this.allItems) {
       this.formattedData.push(
         Object.fromEntries(
-          Object.entries(this.allItems[i]).filter(([key, val]) => !this.receivedData.includes(key))
+          Object.entries(this.allItems[i]).filter(
+            ([key, val]) => !this.receivedData.includes(key)
+          )
         )
       );
     }

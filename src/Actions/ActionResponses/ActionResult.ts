@@ -7,11 +7,16 @@ export class ActionResult {
   modelName?: string;
   actionMessage?: Object;
 
-  constructor(data: object, actionName?: string, modelName?: string, actionMessage?:Object) {
+  constructor(
+    data: object,
+    actionName?: string,
+    modelName?: string,
+    actionMessage?: Object
+  ) {
     this.data = data;
     this.actionName = actionName;
     this.modelName = modelName;
-    this.actionMessage = actionMessage
+    this.actionMessage = actionMessage;
   }
 
   getData(): object {

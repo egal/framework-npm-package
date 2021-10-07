@@ -7,7 +7,7 @@ class CRUDActionParams {
     }
     toObject() {
         return {
-            ...this.data
+            ...this.data,
         };
     }
 }

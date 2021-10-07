@@ -4,12 +4,10 @@ exports.ModelConnection = void 0;
 class ModelConnection {
     createConnection(connectionType, userRequest) {
         switch (connectionType) {
-            case 'axios':
+            case "axios":
                 return userRequest.axiosConnect();
-            case 'socket':
-                return userRequest.socketConnect();
             default:
-                return 'Unknown connection type!';
+                return "Unknown connection type!";
         }
     }
 }

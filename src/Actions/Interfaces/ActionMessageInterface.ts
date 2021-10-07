@@ -1,7 +1,6 @@
-import { Method } from 'axios';
-import { ActionParameters } from './ActionParameters';
-import { HttpRequest } from '../NetworkRequests/HttpRequest';
-import { SocketRequest } from '../NetworkRequests/SocketRequest';
+import { Method } from "axios";
+import { ActionParameters } from "./ActionParameters";
+import { HttpRequest } from "../NetworkRequests/HttpRequest";
 
 export interface ActionMessageInterface {
   serviceName: string;
@@ -10,9 +9,6 @@ export interface ActionMessageInterface {
   actionParameters?: ActionParameters;
   httpMethod: Method;
   httpRequest: HttpRequest;
-  socketRequest: SocketRequest;
 
   axiosConnect(): void;
-
-  socketConnect(): void;
 }

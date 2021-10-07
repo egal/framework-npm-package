@@ -443,8 +443,7 @@ export class Model implements ModelInterface {
    * @param connectionType
    */
 
-  setBaseUrl(URL: string, connectionType: string) {
-    if (connectionType === "socket") GlobalVariables.socketBaseUrl = URL;
+  setBaseUrl(URL: string) {
     GlobalVariables.httpBaseUrl = URL;
   }
 

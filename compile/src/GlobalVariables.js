@@ -26,7 +26,7 @@ const getCookie = function (cname) {
     if (cname !== undefined) {
         try {
             const token = MMKVStorage_1.default.getString(cname);
-            return token === undefined ? '' : token;
+            return token === undefined ? "" : token;
         }
         catch (error) {
             return error;

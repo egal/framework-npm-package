@@ -7,18 +7,23 @@ export class EventObserver {
   private constructor() {}
 
   subscribe(modelName: string, fn: any) {
-    return observers.findIndex((item) => item.modelName === modelName) === -1 && observers.push({modelName, fn});
+    return (
+      observers.findIndex((item) => item.modelName === modelName) === -1 &&
+      observers.push({ modelName, fn })
+    );
   }
 
   unsubscribe(modelName: string) {
-    return observers = observers.filter((subscriber) => subscriber.modelName !== modelName);
+    return (observers = observers.filter(
+      (subscriber) => subscriber.modelName !== modelName
+    ));
   }
 
   broadcast(
-      data: string[] | object[] | string | object,
-      actionName?: string,
-      receivedModelName?: string,
-      actionMessage?:string|object
+    data: string[] | object[] | string | object,
+    actionName?: string,
+    receivedModelName?: string,
+    actionMessage?: string | object
   ) {
     observers.forEach((subscriber) => {
       if (subscriber.modelName === receivedModelName) {
@@ -27,9 +32,7 @@ export class EventObserver {
     });
   }
 
-  broadcastSocketDisconnect(
-      modelName: string
-  ) {
+  broadcastSocketDisconnect(modelName: string) {
     observers.forEach((subscriber) => {
       if (subscriber.modelName === modelName) {
         subscriber.fn(modelName);

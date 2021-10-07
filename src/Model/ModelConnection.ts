@@ -1,12 +1,10 @@
 export class ModelConnection {
-    createConnection(connectionType:string, userRequest:any) {
-        switch(connectionType) {
-            case 'axios':
-                return userRequest.axiosConnect();
-            case 'socket':
-                return userRequest.socketConnect();
-            default:
-                return 'Unknown connection type!';
-        }
+  createConnection(connectionType: string, userRequest: any) {
+    switch (connectionType) {
+      case "axios":
+        return userRequest.axiosConnect();
+      default:
+        return "Unknown connection type!";
     }
+  }
 }

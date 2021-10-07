@@ -36,29 +36,51 @@ class GetItemsFilterParams {
         if ((filterItem === null || filterItem === void 0 ? void 0 : filterItem.left) && !((_a = filterItem.left) === null || _a === void 0 ? void 0 : _a.left) && !((_b = filterItem.right) === null || _b === void 0 ? void 0 : _b.left)) {
             if (Array.isArray(filterItem.left.value)) {
                 filterItem.left.value.forEach((valueItem) => {
-                    temporalFilterArrLeft = [filterItem.left.field, filterItem.left.operator, valueItem];
+                    temporalFilterArrLeft = [
+                        filterItem.left.field,
+                        filterItem.left.operator,
+                        valueItem,
+                    ];
                     filterAllLeft.push(temporalFilterArrLeft);
                 });
-                multiFilterFieldLeft = filterAllLeft.map((e, i) => (i < filterAllLeft.length - 1 ? [e, 'OR'] : [e]))
+                multiFilterFieldLeft = filterAllLeft
+                    .map((e, i) => (i < filterAllLeft.length - 1 ? [e, "OR"] : [e]))
                     .reduce((a, b) => a.concat(b));
                 leftComplexFilter.push(multiFilterFieldLeft);
             }
             else {
-                leftComplexFilter = [filterItem.left.field, filterItem.left.operator, filterItem.left.value];
+                leftComplexFilter = [
+                    filterItem.left.field,
+                    filterItem.left.operator,
+                    filterItem.left.value,
+                ];
             }
             if (Array.isArray(filterItem.right.value)) {
                 filterItem.right.value.forEach((valueItem) => {
-                    temporalFilterArrRight = [filterItem.right.field, filterItem.right.operator, valueItem];
+                    temporalFilterArrRight = [
+                        filterItem.right.field,
+                        filterItem.right.operator,
+                        valueItem,
+                    ];
                     filterAllRight.push(temporalFilterArrRight);
                 });
-                multiFilterFieldRight = filterAllRight.map((e, i) => (i < filterAllRight.length - 1 ? [e, 'OR'] : [e]))
+                multiFilterFieldRight = filterAllRight
+                    .map((e, i) => (i < filterAllRight.length - 1 ? [e, "OR"] : [e]))
                     .reduce((a, b) => a.concat(b));
                 rightComplexFilter.push(multiFilterFieldRight);
             }
             else {
-                rightComplexFilter = [filterItem.right.field, filterItem.right.operator, filterItem.right.value];
+                rightComplexFilter = [
+                    filterItem.right.field,
+                    filterItem.right.operator,
+                    filterItem.right.value,
+                ];
             }
-            this.defaultFilterArr = [leftComplexFilter, filterItem.type, rightComplexFilter];
+            this.defaultFilterArr = [
+                leftComplexFilter,
+                filterItem.type,
+                rightComplexFilter,
+            ];
             if (((_c = this.userFilterInput) === null || _c === void 0 ? void 0 : _c.length) === 1) {
                 this.tempArr = this.defaultFilterArr;
             }
@@ -78,10 +100,15 @@ class GetItemsFilterParams {
         }
         else if (Array.isArray(filterItem.value)) {
             filterItem.value.forEach((valueItem) => {
-                this.defaultFilterArr = [filterItem.field, filterItem.operator, valueItem];
+                this.defaultFilterArr = [
+                    filterItem.field,
+                    filterItem.operator,
+                    valueItem,
+                ];
                 filterAll.push(this.defaultFilterArr);
             });
-            this.multiFilterField = filterAll.map((e, i) => (i < filterAll.length - 1 ? [e, 'OR'] : [e]))
+            this.multiFilterField = filterAll
+                .map((e, i) => (i < filterAll.length - 1 ? [e, "OR"] : [e]))
                 .reduce((a, b) => a.concat(b));
             this.tempArr.push(this.multiFilterField);
         }
@@ -89,7 +116,11 @@ class GetItemsFilterParams {
             this.tempArr.push(filterItem);
         }
         else {
-            this.defaultFilterArr = [filterItem.field, filterItem.operator, filterItem.value];
+            this.defaultFilterArr = [
+                filterItem.field,
+                filterItem.operator,
+                filterItem.value,
+            ];
             this.tempArr.push(this.defaultFilterArr);
         }
     }
@@ -110,42 +141,77 @@ class GetItemsFilterParams {
         let defaultNestedFilterArr = [];
         if (Array.isArray(filterItem.left.left.value)) {
             filterItem.left.left.value.forEach((valueItem) => {
-                temporalLeftFilterArr = [filterItem.left.left.field, filterItem.left.left.operator, valueItem];
+                temporalLeftFilterArr = [
+                    filterItem.left.left.field,
+                    filterItem.left.left.operator,
+                    valueItem,
+                ];
                 filterAllLeft.push(temporalLeftFilterArr);
             });
-            multiFilterLeftField = filterAllLeft.map((e, i) => (i < filterAllLeft.length - 1 ? [e, 'OR'] : [e]))
+            multiFilterLeftField = filterAllLeft
+                .map((e, i) => (i < filterAllLeft.length - 1 ? [e, "OR"] : [e]))
                 .reduce((a, b) => a.concat(b));
             leftComplexFilter.push(multiFilterLeftField);
         }
         else {
-            leftComplexFilter = [filterItem.left.left.field, filterItem.left.left.operator, filterItem.left.left.value];
+            leftComplexFilter = [
+                filterItem.left.left.field,
+                filterItem.left.left.operator,
+                filterItem.left.left.value,
+            ];
         }
         if (Array.isArray(filterItem.left.right.value)) {
             filterItem.left.right.value.forEach((valueItem) => {
-                temporalRightFilterArr = [filterItem.left.right.field, filterItem.left.right.operator, valueItem];
+                temporalRightFilterArr = [
+                    filterItem.left.right.field,
+                    filterItem.left.right.operator,
+                    valueItem,
+                ];
                 filterAllRight.push(temporalRightFilterArr);
             });
-            multiFilterNestedRightField = filterAllRight.map((e, i) => (i < filterAllRight.length - 1 ? [e, 'OR'] : [e]))
+            multiFilterNestedRightField = filterAllRight
+                .map((e, i) => (i < filterAllRight.length - 1 ? [e, "OR"] : [e]))
                 .reduce((a, b) => a.concat(b));
             rightComplexFilter.push(multiFilterNestedRightField);
         }
         else {
-            rightComplexFilter = [filterItem.left.right.field, filterItem.left.right.operator, filterItem.left.right.value];
+            rightComplexFilter = [
+                filterItem.left.right.field,
+                filterItem.left.right.operator,
+                filterItem.left.right.value,
+            ];
         }
         if (Array.isArray(filterItem.right.value)) {
             filterItem.right.value.forEach((valueItem) => {
-                temporalFilterArr = [filterItem.right.field, filterItem.right.operator, valueItem];
+                temporalFilterArr = [
+                    filterItem.right.field,
+                    filterItem.right.operator,
+                    valueItem,
+                ];
                 filterAllRightPart.push(temporalFilterArr);
             });
-            multiFilterRightField = filterAllRightPart.map((e, i) => (i < filterAllRightPart.length - 1 ? [e, 'OR'] : [e]))
+            multiFilterRightField = filterAllRightPart
+                .map((e, i) => (i < filterAllRightPart.length - 1 ? [e, "OR"] : [e]))
                 .reduce((a, b) => a.concat(b));
             rightFilterPart.push(multiFilterRightField);
         }
         else {
-            rightFilterPart = [filterItem.right.field, filterItem.right.operator, filterItem.right.value];
+            rightFilterPart = [
+                filterItem.right.field,
+                filterItem.right.operator,
+                filterItem.right.value,
+            ];
         }
-        defaultNestedFilterArr = [leftComplexFilter, filterItem.left.type, rightComplexFilter];
-        this.defaultFilterArr = [defaultNestedFilterArr, filterItem.type, rightFilterPart];
+        defaultNestedFilterArr = [
+            leftComplexFilter,
+            filterItem.left.type,
+            rightComplexFilter,
+        ];
+        this.defaultFilterArr = [
+            defaultNestedFilterArr,
+            filterItem.type,
+            rightFilterPart,
+        ];
         if (((_a = this.userFilterInput) === null || _a === void 0 ? void 0 : _a.length) === 1) {
             this.tempArr = this.defaultFilterArr;
         }
@@ -170,42 +236,77 @@ class GetItemsFilterParams {
         let defaultNestedFilterArr = [];
         if (Array.isArray(filterItem.right.left.value)) {
             filterItem.right.left.value.forEach((valueItem) => {
-                temporalLeftFilterArr = [filterItem.right.left.field, filterItem.right.left.operator, valueItem];
+                temporalLeftFilterArr = [
+                    filterItem.right.left.field,
+                    filterItem.right.left.operator,
+                    valueItem,
+                ];
                 filterAllLeft.push(temporalLeftFilterArr);
             });
-            multiFilterLeftField = filterAllLeft.map((e, i) => (i < filterAllLeft.length - 1 ? [e, 'OR'] : [e]))
+            multiFilterLeftField = filterAllLeft
+                .map((e, i) => (i < filterAllLeft.length - 1 ? [e, "OR"] : [e]))
                 .reduce((a, b) => a.concat(b));
             leftComplexFilter.push(multiFilterLeftField);
         }
         else {
-            leftComplexFilter = [filterItem.right.left.field, filterItem.right.left.operator, filterItem.right.left.value];
+            leftComplexFilter = [
+                filterItem.right.left.field,
+                filterItem.right.left.operator,
+                filterItem.right.left.value,
+            ];
         }
         if (Array.isArray(filterItem.right.right.value)) {
             filterItem.right.right.value.forEach((valueItem) => {
-                temporalRightFilterArr = [filterItem.right.right.field, filterItem.right.right.operator, valueItem];
+                temporalRightFilterArr = [
+                    filterItem.right.right.field,
+                    filterItem.right.right.operator,
+                    valueItem,
+                ];
                 filterAllRight.push(temporalRightFilterArr);
             });
-            multiFilterRightField = filterAllRight.map((e, i) => (i < filterAllRight.length - 1 ? [e, 'OR'] : [e]))
+            multiFilterRightField = filterAllRight
+                .map((e, i) => (i < filterAllRight.length - 1 ? [e, "OR"] : [e]))
                 .reduce((a, b) => a.concat(b));
             rightComplexFilter.push(multiFilterRightField);
         }
         else {
-            rightComplexFilter = [filterItem.right.right.field, filterItem.right.right.operator, filterItem.right.right.value];
+            rightComplexFilter = [
+                filterItem.right.right.field,
+                filterItem.right.right.operator,
+                filterItem.right.right.value,
+            ];
         }
         if (Array.isArray(filterItem.left.value)) {
             filterItem.left.value.forEach((valueItem) => {
-                temporalFilterArr = [filterItem.left.field, filterItem.left.operator, valueItem];
+                temporalFilterArr = [
+                    filterItem.left.field,
+                    filterItem.left.operator,
+                    valueItem,
+                ];
                 filterAllLeftPart.push(temporalFilterArr);
             });
-            multiFilterNestedLeftField = filterAllLeftPart.map((e, i) => (i < filterAllLeftPart.length - 1 ? [e, 'OR'] : [e]))
+            multiFilterNestedLeftField = filterAllLeftPart
+                .map((e, i) => (i < filterAllLeftPart.length - 1 ? [e, "OR"] : [e]))
                 .reduce((a, b) => a.concat(b));
             leftFilterPart.push(multiFilterNestedLeftField);
         }
         else {
-            leftFilterPart = [filterItem.left.field, filterItem.left.operator, filterItem.left.value];
+            leftFilterPart = [
+                filterItem.left.field,
+                filterItem.left.operator,
+                filterItem.left.value,
+            ];
         }
-        defaultNestedFilterArr = [leftComplexFilter, filterItem.right.type, rightComplexFilter];
-        this.defaultFilterArr = [leftFilterPart, filterItem.type, defaultNestedFilterArr];
+        defaultNestedFilterArr = [
+            leftComplexFilter,
+            filterItem.right.type,
+            rightComplexFilter,
+        ];
+        this.defaultFilterArr = [
+            leftFilterPart,
+            filterItem.type,
+            defaultNestedFilterArr,
+        ];
         if (((_a = this.userFilterInput) === null || _a === void 0 ? void 0 : _a.length) === 1) {
             this.tempArr = this.defaultFilterArr;
         }
@@ -221,7 +322,7 @@ class GetItemsFilterParams {
         // @ts-ignore
         if (this.tempArr.length > 1 && ((_a = this.userFilterInput) === null || _a === void 0 ? void 0 : _a.length) > 1) {
             this.filter = this.tempArr
-                .map((e, i) => (i < this.tempArr.length - 1 ? [e, 'AND'] : [e]))
+                .map((e, i) => (i < this.tempArr.length - 1 ? [e, "AND"] : [e]))
                 .reduce((a, b) => a.concat(b));
             return this.filter;
         }

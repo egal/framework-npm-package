@@ -5,31 +5,23 @@ export class EgalConstructor extends Model {
   private readonly egalModel: Model;
   private egalObserver: EventObserver = EventObserver.getInstance();
   modelName: string;
-  username: string;
-  password: string;
   private readonly url: string;
-  private readonly connectionType: string;
 
   constructor(modelParams: {
     modelName: string;
-    username: string;
-    password: string;
     url: string;
     connectionType: string;
     tokenName: string;
   }) {
-    super(modelParams.username, modelParams.password, modelParams.modelName);
+    super("", "", modelParams.modelName);
     this.modelName = modelParams.modelName;
     this.url = modelParams.url;
-    this.username = modelParams.username;
-    this.password = modelParams.password;
-    this.connectionType = modelParams.connectionType;
-    this.egalModel = new Model(this.username, this.password, this.modelName);
+    this.egalModel = new Model("", "", this.modelName);
     this.initModel();
   }
 
   initModel() {
-    this.egalModel.setBaseUrl(this.url, this.connectionType);
+    this.egalModel.setBaseUrl(this.url);
     return this.egalModel;
   }
   initModelObserver() {

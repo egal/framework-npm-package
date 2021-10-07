@@ -5,19 +5,16 @@ const Model_1 = require("./Model");
 const Observer_1 = require("../Actions/NetworkRequests/SocketConnection/Observer");
 class ReactConstructor extends Model_1.Model {
     constructor(modelParams) {
-        super(modelParams.modelName, modelParams.userName, modelParams.password);
+        super(modelParams.modelName, "", "");
         this.egalObserver = Observer_1.EventObserver.getInstance();
         this.modelName = modelParams.modelName;
-        this.userName = modelParams.userName;
-        this.password = modelParams.password;
         this.listenerFunction = modelParams.listenerFunction;
         this.url = modelParams.url;
-        this.connectionType = modelParams.connectionType;
-        this.egalModel = new Model_1.Model(this.modelName, this.userName, this.password);
+        this.egalModel = new Model_1.Model(this.modelName, "", "");
         this.initModel();
     }
     initModel() {
-        this.egalModel.setBaseUrl(this.url, this.connectionType);
+        this.egalModel.setBaseUrl(this.url);
         return this.egalModel;
     }
     initModelObserver() {

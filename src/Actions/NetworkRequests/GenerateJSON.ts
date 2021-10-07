@@ -1,6 +1,6 @@
-import { ActionParameters } from '../Interfaces/ActionParameters';
-import { GetItemsFilterParams } from '../GetItemsAction/GetItemsFilterParams';
-import { ParametersInterface } from './ParametersInterface';
+import { ActionParameters } from "../Interfaces/ActionParameters";
+import { GetItemsFilterParams } from "../GetItemsAction/GetItemsFilterParams";
+import { ParametersInterface } from "./ParametersInterface";
 
 export class GenerateJSON {
   /**
@@ -26,12 +26,15 @@ export class GenerateJSON {
     const parametersCRUD: ParametersInterface = { attributes: {} };
     const parametersMany: ParametersInterface = { objects: {} };
     const parametersDeleteMany: ParametersInterface = { ids: [] };
-    const parametersUpdateManyRaw: ParametersInterface = { filter: [], attributes: [] };
+    const parametersUpdateManyRaw: ParametersInterface = {
+      filter: [],
+      attributes: [],
+    };
     const parametersDeleteManyRaw: ParametersInterface = { filter: [] };
     switch (actionName) {
-      case 'create':
-      case 'update':
-      case 'delete':
+      case "create":
+      case "update":
+      case "delete":
         parametersCRUD.attributes = actionParameters;
         return {
           type: type,
@@ -40,10 +43,10 @@ export class GenerateJSON {
           action_name: actionName,
           parameters: parametersCRUD,
           token: token,
-          uuid: uuid
+          uuid: uuid,
         };
-      case 'createMany':
-      case 'updateMany':
+      case "createMany":
+      case "updateMany":
         parametersMany.objects = actionParameters;
         return {
           type: type,
@@ -52,9 +55,9 @@ export class GenerateJSON {
           action_name: actionName,
           parameters: parametersMany,
           token: token,
-          uuid: uuid
+          uuid: uuid,
         };
-      case 'deleteMany':
+      case "deleteMany":
         parametersDeleteMany.ids = actionParameters;
         return {
           type: type,
@@ -63,10 +66,12 @@ export class GenerateJSON {
           action_name: actionName,
           parameters: parametersDeleteMany,
           token: token,
-          uuid: uuid
+          uuid: uuid,
         };
-      case 'updateManyRaw':
-        parametersUpdateManyRaw.filter = this.formFilter(actionParameters?.filter);
+      case "updateManyRaw":
+        parametersUpdateManyRaw.filter = this.formFilter(
+          actionParameters?.filter
+        );
         parametersUpdateManyRaw.attributes = actionParameters?.attributes;
         return {
           type: type,
@@ -75,10 +80,12 @@ export class GenerateJSON {
           action_name: actionName,
           parameters: parametersUpdateManyRaw,
           token: token,
-          uuid: uuid
+          uuid: uuid,
         };
-      case 'deleteManyRaw':
-        parametersDeleteManyRaw.filter = this.formFilter(actionParameters?.filter);
+      case "deleteManyRaw":
+        parametersDeleteManyRaw.filter = this.formFilter(
+          actionParameters?.filter
+        );
         return {
           type: type,
           service_name: serviceName,
@@ -86,7 +93,7 @@ export class GenerateJSON {
           action_name: actionName,
           parameters: parametersDeleteManyRaw,
           token: token,
-          uuid: uuid
+          uuid: uuid,
         };
       default:
         return {
@@ -96,7 +103,7 @@ export class GenerateJSON {
           action_name: actionName,
           parameters: actionParameters,
           token: token,
-          uuid: uuid
+          uuid: uuid,
         };
     }
   }

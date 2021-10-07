@@ -5,10 +5,11 @@ exports.observers = [];
 class EventObserver {
     constructor() { }
     subscribe(modelName, fn) {
-        return exports.observers.findIndex((item) => item.modelName === modelName) === -1 && exports.observers.push({ modelName, fn });
+        return (exports.observers.findIndex((item) => item.modelName === modelName) === -1 &&
+            exports.observers.push({ modelName, fn }));
     }
     unsubscribe(modelName) {
-        return exports.observers = exports.observers.filter((subscriber) => subscriber.modelName !== modelName);
+        return (exports.observers = exports.observers.filter((subscriber) => subscriber.modelName !== modelName));
     }
     broadcast(data, actionName, receivedModelName, actionMessage) {
         exports.observers.forEach((subscriber) => {

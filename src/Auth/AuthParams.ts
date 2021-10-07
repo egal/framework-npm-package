@@ -1,4 +1,4 @@
-import { ActionParameters } from '../Actions/Interfaces/ActionParameters';
+import { ActionParameters } from "../Actions/Interfaces/ActionParameters";
 
 export class AuthParams implements ActionParameters {
   parameters: ActionParameters | undefined;
