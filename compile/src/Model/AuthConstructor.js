@@ -4,8 +4,8 @@ exports.EgalAuthConstructor = void 0;
 const AuthAction_1 = require("../Auth/AuthAction");
 class EgalAuthConstructor extends AuthAction_1.AuthAction {
     constructor(authParams) {
-        super(authParams.userName, authParams.password, authParams.modelName, authParams.connectionType);
-        this.egalAuth = new AuthAction_1.AuthAction(authParams.userName, authParams.password, authParams.modelName, authParams.connectionType);
+        super(authParams.modelName, authParams.connectionType);
+        this.egalAuth = new AuthAction_1.AuthAction(authParams.modelName, authParams.connectionType);
         this.url = authParams.url;
         this.initAuthAction();
     }

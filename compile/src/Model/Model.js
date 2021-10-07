@@ -11,7 +11,7 @@ const GlobalVariables_1 = require("../GlobalVariables");
 const ModelConnection_1 = require("./ModelConnection");
 const observer = Observer_1.EventObserver.getInstance();
 class Model {
-    constructor(modelName, username, password) {
+    constructor(username, password, modelName) {
         this.modelName = modelName;
         this.username = username;
         this.password = password;
@@ -24,7 +24,7 @@ class Model {
         this.fieldsWithTypes = [];
         this.allModelsMetadata = {};
         this.tokenUmt = false;
-        this.tokenUst = '';
+        this.tokenUst = "";
     }
     setAuthToken(token) {
         GlobalVariables_1.GlobalVariables.tokenUST = token;
@@ -36,7 +36,7 @@ class Model {
      */
     actionGetMetadata(microserviceName, connectionType) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeGetMetadataRequest = new GetModelMetadataAction_1.GetModelMetadataAction(this.username, this.password, microserviceName, 'getMetadata', this.modelName);
+        const initializeGetMetadataRequest = new GetModelMetadataAction_1.GetModelMetadataAction(microserviceName, "getMetadata", this.modelName);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeGetMetadataRequest);
     }
     /**
@@ -48,11 +48,12 @@ class Model {
      * @param orders
      * @param page
      * @param perPage
+     * @param actionName
      */
     actionGetItems(microserviceName, connectionType, perPage, page, filter, withs, orders, actionName) {
-        let userGetItems = actionName !== undefined ? actionName : 'getItems';
+        let userGetItems = actionName !== undefined ? actionName : "getItems";
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeGetItems = new GetItemsAction_1.GetItemsAction(this.username, this.password, microserviceName, this.modelName, userGetItems);
+        const initializeGetItems = new GetItemsAction_1.GetItemsAction(microserviceName, this.modelName, userGetItems);
         initializeGetItems.actionParameters.with(withs);
         initializeGetItems.actionParameters.filters(filter);
         initializeGetItems.actionParameters.orders(orders);
@@ -72,7 +73,7 @@ class Model {
      */
     actionGetItem(microserviceName, connectionType, id, filter, withs, orders) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeGetItem = new GetItemsAction_1.GetItemsAction(this.username, this.password, microserviceName, this.modelName, 'getItem');
+        const initializeGetItem = new GetItemsAction_1.GetItemsAction(microserviceName, this.modelName, "getItem");
         initializeGetItem.actionParameters.with(withs);
         initializeGetItem.actionParameters.filters(filter);
         initializeGetItem.actionParameters.orders(orders);
@@ -87,7 +88,7 @@ class Model {
      */
     actionUpdate(microserviceName, connectionType, actionParams) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionUpdate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'update', actionParams);
+        const initializeActionUpdate = new CRUDAction_1.CRUDAction(microserviceName, this.modelName, "update", actionParams);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionUpdate);
     }
     /**
@@ -98,7 +99,7 @@ class Model {
      */
     actionUpdateMany(microserviceName, connectionType, actionParams) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionUpdate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'updateMany', actionParams);
+        const initializeActionUpdate = new CRUDAction_1.CRUDAction(microserviceName, this.modelName, "updateMany", actionParams);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionUpdate);
     }
     /**
@@ -109,7 +110,7 @@ class Model {
      */
     actionUpdateManyWithFilter(microserviceName, connectionType, actionParams) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionUpdateManyWithFilter = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'updateManyRaw', actionParams);
+        const initializeActionUpdateManyWithFilter = new CRUDAction_1.CRUDAction(microserviceName, this.modelName, "updateManyRaw", actionParams);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionUpdateManyWithFilter);
     }
     /**
@@ -121,7 +122,7 @@ class Model {
      */
     actionCreate(microserviceName, connectionType, actionParams, channelParameters) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionCreate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'create', actionParams, channelParameters);
+        const initializeActionCreate = new CRUDAction_1.CRUDAction(microserviceName, this.modelName, "create", actionParams, channelParameters);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionCreate);
     }
     /**
@@ -132,7 +133,7 @@ class Model {
      */
     actionCreateMany(microserviceName, connectionType, actionParams) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionCreate = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'createMany', actionParams);
+        const initializeActionCreate = new CRUDAction_1.CRUDAction(microserviceName, this.modelName, "createMany", actionParams);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionCreate);
     }
     /**
@@ -143,7 +144,7 @@ class Model {
      */
     actionDelete(microserviceName, connectionType, actionParams) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionDelete = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'delete', actionParams);
+        const initializeActionDelete = new CRUDAction_1.CRUDAction(microserviceName, this.modelName, "delete", actionParams);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionDelete);
     }
     /**
@@ -154,7 +155,7 @@ class Model {
      */
     actionDeleteMany(microserviceName, connectionType, actionParams) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionDelete = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'deleteMany', actionParams);
+        const initializeActionDelete = new CRUDAction_1.CRUDAction(microserviceName, this.modelName, "deleteMany", actionParams);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionDelete);
     }
     /**
@@ -165,7 +166,7 @@ class Model {
      */
     actionDeleteManyWithFilter(microserviceName, connectionType, actionParams) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionDeleteManyWithFilter = new CRUDAction_1.CRUDAction(this.username, this.password, microserviceName, this.modelName, 'deleteManyRaw', actionParams);
+        const initializeActionDeleteManyWithFilter = new CRUDAction_1.CRUDAction(microserviceName, this.modelName, "deleteManyRaw", actionParams);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionDeleteManyWithFilter);
     }
     /**
@@ -177,7 +178,7 @@ class Model {
      */
     actionCustom(microserviceName, actionName, connectionType, actionParams) {
         GlobalVariables_1.GlobalVariables.tokenUST = microserviceName;
-        const initializeActionCustom = new CustomAction_1.CustomAction(this.username, this.password, microserviceName, this.modelName, actionName, actionParams);
+        const initializeActionCustom = new CustomAction_1.CustomAction(microserviceName, this.modelName, actionName, actionParams);
         new ModelConnection_1.ModelConnection().createConnection(connectionType, initializeActionCustom);
     }
     /**
@@ -231,7 +232,7 @@ class Model {
      * @param dataToFilter
      */
     getSpecificFields(fields, filterType, dataToFilter) {
-        if (filterType === 'includes')
+        if (filterType === "includes")
             return new DataFormatter_1.DataFormatter(fields, dataToFilter).include();
         return new DataFormatter_1.DataFormatter(fields, dataToFilter).exclude();
     }
@@ -253,12 +254,12 @@ class Model {
      * @param connectionType
      */
     setBaseUrl(URL, connectionType) {
-        if (connectionType === 'socket')
+        if (connectionType === "socket")
             GlobalVariables_1.GlobalVariables.socketBaseUrl = URL;
         GlobalVariables_1.GlobalVariables.httpBaseUrl = URL;
     }
     socketDisconnect() {
-        observer.broadcastSocketDisconnect('disconnect');
+        observer.broadcastSocketDisconnect("disconnect");
     }
 }
 exports.Model = Model;

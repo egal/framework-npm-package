@@ -1,78 +1,74 @@
-import {Method} from 'axios';
-import {ActionParameters} from './Interfaces/ActionParameters';
-import {HttpRequest} from './NetworkRequests/HttpRequest';
-import {SocketRequest} from './NetworkRequests/SocketRequest';
-import {ActionMessageInterface} from './Interfaces/ActionMessageInterface';
-import {EventObserver} from './NetworkRequests/SocketConnection/Observer';
-import {RoutingKeyParams} from "./Interfaces/RoutingKeyParams";
+import { Method } from "axios";
+import { ActionParameters } from "./Interfaces/ActionParameters";
+import { HttpRequest } from "./NetworkRequests/HttpRequest";
+import { SocketRequest } from "./NetworkRequests/SocketRequest";
+import { ActionMessageInterface } from "./Interfaces/ActionMessageInterface";
+import { EventObserver } from "./NetworkRequests/SocketConnection/Observer";
+import { RoutingKeyParams } from "./Interfaces/RoutingKeyParams";
 
-const observer:EventObserver = EventObserver.getInstance();
+const observer: EventObserver = EventObserver.getInstance();
 
 export class ActionMessage implements ActionMessageInterface {
-    userName: string;
-    password: string;
-    serviceName: string;
-    modelName: string;
-    actionName: string;
-    httpMethod: Method;
-    httpRequest: HttpRequest;
-    socketRequest: SocketRequest;
-    channelParameters: RoutingKeyParams;
-    actionParameters?: ActionParameters;
+  serviceName: string;
+  modelName: string;
+  actionName: string;
+  httpMethod: Method;
+  httpRequest: HttpRequest;
+  socketRequest: SocketRequest;
+  channelParameters: RoutingKeyParams;
+  actionParameters?: ActionParameters;
 
-    constructor(
-        userName: string,
-        password: string,
-        microserviceName: string,
-        actionName: string,
-        modelName: string,
-        actionParameters?: ActionParameters,
-        channelParameters?: any
-    ) {
-        this.userName = userName;
-        this.password = password;
-        this.serviceName = microserviceName;
-        this.modelName = modelName;
-        this.actionName = actionName;
-        this.actionParameters = actionParameters;
-        this.channelParameters = channelParameters;
-        this.httpMethod = 'POST';
-        this.httpRequest = new HttpRequest();
-        this.socketRequest = new SocketRequest(
-            this.userName,
-            this.password,
-            this.serviceName,
-            this.actionName,
-            this.modelName,
-            this.actionParameters,
-            this.channelParameters
-        );
-    }
+  constructor(
+    microserviceName: string,
+    actionName: string,
+    modelName: string,
+    actionParameters?: ActionParameters,
+    channelParameters?: any
+  ) {
+    this.serviceName = microserviceName;
+    this.modelName = modelName;
+    this.actionName = actionName;
+    this.actionParameters = actionParameters;
+    this.channelParameters = channelParameters;
+    this.httpMethod = "POST";
+    this.httpRequest = new HttpRequest();
+    this.socketRequest = new SocketRequest(
+      this.serviceName,
+      this.actionName,
+      this.modelName,
+      this.actionParameters,
+      this.channelParameters
+    );
+  }
 
-    axiosConnect() {
-        this.httpRequest
-            .axiosConnect(
-                this.serviceName,
-                this.modelName,
-                this.actionName,
-                this.httpMethod,
-                this.actionParameters
-            )
-            .then((response) => {
-                let typedResponse: (string | object | undefined)[] = response as (string | object | undefined)[];
-                let action = typedResponse.splice(1, 1).toString();
-                let items = typedResponse.splice(0, 1);
-                let actionMessage = typedResponse.splice(1,1)
-                observer.broadcast(items, action, typedResponse.toString(), actionMessage[0]);
-                return response;
-            })
-            .catch((error) => {
-                observer.broadcast(error, 'error', this.modelName);
-                return error;
-            });
-    }
+  axiosConnect(constructorRequest?: boolean) {
+    return new Promise((resolve, reject) => {
+      this.httpRequest
+        .axiosConnect(
+          this.serviceName,
+          this.modelName,
+          this.actionName,
+          this.httpMethod,
+          this.actionParameters
+        )
+        .then((response: any) => {
+          let action = response.data.action.action_name;
+          let items = response.data.action_result.data;
+          let actionMessage = response.data.action_result.action_message;
+          let modelName = response.data.action.model_name;
+          constructorRequest
+            ? resolve(response.data.action_result.data)
+            : observer.broadcast(items, action, modelName, actionMessage);
+        })
+        .catch((error) => {
+          constructorRequest
+            ? reject(error.data.action_error)
+            : observer.broadcast(error, "error", this.modelName);
+        });
+    });
+  }
 
-    socketConnect() {
-        this.socketRequest.initSocketConnect();
-    }
+  socketConnect() {
+    this.socketRequest.initSocketConnect();
+  }
 }
