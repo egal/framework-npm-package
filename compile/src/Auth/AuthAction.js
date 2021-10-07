@@ -5,17 +5,15 @@ const HttpRequest_1 = require("../Actions/NetworkRequests/HttpRequest");
 const SocketRequest_1 = require("../Actions/NetworkRequests/SocketRequest");
 const AuthParams_1 = require("./AuthParams");
 const GlobalVariables_1 = require("../GlobalVariables");
-let register = 'registerByEmailAndPassword';
-let auth = 'loginByEmailAndPassword';
-let loginIntoService = 'loginToService';
+let register = "registerByEmailAndPassword";
+let auth = "loginByEmailAndPassword";
+let loginIntoService = "loginToService";
 class AuthAction {
-    constructor(username, password, modelName, requestType) {
-        this.microserviceName = 'auth';
+    constructor(modelName, requestType) {
+        this.microserviceName = "auth";
         this.modelName = modelName;
-        this.username = username;
-        this.password = password;
-        this.httpMethod = 'POST';
-        this.requestAction = '';
+        this.httpMethod = "POST";
+        this.requestAction = "";
         this.requestType = requestType;
         this.httpRequest = new HttpRequest_1.HttpRequest();
     }
@@ -31,22 +29,21 @@ class AuthAction {
     setNetworkRequest(userData, requestType, tokenName) {
         return new Promise((resolve, reject) => {
             let authParams = new AuthParams_1.AuthParams().setAuthParams(userData);
-            let socketRequest = new SocketRequest_1.SocketRequest(this.username, this.password, this.microserviceName, requestType, this.modelName, authParams);
-            if (this.requestType === 'socket') {
+            let socketRequest = new SocketRequest_1.SocketRequest(this.microserviceName, requestType, this.modelName, authParams);
+            if (this.requestType === "socket") {
                 socketRequest.initSocketConnect();
             }
             else {
                 this.httpRequest
                     .axiosConnect(this.microserviceName, this.modelName, requestType, this.httpMethod, authParams, tokenName)
                     .then((response) => {
-                    let typedResponse = response;
-                    let action = typedResponse.splice(1, 1).toString();
-                    let items = typedResponse.splice(0, 1);
+                    let action = response.data.action.action_name;
+                    let items = response.data.action_result.data;
                     let returnItems = [items, action, this.modelName];
                     resolve(returnItems);
                 })
                     .catch((error) => {
-                    let returnError = [error, 'error', this.modelName];
+                    let returnError = [error, "error", this.modelName];
                     reject(returnError);
                 });
             }
@@ -54,27 +51,33 @@ class AuthAction {
     }
     registerNewUser(newUserData) {
         return new Promise((resolve, reject) => {
-            this.setNetworkRequest(newUserData, register).then((data) => {
+            this.setNetworkRequest(newUserData, register)
+                .then((data) => {
                 resolve(data);
-            }).catch((error) => {
+            })
+                .catch((error) => {
                 reject(error);
             });
         });
     }
     authUser(createdUserData) {
         return new Promise((resolve, reject) => {
-            this.setNetworkRequest(createdUserData, auth).then((data) => {
+            this.setNetworkRequest(createdUserData, auth)
+                .then((data) => {
                 resolve(data);
-            }).catch((error) => {
+            })
+                .catch((error) => {
                 reject(error);
             });
         });
     }
     loginToService(userCred, tokenName) {
         return new Promise((resolve, reject) => {
-            this.setNetworkRequest(userCred, loginIntoService, tokenName).then((data) => {
+            this.setNetworkRequest(userCred, loginIntoService, tokenName)
+                .then((data) => {
                 resolve(data);
-            }).catch((error) => {
+            })
+                .catch((error) => {
                 reject(error);
             });
         });
