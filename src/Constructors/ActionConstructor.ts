@@ -17,7 +17,8 @@ export class ActionConstructor implements ActionConstructorInterface {
   actionParams: Array<object> | object;
   pagination: { per_page: number; page: number };
   id: string | number;
-  constructor() {
+  url: string;
+  constructor(url: string) {
     this.filterArr = [];
     this.ordersArr = [];
     this.withsArr = [];
@@ -27,6 +28,11 @@ export class ActionConstructor implements ActionConstructorInterface {
     this.actionParams = [];
     this.pagination = { per_page: 10, page: 1 };
     this.id = "";
+    this.url = url;
+    this.setBaseUrl(this.url);
+  }
+  setBaseUrl(url: string) {
+    GlobalVariables.httpBaseUrl = url;
   }
   getMetadata(microserviceName: string, modelName: string): this {
     this.microserviceName = microserviceName;

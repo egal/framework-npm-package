@@ -9,7 +9,7 @@ const GetModelMetadataAction_1 = require("./GetMetadataAction/GetModelMetadataAc
 const CustomAction_1 = require("./CustomAction/CustomAction");
 const GetItemsAction_1 = require("./GetItemsAction/GetItemsAction");
 class ActionConstructor {
-    constructor() {
+    constructor(url) {
         this.filterArr = [];
         this.ordersArr = [];
         this.withsArr = [];
@@ -19,6 +19,11 @@ class ActionConstructor {
         this.actionParams = [];
         this.pagination = { per_page: 10, page: 1 };
         this.id = "";
+        this.url = url;
+        this.setBaseUrl(this.url);
+    }
+    setBaseUrl(url) {
+        GlobalVariables_1.GlobalVariables.httpBaseUrl = url;
     }
     getMetadata(microserviceName, modelName) {
         this.microserviceName = microserviceName;
