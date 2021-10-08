@@ -12,9 +12,9 @@ import { SocketRequest } from "./src/Actions/NetworkRequests/SocketRequest";
 import { ActionMessage } from "./src/Actions/ActionMessage";
 import { Model } from "./src/Model/Model";
 import { GlobalVariables } from "./src/GlobalVariables";
-import { EgalConstructor } from "./src/Model/EgalConstructor";
-import { EgalAuthConstructor } from "./src/Model/AuthConstructor";
-import { ActionConstructor } from "./src/Actions/ActionConstructor";
+import { EgalConstructor } from "./src/Constructors/EgalConstructor";
+import { EgalAuthConstructor } from "./src/Constructors/AuthConstructor";
+import { ActionConstructor } from "./src/Constructors/ActionConstructor";
 
 export default {
   AuthAction,

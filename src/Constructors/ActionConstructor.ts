@@ -1,11 +1,11 @@
-import { ActionConstructorInterface } from "./Interfaces/ActionConstructorInterface";
-import { GetItemsFilterParams } from "./GetItemsAction/GetItemsFilterParams";
-import { GetItemsSortingParams } from "./GetItemsAction/GetItemsSortingParams";
+import { ActionConstructorInterface } from "../Actions/Interfaces/ActionConstructorInterface";
+import { GetItemsFilterParams } from "../Actions/GetItemsAction/GetItemsFilterParams";
+import { GetItemsSortingParams } from "../Actions/GetItemsAction/GetItemsSortingParams";
 import { GlobalVariables } from "../GlobalVariables";
-import { CRUDAction } from "./CRUDActions/CRUDAction";
-import { GetModelMetadataAction } from "./GetMetadataAction/GetModelMetadataAction";
-import { CustomAction } from "./CustomAction/CustomAction";
-import { GetItemsAction } from "./GetItemsAction/GetItemsAction";
+import { CRUDAction } from "../Actions/CRUDActions/CRUDAction";
+import { GetModelMetadataAction } from "../Actions/GetMetadataAction/GetModelMetadataAction";
+import { CustomAction } from "../Actions/CustomAction/CustomAction";
+import { GetItemsAction } from "../Actions/GetItemsAction/GetItemsAction";
 
 export class ActionConstructor implements ActionConstructorInterface {
   filterArr: (string | object)[];

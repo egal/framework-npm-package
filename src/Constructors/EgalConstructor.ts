@@ -1,4 +1,4 @@
-import { Model } from "./Model";
+import { Model } from "../Model/Model";
 import { EventObserver } from "../Actions/NetworkRequests/SocketConnection/Observer";
 
 export class EgalConstructor extends Model {
