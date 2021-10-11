@@ -92,7 +92,8 @@ export class AuthAction {
   authUser(createdUserData: ActionParameters | undefined) {
     return new Promise((resolve, reject) => {
       this.setNetworkRequest(createdUserData, auth)
-        .then((data) => {
+        .then((data: any) => {
+          sessionStorage.setItem("umt", data[0]);
           resolve(data);
         })
         .catch((error) => {
@@ -104,7 +105,7 @@ export class AuthAction {
   loginToService(userCred: ActionParameters | undefined, tokenName?: string) {
     return new Promise((resolve, reject) => {
       this.setNetworkRequest(userCred, loginIntoService, tokenName)
-        .then((data) => {
+        .then((data: any) => {
           resolve(data);
         })
         .catch((error) => {

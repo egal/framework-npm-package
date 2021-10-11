@@ -29,11 +29,11 @@ const Model_1 = require("./src/Model/Model");
 Object.defineProperty(exports, "Model", { enumerable: true, get: function () { return Model_1.Model; } });
 const GlobalVariables_1 = require("./src/GlobalVariables");
 Object.defineProperty(exports, "GlobalVariables", { enumerable: true, get: function () { return GlobalVariables_1.GlobalVariables; } });
-const EgalConstructor_1 = require("./src/Model/EgalConstructor");
+const EgalConstructor_1 = require("./src/Constructors/EgalConstructor");
 Object.defineProperty(exports, "EgalConstructor", { enumerable: true, get: function () { return EgalConstructor_1.EgalConstructor; } });
-const AuthConstructor_1 = require("./src/Model/AuthConstructor");
+const AuthConstructor_1 = require("./src/Constructors/AuthConstructor");
 Object.defineProperty(exports, "EgalAuthConstructor", { enumerable: true, get: function () { return AuthConstructor_1.EgalAuthConstructor; } });
-const ActionConstructor_1 = require("./src/Actions/ActionConstructor");
+const ActionConstructor_1 = require("./src/Constructors/ActionConstructor");
 Object.defineProperty(exports, "ActionConstructor", { enumerable: true, get: function () { return ActionConstructor_1.ActionConstructor; } });
 exports.default = {
     AuthAction: AuthAction_1.AuthAction,
