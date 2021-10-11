@@ -15,7 +15,7 @@ export class ActionConstructor implements ActionConstructorInterface {
   modelName: string;
   actionName: string;
   actionParams: Array<object> | object;
-  pagination: { per_page: number; page: number };
+  pagination: { per_page: number | undefined; page: number | undefined };
   id: string | number;
   url: string;
   constructor(url: string) {
@@ -26,7 +26,7 @@ export class ActionConstructor implements ActionConstructorInterface {
     this.modelName = "";
     this.actionName = "";
     this.actionParams = [];
-    this.pagination = { per_page: 10, page: 1 };
+    this.pagination = { per_page: undefined, page: undefined };
     this.id = "";
     this.url = url;
     this.setBaseUrl(this.url);

@@ -64,6 +64,7 @@ class AuthAction {
         return new Promise((resolve, reject) => {
             this.setNetworkRequest(createdUserData, auth)
                 .then((data) => {
+                sessionStorage.setItem("umt", data[0]);
                 resolve(data);
             })
                 .catch((error) => {
