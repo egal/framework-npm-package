@@ -24,7 +24,7 @@ export class ValidationConstructor {
         passed: this.validation.errors.first(keys[i].toString())
       };
       errors.push(error);
-      console.log(errors);
+      console.log(errors, 'errors');
     }
     // @ts-ignore
     console.log(this.validation.errors.all(), 'log first');
@@ -34,5 +34,6 @@ export class ValidationConstructor {
     console.log('validate custom');
     // @ts-ignore
     this.validation = new Validator.register(name, callback, message);
+    this.validation.passes();
   }
 }

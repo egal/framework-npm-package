@@ -24,7 +24,7 @@ function validateInputs() {
     })
     // @ts-ignore
     .catch((error) => {
-      console.log(error);
+      console.log(error, 'error from test');
     });
 }
 
@@ -42,7 +42,7 @@ function custom() {
       'The :attribute phone number is not in the format XXX-XXX-XXXX.'
     )
     .then((data: any) => {
-      console.log(data);
+      console.log(data, 'data from custom');
     });
 }
 
