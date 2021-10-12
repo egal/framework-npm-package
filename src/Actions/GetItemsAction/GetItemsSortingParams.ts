@@ -27,9 +27,8 @@ export class GetItemsSortingParams {
         }
       }
       return this.order;
-    }
-    else {
-      return this.order
+    } else {
+      return this.order;
     }
   }
 }

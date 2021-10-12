@@ -1,13 +1,13 @@
-import { Method } from "axios";
-import { HttpRequest } from "../Actions/NetworkRequests/HttpRequest";
-import { SocketRequest } from "../Actions/NetworkRequests/SocketRequest";
-import { AuthParams } from "./AuthParams";
-import { GlobalVariables } from "../GlobalVariables";
-import { ActionParameters } from "../Actions/Interfaces/ActionParameters";
+import { Method } from 'axios';
+import { HttpRequest } from '../Actions/NetworkRequests/HttpRequest';
+import { SocketRequest } from '../Actions/NetworkRequests/SocketRequest';
+import { AuthParams } from './AuthParams';
+import { GlobalVariables } from '../GlobalVariables';
+import { ActionParameters } from '../Actions/Interfaces/ActionParameters';
 
-let register = "registerByEmailAndPassword";
-let auth = "loginByEmailAndPassword";
-let loginIntoService = "loginToService";
+let register = 'registerByEmailAndPassword';
+let auth = 'loginByEmailAndPassword';
+let loginIntoService = 'loginToService';
 
 export class AuthAction {
   private readonly microserviceName: string;
@@ -18,10 +18,10 @@ export class AuthAction {
   private readonly requestType: string;
 
   constructor(modelName: string, requestType: string) {
-    this.microserviceName = "auth";
+    this.microserviceName = 'auth';
     this.modelName = modelName;
-    this.httpMethod = "POST";
-    this.requestAction = "";
+    this.httpMethod = 'POST';
+    this.requestAction = '';
     this.requestType = requestType;
     this.httpRequest = new HttpRequest();
   }
@@ -51,7 +51,7 @@ export class AuthAction {
         this.modelName,
         authParams
       );
-      if (this.requestType === "socket") {
+      if (this.requestType === 'socket') {
         socketRequest.initSocketConnect();
       } else {
         this.httpRequest
@@ -70,7 +70,7 @@ export class AuthAction {
             resolve(returnItems);
           })
           .catch((error) => {
-            let returnError = [error, "error", this.modelName];
+            let returnError = [error, 'error', this.modelName];
             reject(returnError);
           });
       }
@@ -93,7 +93,7 @@ export class AuthAction {
     return new Promise((resolve, reject) => {
       this.setNetworkRequest(createdUserData, auth)
         .then((data: any) => {
-          sessionStorage.setItem("umt", data[0]);
+          sessionStorage.setItem('umt', data[0]);
           resolve(data);
         })
         .catch((error) => {

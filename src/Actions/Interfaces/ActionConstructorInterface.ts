@@ -3,53 +3,21 @@ export interface ActionConstructorInterface {
 
   getItems(microserviceName: string, modelName: string): this;
 
-  getItem(
-    microserviceName: string,
-    modelName: string,
-    id: string | number
-  ): this;
+  getItem(microserviceName: string, modelName: string, id: string | number): this;
 
-  create(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this;
+  create(microserviceName: string, modelName: string, actionParams: object): this;
 
-  update(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this;
+  update(microserviceName: string, modelName: string, actionParams: object): this;
 
-  delete(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this;
+  delete(microserviceName: string, modelName: string, actionParams: object): this;
 
-  createMany(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this;
+  createMany(microserviceName: string, modelName: string, actionParams: object): this;
 
-  updateMany(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this;
+  updateMany(microserviceName: string, modelName: string, actionParams: object): this;
 
-  updateManyWithFilter(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this;
+  updateManyWithFilter(microserviceName: string, modelName: string, actionParams: object): this;
 
-  deleteManyWithFilter(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this;
+  deleteManyWithFilter(microserviceName: string, modelName: string, actionParams: object): this;
 
   custom(
     microserviceName: string,

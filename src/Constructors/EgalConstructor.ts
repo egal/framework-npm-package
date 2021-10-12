@@ -1,5 +1,5 @@
-import { Model } from "../Model/Model";
-import { EventObserver } from "../Actions/NetworkRequests/SocketConnection/Observer";
+import { Model } from '../Model/Model';
+import { EventObserver } from '../Actions/NetworkRequests/SocketConnection/Observer';
 
 export class EgalConstructor extends Model {
   private readonly egalModel: Model;
@@ -36,14 +36,9 @@ export class EgalConstructor extends Model {
     return new Promise((resolve, reject) => {
       this.egalObserver.subscribe(
         this.modelName,
-        (
-          data: any,
-          actionName: string,
-          modelName: string,
-          actionMessage: object
-        ) => {
+        (data: any, actionName: string, modelName: string, actionMessage: object) => {
           let receivedData;
-          if (actionName !== "error") {
+          if (actionName !== 'error') {
             receivedData = [data[0], actionName, modelName, actionMessage];
             resolve(receivedData);
           } else {

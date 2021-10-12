@@ -1,4 +1,4 @@
-import { ActionMessage } from "../ActionMessage";
+import { ActionMessage } from '../ActionMessage';
 
 export class GetAllMetaDataAction extends ActionMessage {
   microserviceName: string;

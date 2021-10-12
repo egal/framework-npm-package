@@ -1,4 +1,4 @@
-import { ActionMessage } from "../ActionMessage";
+import { ActionMessage } from '../ActionMessage';
 
 export class CustomAction extends ActionMessage {
   actionParameters: any;
@@ -6,12 +6,7 @@ export class CustomAction extends ActionMessage {
   modelName: string;
   actionName: string;
 
-  constructor(
-    microserviceName: string,
-    modelName: string,
-    actionName: string,
-    actionParams?: any
-  ) {
+  constructor(microserviceName: string, modelName: string, actionName: string, actionParams?: any) {
     const params = actionParams;
     super(microserviceName, modelName, actionName, params);
     this.actionParameters = params;

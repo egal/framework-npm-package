@@ -1,11 +1,11 @@
-import { ActionConstructorInterface } from "../Actions/Interfaces/ActionConstructorInterface";
-import { GetItemsFilterParams } from "../Actions/GetItemsAction/GetItemsFilterParams";
-import { GetItemsSortingParams } from "../Actions/GetItemsAction/GetItemsSortingParams";
-import { GlobalVariables } from "../GlobalVariables";
-import { CRUDAction } from "../Actions/CRUDActions/CRUDAction";
-import { GetModelMetadataAction } from "../Actions/GetMetadataAction/GetModelMetadataAction";
-import { CustomAction } from "../Actions/CustomAction/CustomAction";
-import { GetItemsAction } from "../Actions/GetItemsAction/GetItemsAction";
+import { ActionConstructorInterface } from '../Actions/Interfaces/ActionConstructorInterface';
+import { GetItemsFilterParams } from '../Actions/GetItemsAction/GetItemsFilterParams';
+import { GetItemsSortingParams } from '../Actions/GetItemsAction/GetItemsSortingParams';
+import { GlobalVariables } from '../GlobalVariables';
+import { CRUDAction } from '../Actions/CRUDActions/CRUDAction';
+import { GetModelMetadataAction } from '../Actions/GetMetadataAction/GetModelMetadataAction';
+import { CustomAction } from '../Actions/CustomAction/CustomAction';
+import { GetItemsAction } from '../Actions/GetItemsAction/GetItemsAction';
 
 export class ActionConstructor implements ActionConstructorInterface {
   filterArr: (string | object)[];
@@ -22,12 +22,12 @@ export class ActionConstructor implements ActionConstructorInterface {
     this.filterArr = [];
     this.ordersArr = [];
     this.withsArr = [];
-    this.microserviceName = "";
-    this.modelName = "";
-    this.actionName = "";
+    this.microserviceName = '';
+    this.modelName = '';
+    this.actionName = '';
     this.actionParams = [];
     this.pagination = { per_page: undefined, page: undefined };
-    this.id = "";
+    this.id = '';
     this.url = url;
     this.setBaseUrl(this.url);
   }
@@ -37,101 +37,69 @@ export class ActionConstructor implements ActionConstructorInterface {
   getMetadata(microserviceName: string, modelName: string): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
-    this.actionName = "getMetadata";
+    this.actionName = 'getMetadata';
     return this;
   }
   getItems(microserviceName: string, modelName: string): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
-    this.actionName = "getItems";
+    this.actionName = 'getItems';
     return this;
   }
-  getItem(
-    microserviceName: string,
-    modelName: string,
-    id: string | number
-  ): this {
+  getItem(microserviceName: string, modelName: string, id: string | number): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
-    this.actionName = "getItem";
+    this.actionName = 'getItem';
     this.id = id;
     return this;
   }
-  create(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this {
+  create(microserviceName: string, modelName: string, actionParams: object): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
     this.actionParams = actionParams;
-    this.actionName = "create";
+    this.actionName = 'create';
     return this;
   }
-  update(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this {
+  update(microserviceName: string, modelName: string, actionParams: object): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
     this.actionParams = actionParams;
-    this.actionName = "update";
+    this.actionName = 'update';
     return this;
   }
-  delete(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this {
+  delete(microserviceName: string, modelName: string, actionParams: object): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
     this.actionParams = actionParams;
-    this.actionName = "delete";
+    this.actionName = 'delete';
     return this;
   }
-  createMany(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this {
+  createMany(microserviceName: string, modelName: string, actionParams: object): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
     this.actionParams = actionParams;
-    this.actionName = "createMany";
+    this.actionName = 'createMany';
     return this;
   }
-  updateMany(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this {
+  updateMany(microserviceName: string, modelName: string, actionParams: object): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
     this.actionParams = actionParams;
-    this.actionName = "updateMany";
+    this.actionName = 'updateMany';
     return this;
   }
-  updateManyWithFilter(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this {
+  updateManyWithFilter(microserviceName: string, modelName: string, actionParams: object): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
     this.actionParams = actionParams;
-    this.actionName = "updateManyRaw";
+    this.actionName = 'updateManyRaw';
     return this;
   }
-  deleteManyWithFilter(
-    microserviceName: string,
-    modelName: string,
-    actionParams: object
-  ): this {
+  deleteManyWithFilter(microserviceName: string, modelName: string, actionParams: object): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
     this.actionParams = actionParams;
-    this.actionName = "deleteManyRaw";
+    this.actionName = 'deleteManyRaw';
     return this;
   }
   custom(
@@ -149,7 +117,7 @@ export class ActionConstructor implements ActionConstructorInterface {
   getCount(microserviceName: string, modelName: string): this {
     this.microserviceName = microserviceName;
     this.modelName = modelName;
-    this.actionName = "getCount";
+    this.actionName = 'getCount';
     return this;
   }
   filter(filterObject: (string | object)[]): this {
@@ -178,13 +146,13 @@ export class ActionConstructor implements ActionConstructorInterface {
         filter: this.filterArr,
         withs: this.withsArr,
         order: this.ordersArr,
-        id: this.id,
+        id: this.id
       };
       GlobalVariables.tokenUST = this.microserviceName;
       switch (this.actionName) {
-        case "getItems":
-        case "getItem":
-        case "getCount":
+        case 'getItems':
+        case 'getItem':
+        case 'getCount':
           result = new GetItemsAction(
             this.microserviceName,
             this.modelName,
@@ -199,7 +167,7 @@ export class ActionConstructor implements ActionConstructorInterface {
               reject(error);
             });
           break;
-        case "getMetadata":
+        case 'getMetadata':
           result = new GetModelMetadataAction(
             this.microserviceName,
             this.actionName,
@@ -213,7 +181,7 @@ export class ActionConstructor implements ActionConstructorInterface {
               reject(error);
             });
           break;
-        case "custom":
+        case 'custom':
           result = new CustomAction(
             this.microserviceName,
             this.modelName,

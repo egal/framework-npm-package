@@ -15,6 +15,7 @@ import { GlobalVariables } from "./src/GlobalVariables";
 import { EgalConstructor } from "./src/Constructors/EgalConstructor";
 import { EgalAuthConstructor } from "./src/Constructors/AuthConstructor";
 import { ActionConstructor } from "./src/Constructors/ActionConstructor";
+import { ValidationConstructor } from "./src/Constructors/ValidationConstructor";
 
 export default {
   AuthAction,
@@ -34,6 +35,7 @@ export default {
   EgalConstructor,
   EgalAuthConstructor,
   ActionConstructor,
+  ValidationConstructor,
 };
 
 export {
@@ -54,4 +56,5 @@ export {
   EgalConstructor,
   EgalAuthConstructor,
   ActionConstructor,
+  ValidationConstructor,
 };

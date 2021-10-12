@@ -1,5 +1,5 @@
-import { ActionMessage } from "../ActionMessage";
-import { GetItemsActionParams } from "./GetItemsActionParams";
+import { ActionMessage } from '../ActionMessage';
+import { GetItemsActionParams } from './GetItemsActionParams';
 
 export class GetItemsAction extends ActionMessage {
   actionParameters: GetItemsActionParams;
@@ -7,12 +7,7 @@ export class GetItemsAction extends ActionMessage {
   modelName: string;
   actionName: string;
 
-  constructor(
-    microserviceName: string,
-    modelName: string,
-    actionName: string,
-    actionParams?: any
-  ) {
+  constructor(microserviceName: string, modelName: string, actionName: string, actionParams?: any) {
     const params = actionParams ?? new GetItemsActionParams();
     super(microserviceName, actionName, modelName, params);
     this.actionParameters = params;
