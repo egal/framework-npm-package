@@ -2,44 +2,39 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
 const ValidationConstructor_js_1 = require("./compile/src/Constructors/ValidationConstructor.js");
-console.log('test');
+let input = {
+    name: 'Doeiop',
+    salary: '10,000.00',
+    yearOfBirth: '1980'
+};
+let rules = {
+    name: 'required|size:3',
+    salary: ['required', 'regex:/^(?!0\\.00)\\d{1,3}(,\\d{3})*(\\.\\d\\d)?$/'],
+    yearOfBirth: ['required', 'regex:/^(19|20)[\\d]{2,2}$/']
+};
+let message = { alpha: 'You forgot to give a :attribute', required: 'hui' };
+let validator = new ValidationConstructor_js_1.ValidationConstructor(input, rules);
 function validateInputs() {
-    const email = 'fhdjsk fhdsjkfh';
-    const password = undefined;
-    const date = 'bhhkjj';
-    let input = {
-        name: '663465',
-        date: undefined
-    };
-    let rules = {
-        name: 'alpha',
-        date: 'required'
-    };
-    let message = { alpha: 'You forgot to give a :attribute' };
-    let validator = new ValidationConstructor_js_1.ValidationConstructor(input, rules, message);
+    // validator.createValidationRule(
+    //   'telephone',
+    //   function (value: string) {
+    //     return value.match(/^\d{3}-\d{3}-\d{4}$/);
+    //   },
+    //   'The :attribute phone number is not in the format XXX-XXX-XXXX.'
+    // );
+    let messages = validator.getAllErrorMessages('en');
+    console.log(validator.getAllErrorMessages('en'));
+    validator.overrideDefaultMessage('required', 'Whoops, :attribute field is required.');
+    validator.changeLanguage('ru');
+    console.log(validator.getAllAvailableRules());
+    validator.getAllAvailableRules();
     validator
         .validate()
-        // @ts-ignore
         .then((data) => {
         console.log(data, 'data');
     })
-        // @ts-ignore
         .catch((error) => {
         console.log(error, 'error from test');
     });
 }
-function custom() {
-    let validator = new ValidationConstructor_js_1.ValidationConstructor();
-    let tel = 'uyuirwy';
-    validator
-        .validateCustom('telephone', function (tel, requirement, attribute) {
-        // requirement parameter defaults to null
-        console.log(tel, 'value');
-        return tel.match(/^\d{3}-\d{3}-\d{4}$/);
-    }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.')
-        .then((data) => {
-        console.log(data, 'data from custom');
-    });
-}
 validateInputs();
-custom();

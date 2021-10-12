@@ -4,38 +4,55 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidationConstructor = void 0;
-// @ts-ignore
 const validatorjs_1 = __importDefault(require("validatorjs"));
+require("validatorjs/dist/lang/ru.js");
 class ValidationConstructor {
     constructor(data, rules, customMessages) {
         this.data = data;
         this.rules = rules;
         this.customMessages = customMessages;
+        this.validation = new validatorjs_1.default(this.data, this.rules, this.customMessages);
+        validatorjs_1.default.useLang('ru');
     }
     async validate() {
-        this.validation = new validatorjs_1.default(this.data, this.rules, this.customMessages);
         this.validation.passes();
-        // @ts-ignore
         let keys = Object.keys(this.data);
         let errors = [];
         let error;
         for (let i in keys) {
-            error = {
-                field: keys[i],
-                passed: this.validation.errors.first(keys[i].toString())
-            };
-            errors.push(error);
-            console.log(errors, 'errors');
+            if (this.validation.errors.first(keys[i])) {
+                error = {
+                    field: keys[i],
+                    error: this.validation.errors.first(keys[i].toString())
+                };
+                errors.push(error);
+            }
         }
-        // @ts-ignore
-        console.log(this.validation.errors.all(), 'log first');
-        return errors;
+        if (errors.length) {
+            return errors;
+        }
+        else {
+            return this.validation.passes();
+        }
     }
-    async validateCustom(name, callback, message) {
-        console.log('validate custom');
+    createValidationRule(name, callback, message) {
+        validatorjs_1.default.register(name, callback, message);
+    }
+    overrideDefaultMessage(rule, message) {
+        let messages = validatorjs_1.default.getMessages('en');
+        messages[rule] = message;
+        validatorjs_1.default.setMessages('en', messages);
+    }
+    changeLanguage(languageCode) {
+        console.log('change language', validatorjs_1.default.getDefaultLang());
+        validatorjs_1.default.useLang('ru');
+    }
+    getAllErrorMessages(languageCode) {
+        return validatorjs_1.default.getMessages(languageCode);
+    }
+    getAllAvailableRules() {
         // @ts-ignore
-        this.validation = new validatorjs_1.default.register(name, callback, message);
-        this.validation.passes();
+        // return JSON.stringify(rules);
     }
 }
 exports.ValidationConstructor = ValidationConstructor;
