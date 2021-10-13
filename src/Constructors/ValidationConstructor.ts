@@ -1,5 +1,5 @@
 import Validator, { ErrorMessages, RegisterCallback } from 'validatorjs';
-import rules from '../Helpers/ValidationRules.json';
+import { rules } from '../Helpers/ValidationRules';
 import 'validatorjs/dist/lang/ru.js';
 export class ValidationConstructor {
   data: object;
@@ -36,7 +36,12 @@ export class ValidationConstructor {
     }
   }
 
-  createValidationRule(name: string, callback: RegisterCallback, message: string) {
+  createValidationRule(
+    name: string,
+    callback: (value: string | number | Boolean) => RegExpMatchArray | null,
+    message: string
+  ) {
+    // @ts-ignore
     Validator.register(name, callback, message);
   }
 
@@ -55,7 +60,6 @@ export class ValidationConstructor {
     return Validator.getMessages(languageCode);
   }
   getAllAvailableRules() {
-    // @ts-ignore
-    // return JSON.stringify(rules);
+    return rules;
   }
 }

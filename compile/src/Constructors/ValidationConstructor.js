@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidationConstructor = void 0;
 const validatorjs_1 = __importDefault(require("validatorjs"));
+const ValidationRules_1 = require("../Helpers/ValidationRules");
 require("validatorjs/dist/lang/ru.js");
 class ValidationConstructor {
     constructor(data, rules, customMessages) {
@@ -36,6 +37,7 @@ class ValidationConstructor {
         }
     }
     createValidationRule(name, callback, message) {
+        // @ts-ignore
         validatorjs_1.default.register(name, callback, message);
     }
     overrideDefaultMessage(rule, message) {
@@ -51,8 +53,7 @@ class ValidationConstructor {
         return validatorjs_1.default.getMessages(languageCode);
     }
     getAllAvailableRules() {
-        // @ts-ignore
-        // return JSON.stringify(rules);
+        return ValidationRules_1.rules;
     }
 }
 exports.ValidationConstructor = ValidationConstructor;
