@@ -1,6 +1,9 @@
-import Validator, { ErrorMessages, RegisterCallback } from 'validatorjs';
+import Validator, { ErrorMessages } from 'validatorjs';
 import { rules } from '../Helpers/ValidationRules';
-import 'validatorjs/dist/lang/ru.js';
+export let setErrorLang = (lang: string) => {
+  Validator.useLang(lang);
+};
+
 export class ValidationConstructor {
   data: object;
   rules: object | undefined;
@@ -12,7 +15,6 @@ export class ValidationConstructor {
     this.rules = rules;
     this.customMessages = customMessages;
     this.validation = new Validator(this.data, <Validator.Rules>this.rules, this.customMessages);
-    Validator.useLang('ru');
   }
 
   async validate() {
@@ -49,11 +51,6 @@ export class ValidationConstructor {
     let messages = Validator.getMessages('en');
     messages[rule] = message;
     Validator.setMessages('en', messages);
-  }
-
-  changeLanguage(languageCode: string) {
-    console.log('change language', Validator.getDefaultLang());
-    Validator.useLang('ru');
   }
 
   getAllErrorMessages(languageCode: string) {

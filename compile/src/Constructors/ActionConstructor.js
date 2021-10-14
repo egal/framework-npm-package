@@ -25,6 +25,13 @@ class ActionConstructor {
     setBaseUrl(url) {
         GlobalVariables_1.GlobalVariables.httpBaseUrl = url;
     }
+    clearParams() {
+        this.filterArr = [];
+        this.ordersArr = [];
+        this.withsArr = [];
+        this.pagination = { per_page: undefined, page: undefined };
+        this.id = '';
+    }
     getMetadata(microserviceName, modelName) {
         this.microserviceName = microserviceName;
         this.modelName = modelName;
@@ -32,12 +39,14 @@ class ActionConstructor {
         return this;
     }
     getItems(microserviceName, modelName) {
+        this.clearParams();
         this.microserviceName = microserviceName;
         this.modelName = modelName;
         this.actionName = 'getItems';
         return this;
     }
     getItem(microserviceName, modelName, id) {
+        this.clearParams();
         this.microserviceName = microserviceName;
         this.modelName = modelName;
         this.actionName = 'getItem';
@@ -94,6 +103,7 @@ class ActionConstructor {
         return this;
     }
     custom(microserviceName, modelName, actionName, actionParams) {
+        this.clearParams();
         this.microserviceName = microserviceName;
         this.modelName = modelName;
         this.actionParams = actionParams;
@@ -101,6 +111,7 @@ class ActionConstructor {
         return this;
     }
     getCount(microserviceName, modelName) {
+        this.clearParams();
         this.microserviceName = microserviceName;
         this.modelName = modelName;
         this.actionName = 'getCount';

@@ -1,6 +1,8 @@
 // @ts-ignore
 import { ValidationConstructor } from './compile/src/Constructors/ValidationConstructor';
-
+// @ts-ignore
+import { setErrorLang } from './compile/src/Constructors/ValidationConstructor';
+setErrorLang('ru');
 // simple rules
 let data = {
   name: '',
@@ -57,7 +59,6 @@ let message = {
 //   name: [{ required_if: ['age', 30] }]
 // };
 let validator = new ValidationConstructor(data, rules, message);
-
 function validateInputs() {
   validator.createValidationRule(
     'telephone',
@@ -68,7 +69,7 @@ function validateInputs() {
   );
   validator.getAllErrorMessages('en');
   console.log(validator.getAllErrorMessages('en'));
-  // validator.overrideDefaultMessage('required', 'Whoops, :attribute field is required.');
+  validator.overrideDefaultMessage('required', 'Whoops, :attribute field is required.');
   console.log(validator.getAllAvailableRules());
   validator.getAllAvailableRules();
   validator
