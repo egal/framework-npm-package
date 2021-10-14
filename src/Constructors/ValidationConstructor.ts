@@ -38,19 +38,21 @@ export class ValidationConstructor {
     }
   }
 
-  createValidationRule(
-    name: string,
-    callback: (value: string | number | Boolean) => RegExpMatchArray | null,
-    message: string
-  ) {
+  createValidationRule(ruleObject: {
+    name: string;
+    callback: (value: string | number | Boolean) => RegExpMatchArray | null;
+    message: string;
+  }) {
     // @ts-ignore
-    Validator.register(name, callback, message);
+    Validator.register(ruleObject.name, ruleObject.callback, ruleObject.message);
   }
 
-  overrideDefaultMessage(rule: string, message: string) {
-    let messages = Validator.getMessages('en');
+  overrideDefaultMessage(rule: string, message: string, lang?: string) {
+    let language;
+    lang ? (language = lang) : (language = 'en');
+    let messages = Validator.getMessages(language);
     messages[rule] = message;
-    Validator.setMessages('en', messages);
+    Validator.setMessages(language, messages);
   }
 
   getAllErrorMessages(languageCode: string) {

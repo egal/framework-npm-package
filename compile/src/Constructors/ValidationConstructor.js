@@ -38,14 +38,16 @@ class ValidationConstructor {
             return this.validation.passes();
         }
     }
-    createValidationRule(name, callback, message) {
+    createValidationRule(ruleObject) {
         // @ts-ignore
-        validatorjs_1.default.register(name, callback, message);
+        validatorjs_1.default.register(ruleObject.name, ruleObject.callback, ruleObject.message);
     }
-    overrideDefaultMessage(rule, message) {
-        let messages = validatorjs_1.default.getMessages('en');
+    overrideDefaultMessage(rule, message, lang) {
+        let language;
+        lang ? (language = lang) : (language = 'en');
+        let messages = validatorjs_1.default.getMessages(language);
         messages[rule] = message;
-        validatorjs_1.default.setMessages('en', messages);
+        validatorjs_1.default.setMessages(language, messages);
     }
     getAllErrorMessages(languageCode) {
         return validatorjs_1.default.getMessages(languageCode);
