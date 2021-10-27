@@ -1,15 +1,16 @@
 {
   "name": "@egalteam/framework",
   "description": "Egal",
-  "main": "index.js",
-  "typings": "dist/index.d.ts",
+  "main": "compile/index.js",
+  "types": "compile/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node index.js",
     "watch-and-run": "tsc -w & nodemon -q -w src index.js",
     "dev:watch": "nodemon --watch ./src/**/* -e ts,tsx --exec ts-node index.ts",
     "serve": "vue-cli-service serve",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "build": "tsc -w"
   },
   "keywords": [
     "actions",
@@ -21,10 +22,7 @@
     "@types/stompjs": "^2.3.4",
     "axios": "^0.21.1",
     "prettier": "^2.2.1",
-    "sockjs-client": "^1.5.1",
-    "stompjs": "^2.3.3",
     "typescript": "^4.2.3",
-    "uuid": "^8.3.2",
     "validatorjs": "^3.22.1"
   },
   "devDependencies": {

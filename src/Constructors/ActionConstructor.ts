@@ -31,10 +31,10 @@ export class ActionConstructor implements ActionConstructorInterface {
     this.url = url;
     this.setBaseUrl(this.url);
   }
-  setBaseUrl(url: string) {
+  setBaseUrl(url: string): void {
     GlobalVariables.httpBaseUrl = url;
   }
-  clearParams() {
+  clearParams(): void {
     this.filterArr = [];
     this.ordersArr = [];
     this.withsArr = [];
@@ -149,7 +149,7 @@ export class ActionConstructor implements ActionConstructorInterface {
     this.pagination = { per_page: perPage, page: page };
     return this;
   }
-  call() {
+  call(): Promise<any> {
     return new Promise((resolve, reject) => {
       let result;
       let actionParameters = {

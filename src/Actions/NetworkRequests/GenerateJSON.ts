@@ -22,7 +22,7 @@ export class GenerateJSON {
     actionParameters: ActionParameters | undefined,
     token: string | null,
     uuid: string
-  ) {
+  ): any {
     const parametersCRUD: ParametersInterface = { attributes: {} };
     const parametersMany: ParametersInterface = { objects: {} };
     const parametersDeleteMany: ParametersInterface = { ids: [] };
@@ -101,7 +101,7 @@ export class GenerateJSON {
     }
   }
 
-  formFilter(filterObj: (string | object)[] | undefined) {
+  formFilter(filterObj: (string | object)[] | undefined): (string | object)[] {
     const newFilterObj = new GetItemsFilterParams(filterObj);
     newFilterObj.checkFilterType();
     return newFilterObj.formFilterObject();

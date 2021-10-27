@@ -1,6 +1,8 @@
-import Validator, { ErrorMessages } from 'validatorjs';
+// import Validator, { ErrorMessages } from 'validatorjs';
+import * as Validator from 'validatorjs';
+import { ErrorMessages } from 'validatorjs';
 import { rules } from '../Helpers/ValidationRules';
-export let setErrorLang = (lang: string) => {
+export let setErrorLang: any = (lang: string) => {
   Validator.useLang(lang);
 };
 
@@ -14,10 +16,11 @@ export class ValidationConstructor {
     this.data = data;
     this.rules = rules;
     this.customMessages = customMessages;
+    // @ts-ignore
     this.validation = new Validator(this.data, <Validator.Rules>this.rules, this.customMessages);
   }
 
-  async validate() {
+  async validate(): Promise<any> {
     this.validation.passes();
     let keys = Object.keys(this.data);
     let errors = [];
@@ -42,12 +45,12 @@ export class ValidationConstructor {
     name: string;
     callback: (value: string | number | Boolean) => RegExpMatchArray | null;
     message: string;
-  }) {
+  }): void {
     // @ts-ignore
     Validator.register(ruleObject.name, ruleObject.callback, ruleObject.message);
   }
 
-  overrideDefaultMessage(rule: string, message: string, lang?: string) {
+  overrideDefaultMessage(rule: string, message: string, lang?: string): void {
     let language;
     lang ? (language = lang) : (language = 'en');
     let messages = Validator.getMessages(language);
@@ -55,10 +58,10 @@ export class ValidationConstructor {
     Validator.setMessages(language, messages);
   }
 
-  getAllErrorMessages(languageCode: string) {
+  getAllErrorMessages(languageCode: string): any {
     return Validator.getMessages(languageCode);
   }
-  getAllAvailableRules() {
+  getAllAvailableRules(): any {
     return rules;
   }
 }

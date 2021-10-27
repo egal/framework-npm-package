@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthAction = void 0;
 const HttpRequest_1 = require("../Actions/NetworkRequests/HttpRequest");
-const SocketRequest_1 = require("../Actions/NetworkRequests/SocketRequest");
 const AuthParams_1 = require("./AuthParams");
 const GlobalVariables_1 = require("../GlobalVariables");
 let register = 'registerByEmailAndPassword';
@@ -29,24 +28,18 @@ class AuthAction {
     setNetworkRequest(userData, requestType, tokenName) {
         return new Promise((resolve, reject) => {
             let authParams = new AuthParams_1.AuthParams().setAuthParams(userData);
-            let socketRequest = new SocketRequest_1.SocketRequest(this.microserviceName, requestType, this.modelName, authParams);
-            if (this.requestType === 'socket') {
-                socketRequest.initSocketConnect();
-            }
-            else {
-                this.httpRequest
-                    .axiosConnect(this.microserviceName, this.modelName, requestType, this.httpMethod, authParams, tokenName)
-                    .then((response) => {
-                    let action = response.data.action.action_name;
-                    let items = response.data.action_result.data;
-                    let returnItems = [items, action, this.modelName];
-                    resolve(returnItems);
-                })
-                    .catch((error) => {
-                    let returnError = [error, 'error', this.modelName];
-                    reject(returnError);
-                });
-            }
+            this.httpRequest
+                .axiosConnect(this.microserviceName, this.modelName, requestType, this.httpMethod, authParams, tokenName)
+                .then((response) => {
+                let action = response.data.action.action_name;
+                let items = response.data.action_result.data;
+                let returnItems = [items, action, this.modelName];
+                resolve(returnItems);
+            })
+                .catch((error) => {
+                let returnError = [error, 'error', this.modelName];
+                reject(returnError);
+            });
         });
     }
     registerNewUser(newUserData) {

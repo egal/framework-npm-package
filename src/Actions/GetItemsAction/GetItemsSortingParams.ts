@@ -1,5 +1,10 @@
+type ReturnSortingObject = {
+  column: string | undefined;
+  direction: string | undefined;
+};
+
 export class GetItemsSortingParams {
-  order: object[];
+  order: ReturnSortingObject[];
 
   constructor() {
     this.order = [];
@@ -9,7 +14,7 @@ export class GetItemsSortingParams {
    * Функция формирует массив с выбранными пользователем сортировками для передачи в параметры запроса
    * @param receivedOrderArr
    */
-  createOrderObj(receivedOrderArr: (string[] | string)[] | undefined) {
+  createOrderObj(receivedOrderArr: (string[] | string)[] | undefined): ReturnSortingObject[] {
     if (receivedOrderArr) {
       if (receivedOrderArr.length <= 1) {
         const orderObj = {

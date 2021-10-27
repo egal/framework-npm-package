@@ -6,20 +6,20 @@ export class GlobalVariables {
   public static tokenUMT: string;
 }
 
-export const decipherJWT = function (token: string) {
+export const decipherJWT = function (token: string): any {
   let base64Url = token.split('.')[1];
   let base64 = base64Url.replace('-', '+').replace('_', '/');
   // @ts-ignore
   return JSON.parse(Buffer.from(base64, 'base64').toString('binary'));
 };
 
-export const setCookie = async function (name: string, token: string) {
+export const setCookie = async function (name: string, token: string): Promise<any> {
   let decipheredJWT = await decipherJWT(token);
   let expirationDate = decipheredJWT.alive_until;
   document.cookie = name + '=' + token + '; expires=' + expirationDate + ';samesite=strict;secure;';
 };
 
-export const getCookie = function (cname: string) {
+export const getCookie = function (cname: string): any {
   const name = cname + '=';
   const decodedCookie = decodeURIComponent(document.cookie);
   const cookieParts = decodedCookie.split(';');
@@ -35,7 +35,7 @@ export const getCookie = function (cname: string) {
   return '';
 };
 
-export const deleteAllCookies = function () {
+export const deleteAllCookies = function (): void {
   let cookies = document.cookie.split(';');
   for (let i = 0; i < cookies.length; i++) {
     let cookie = cookies[i];
@@ -45,6 +45,6 @@ export const deleteAllCookies = function () {
   }
 };
 
-export const deleteCookie = function (name: string) {
+export const deleteCookie = function (name: string): void {
   document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 };

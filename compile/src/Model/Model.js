@@ -5,7 +5,6 @@ const GetItemsAction_1 = require("../Actions/GetItemsAction/GetItemsAction");
 const CRUDAction_1 = require("../Actions/CRUDActions/CRUDAction");
 const CustomAction_1 = require("../Actions/CustomAction/CustomAction");
 const GetModelMetadataAction_1 = require("../Actions/GetMetadataAction/GetModelMetadataAction");
-const DataFormatter_1 = require("./DataFormatter");
 const Observer_1 = require("../Actions/NetworkRequests/SocketConnection/Observer");
 const GlobalVariables_1 = require("../GlobalVariables");
 const ModelConnection_1 = require("./ModelConnection");
@@ -231,11 +230,10 @@ class Model {
      * @param filterType
      * @param dataToFilter
      */
-    getSpecificFields(fields, filterType, dataToFilter) {
-        if (filterType === 'includes')
-            return new DataFormatter_1.DataFormatter(fields, dataToFilter).include();
-        return new DataFormatter_1.DataFormatter(fields, dataToFilter).exclude();
-    }
+    // getSpecificFields(fields: string[], filterType: string, dataToFilter: object[]) {
+    // if (filterType === 'includes') return new DataFormatter(fields, dataToFilter).include();
+    // return new DataFormatter(fields, dataToFilter).exclude();
+    // }
     /**
      * позволяет получить уже запрошенные айтемы модели
      */

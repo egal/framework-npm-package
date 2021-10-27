@@ -3,7 +3,6 @@ import { GetItemsAction } from '../Actions/GetItemsAction/GetItemsAction';
 import { CRUDAction } from '../Actions/CRUDActions/CRUDAction';
 import { CustomAction } from '../Actions/CustomAction/CustomAction';
 import { GetModelMetadataAction } from '../Actions/GetMetadataAction/GetModelMetadataAction';
-import { DataFormatter } from './DataFormatter';
 import { MetaDataInterface } from './MetaDataInterface';
 import { EventObserver } from '../Actions/NetworkRequests/SocketConnection/Observer';
 import { GlobalVariables } from '../GlobalVariables';
@@ -13,20 +12,20 @@ import { ModelConnection } from './ModelConnection';
 const observer: EventObserver = EventObserver.getInstance();
 
 export class Model implements ModelInterface {
-  public modelName: string;
+  modelName: string;
   username: string;
   password: string;
-  private modelMetaData!: MetaDataInterface;
-  private readonly modelItems: (string | object)[];
-  private modelActionList: string[];
-  private readonly modelValidationRules: object;
-  private modelActionsMetaData: object;
-  private actionResponse: string | object;
-  private databaseFields: string[];
-  private fieldsWithTypes: object[];
-  private allModelsMetadata: string | object;
-  private tokenUst: string;
-  private tokenUmt: boolean;
+  modelMetaData!: MetaDataInterface;
+  modelItems: (string | object)[];
+  modelActionList: string[];
+  modelValidationRules: object;
+  modelActionsMetaData: object;
+  actionResponse: string | object;
+  databaseFields: string[];
+  fieldsWithTypes: object[];
+  allModelsMetadata: string | object;
+  tokenUst: string;
+  tokenUmt: boolean;
   constructor(username: string, password: string, modelName: string) {
     this.modelName = modelName;
     this.username = username;
@@ -43,7 +42,7 @@ export class Model implements ModelInterface {
     this.tokenUst = '';
   }
 
-  setAuthToken(token: string) {
+  setAuthToken(token: string): void {
     GlobalVariables.tokenUST = token;
   }
   /**
@@ -51,7 +50,7 @@ export class Model implements ModelInterface {
    * @param microserviceName
    * @param connectionType
    */
-  actionGetMetadata(microserviceName: string, connectionType: string) {
+  actionGetMetadata(microserviceName: string, connectionType: string): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeGetMetadataRequest = new GetModelMetadataAction(
       microserviceName,
@@ -81,7 +80,7 @@ export class Model implements ModelInterface {
     withs?: string | string[],
     orders?: string[][],
     actionName?: string
-  ) {
+  ): void {
     let userGetItems = actionName !== undefined ? actionName : 'getItems';
     GlobalVariables.tokenUST = microserviceName;
     const initializeGetItems = new GetItemsAction(microserviceName, this.modelName, userGetItems);
@@ -110,7 +109,7 @@ export class Model implements ModelInterface {
     filter?: (string | object)[] | undefined,
     withs?: [],
     orders?: string[][]
-  ) {
+  ): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeGetItem = new GetItemsAction(microserviceName, this.modelName, 'getItem');
     initializeGetItem.actionParameters.with(withs);
@@ -126,7 +125,7 @@ export class Model implements ModelInterface {
    * @param connectionType
    * @param actionParams
    */
-  actionUpdate(microserviceName: string, connectionType: string, actionParams: object) {
+  actionUpdate(microserviceName: string, connectionType: string, actionParams: object): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionUpdate = new CRUDAction(
       microserviceName,
@@ -144,7 +143,7 @@ export class Model implements ModelInterface {
    * @param actionParams
    */
 
-  actionUpdateMany(microserviceName: string, connectionType: string, actionParams: object) {
+  actionUpdateMany(microserviceName: string, connectionType: string, actionParams: object): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionUpdate = new CRUDAction(
       microserviceName,
@@ -165,7 +164,7 @@ export class Model implements ModelInterface {
     microserviceName: string,
     connectionType: string,
     actionParams: object
-  ) {
+  ): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionUpdateManyWithFilter = new CRUDAction(
       microserviceName,
@@ -188,7 +187,7 @@ export class Model implements ModelInterface {
     connectionType: string,
     actionParams: object,
     channelParameters?: RoutingKeyParams
-  ) {
+  ): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionCreate = new CRUDAction(
       microserviceName,
@@ -207,7 +206,7 @@ export class Model implements ModelInterface {
    * @param actionParams
    */
 
-  actionCreateMany(microserviceName: string, connectionType: string, actionParams: object) {
+  actionCreateMany(microserviceName: string, connectionType: string, actionParams: object): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionCreate = new CRUDAction(
       microserviceName,
@@ -224,7 +223,7 @@ export class Model implements ModelInterface {
    * @param connectionType
    * @param actionParams
    */
-  actionDelete(microserviceName: string, connectionType: string, actionParams: string[]) {
+  actionDelete(microserviceName: string, connectionType: string, actionParams: string[]): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionDelete = new CRUDAction(
       microserviceName,
@@ -242,7 +241,7 @@ export class Model implements ModelInterface {
    * @param actionParams
    */
 
-  actionDeleteMany(microserviceName: string, connectionType: string, actionParams: string[]) {
+  actionDeleteMany(microserviceName: string, connectionType: string, actionParams: string[]): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionDelete = new CRUDAction(
       microserviceName,
@@ -263,7 +262,7 @@ export class Model implements ModelInterface {
     microserviceName: string,
     connectionType: string,
     actionParams: object
-  ) {
+  ): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionDeleteManyWithFilter = new CRUDAction(
       microserviceName,
@@ -287,7 +286,7 @@ export class Model implements ModelInterface {
     actionName: string,
     connectionType: string,
     actionParams?: object
-  ) {
+  ): void {
     GlobalVariables.tokenUST = microserviceName;
     const initializeActionCustom = new CustomAction(
       microserviceName,
@@ -301,14 +300,14 @@ export class Model implements ModelInterface {
   /**
    *   позволяет получить метадату текущей модели
    */
-  getModelMetadata() {
+  getModelMetadata(): any {
     return this.modelMetaData;
   }
 
   /**
    * позволяет получить список доступных модели экшенов (получается с бэка в составе метадаты)
    */
-  getModelActionList() {
+  getModelActionList(): any {
     this.modelActionList = Object.keys(this.modelMetaData.actions_metadata);
     return this.modelActionList;
   }
@@ -316,14 +315,14 @@ export class Model implements ModelInterface {
   /**
    *  позволяет получить правила валидации для всех доступных филдов
    */
-  getModelValidationRules() {
+  getModelValidationRules(): any {
     return this.modelValidationRules;
   }
 
   /**
    *  позволяет получить расширинную информацию по каждому экшену
    */
-  getModelActionsMetaData() {
+  getModelActionsMetaData(): any {
     this.modelActionsMetaData = this.modelMetaData.actions_metadata;
     return this.modelActionsMetaData;
   }
@@ -331,7 +330,7 @@ export class Model implements ModelInterface {
   /**
    *  позволяет получить филды с типом base
    */
-  getModelDataBaseFields() {
+  getModelDataBaseFields(): any {
     this.databaseFields = this.modelMetaData.database_fields;
     return this.databaseFields;
   }
@@ -339,7 +338,7 @@ export class Model implements ModelInterface {
   /**
    *  позволяет получить филды с указанными типами
    */
-  getModelFieldsWithTypes() {
+  getModelFieldsWithTypes(): any {
     this.fieldsWithTypes = this.modelMetaData.fields_with_types;
     return this.fieldsWithTypes;
   }
@@ -355,22 +354,22 @@ export class Model implements ModelInterface {
    * @param dataToFilter
    */
 
-  getSpecificFields(fields: string[], filterType: string, dataToFilter: object[]) {
-    if (filterType === 'includes') return new DataFormatter(fields, dataToFilter).include();
-    return new DataFormatter(fields, dataToFilter).exclude();
-  }
+  // getSpecificFields(fields: string[], filterType: string, dataToFilter: object[]) {
+  // if (filterType === 'includes') return new DataFormatter(fields, dataToFilter).include();
+  // return new DataFormatter(fields, dataToFilter).exclude();
+  // }
 
   /**
    * позволяет получить уже запрошенные айтемы модели
    */
-  getItems() {
+  getItems(): any {
     return this.modelItems;
   }
 
   /**
    * позволяет получить уже запрошенную метадату всех моделей приложения
    */
-  getAllModelsMetadata() {
+  getAllModelsMetadata(): any {
     return this.allModelsMetadata;
   }
 
@@ -380,12 +379,12 @@ export class Model implements ModelInterface {
    * @param connectionType
    */
 
-  setBaseUrl(URL: string, connectionType: string) {
+  setBaseUrl(URL: string, connectionType: string): void {
     if (connectionType === 'socket') GlobalVariables.socketBaseUrl = URL;
     GlobalVariables.httpBaseUrl = URL;
   }
 
-  socketDisconnect() {
+  socketDisconnect(): void {
     observer.broadcastSocketDisconnect('disconnect');
   }
 }

@@ -15,7 +15,7 @@ export class GetItemsFilterParams {
    * Функция разбирает массив с фильтрами, полученный от пользователя
    * и передает каждый айтем в след. функцию
    */
-  checkFilterType() {
+  checkFilterType(): void {
     if (this.userFilterInput) {
       this.userFilterInput.forEach((item: any) => {
         this.createDefaultObjectInstance(item);
@@ -27,7 +27,7 @@ export class GetItemsFilterParams {
    * Функция формирует массив с условиями для одного фильтра
    * @param filterItem
    */
-  createDefaultObjectInstance(filterItem: any) {
+  createDefaultObjectInstance(filterItem: any): void {
     let filterAll: any[][] = [];
     let filterAllLeft: any[][] = [];
     let filterAllRight: any[][] = [];
@@ -103,7 +103,7 @@ export class GetItemsFilterParams {
     }
   }
 
-  formComplexLeftNestedFilter(filterItem: any) {
+  formComplexLeftNestedFilter(filterItem: any): void {
     let filterAllLeft: any[][] = [];
     let filterAllRight: any[][] = [];
     let filterAllRightPart: any[][] = [];
@@ -178,7 +178,7 @@ export class GetItemsFilterParams {
     }
   }
 
-  formComplexRightNestedValue(filterItem: any) {
+  formComplexRightNestedValue(filterItem: any): void {
     let filterAllLeft: any[][] = [];
     let filterAllRight: any[][] = [];
     let filterAllLeftPart: any[][] = [];
@@ -256,7 +256,7 @@ export class GetItemsFilterParams {
   /**
    * Функция формирует массив из всех примененных фильтров для отправки в запросе
    */
-  formFilterObject() {
+  formFilterObject(): (string | object)[] {
     // @ts-ignore
     if (this.tempArr.length > 1 && this.userFilterInput?.length > 1) {
       this.filter = this.tempArr

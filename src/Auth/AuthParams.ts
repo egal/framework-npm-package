@@ -4,12 +4,12 @@ export class AuthParams implements ActionParameters {
   parameters: ActionParameters | undefined;
   constructor() {}
 
-  setAuthParams(params: ActionParameters | undefined) {
+  setAuthParams(params: ActionParameters | undefined): any {
     this.parameters = params;
     return this.parameters;
   }
 
-  toObject() {
+  toObject(): any {
     return { parameters: this.parameters };
   }
 }

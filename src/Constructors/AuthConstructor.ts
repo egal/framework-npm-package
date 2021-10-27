@@ -9,7 +9,7 @@ export class EgalAuthConstructor extends AuthAction {
     this.url = authParams.url;
     this.initAuthAction();
   }
-  initAuthAction() {
+  initAuthAction(): any {
     this.egalAuth.setBaseURL(this.url);
     return this.egalAuth;
   }

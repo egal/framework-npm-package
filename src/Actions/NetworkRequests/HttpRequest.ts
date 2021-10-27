@@ -16,15 +16,15 @@ export class HttpRequest {
     this.actionError = {} as ActionError;
   }
 
-  subscribeTokenRefresh(cb: any) {
+  subscribeTokenRefresh(cb: any): void {
     refreshSubscribers.push(cb);
   }
 
-  onRefreshed(token: any) {
+  onRefreshed(token: any): void {
     refreshSubscribers.map((cb) => cb(token));
   }
 
-  refreshAccessToken(serviceName: string) {
+  refreshAccessToken(serviceName: string): Promise<any> {
     return new Promise((resolve, reject) => {
       if (sessionStorage.getItem('umt')) {
         let domain = GlobalVariables.httpBaseUrl
@@ -59,7 +59,7 @@ export class HttpRequest {
     httpMethod: Method,
     actionParameters: ActionParameters | undefined,
     tokenName?: string
-  ) {
+  ): Promise<any> {
     let domain = GlobalVariables.httpBaseUrl
       ? GlobalVariables.httpBaseUrl
       : GlobalVariables.authBaseUrl;

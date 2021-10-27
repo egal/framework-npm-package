@@ -6,14 +6,14 @@ export class EventObserver {
 
   private constructor() {}
 
-  subscribe(modelName: string, fn: any) {
+  subscribe(modelName: string, fn: any): any {
     return (
       observers.findIndex((item) => item.modelName === modelName) === -1 &&
       observers.push({ modelName, fn })
     );
   }
 
-  unsubscribe(modelName: string) {
+  unsubscribe(modelName: string): any {
     return (observers = observers.filter((subscriber) => subscriber.modelName !== modelName));
   }
 
@@ -22,7 +22,7 @@ export class EventObserver {
     actionName?: string,
     receivedModelName?: string,
     actionMessage?: string | object
-  ) {
+  ): void {
     observers.forEach((subscriber) => {
       if (subscriber.modelName === receivedModelName) {
         subscriber.fn(data, actionName, receivedModelName, actionMessage);
@@ -30,7 +30,7 @@ export class EventObserver {
     });
   }
 
-  broadcastSocketDisconnect(modelName: string) {
+  broadcastSocketDisconnect(modelName: string): void {
     observers.forEach((subscriber) => {
       if (subscriber.modelName === modelName) {
         subscriber.fn(modelName);
@@ -42,7 +42,7 @@ export class EventObserver {
     console.log(observers);
   }
 
-  static getInstance() {
+  static getInstance(): any {
     if (!this.instance) {
       this.instance = new EventObserver();
     }

@@ -17,7 +17,6 @@ class GetItemsActionParams {
      */
     with(withObj) {
         if (withObj) {
-            // @ts-ignore
             Array.isArray(withObj) ? (this.withs = withObj) : this.withs.push(withObj);
         }
         else
