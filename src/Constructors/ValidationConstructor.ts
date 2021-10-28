@@ -50,7 +50,7 @@ export class ValidationConstructor {
     Validator.register(ruleObject.name, ruleObject.callback, ruleObject.message);
   }
 
-  overrideDefaultMessage(rule: string, message: string, lang?: string): void {
+  overrideDefaultMessage(rule: string, message: string, lang?: string): any {
     let language;
     lang ? (language = lang) : (language = 'en');
     let messages = Validator.getMessages(language);

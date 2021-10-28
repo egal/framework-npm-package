@@ -29,8 +29,8 @@ var GlobalVariables_1 = require("./src/GlobalVariables");
 exports.GlobalVariables = GlobalVariables_1.GlobalVariables;
 var EgalConstructor_1 = require("./src/Constructors/EgalConstructor");
 exports.EgalConstructor = EgalConstructor_1.EgalConstructor;
-var AuthConstructor_1 = require("./src/Constructors/AuthConstructor");
-exports.EgalAuthConstructor = AuthConstructor_1.EgalAuthConstructor;
+var EgalAuthConstructor_1 = require("./src/Constructors/EgalAuthConstructor");
+exports.EgalAuthConstructor = EgalAuthConstructor_1.EgalAuthConstructor;
 var ActionConstructor_1 = require("./src/Constructors/ActionConstructor");
 exports.ActionConstructor = ActionConstructor_1.ActionConstructor;
 var ValidationConstructor_1 = require("./src/Constructors/ValidationConstructor");
@@ -56,7 +56,7 @@ exports["default"] = {
     Model: Model_1.Model,
     GlobalVariables: GlobalVariables_1.GlobalVariables,
     EgalConstructor: EgalConstructor_1.EgalConstructor,
-    EgalAuthConstructor: AuthConstructor_1.EgalAuthConstructor,
+    EgalAuthConstructor: EgalAuthConstructor_1.EgalAuthConstructor,
     ActionConstructor: ActionConstructor_1.ActionConstructor,
     ValidationConstructor: ValidationConstructor_1.ValidationConstructor,
     setCookie: GlobalVariables_2.setCookie,

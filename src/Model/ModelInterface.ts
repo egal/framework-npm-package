@@ -1,7 +1,7 @@
 import { RoutingKeyParams } from '../Actions/Interfaces/RoutingKeyParams';
 
 export interface ModelInterface {
-  actionGetMetadata(microserviceName: string, actionName: string, connectionType: string): void;
+  actionGetMetadata(microserviceName: string, actionName: string, connectionType: string): any;
 
   actionGetItem(
     microserviceName: string,
@@ -9,7 +9,7 @@ export interface ModelInterface {
     id: string,
     filter?: (string | object)[] | undefined,
     orders?: object[]
-  ): void;
+  ): any;
 
   actionGetItems(
     microserviceName: string,
@@ -20,36 +20,36 @@ export interface ModelInterface {
     withs?: string | string[] | undefined,
     orders?: object[],
     actionName?: string
-  ): void;
+  ): any;
 
   actionCreate(
     microserviceName: string,
     connectionType: string,
     actionParams?: any,
     channelParameters?: RoutingKeyParams | undefined
-  ): void;
+  ): any;
 
-  actionUpdate(microserviceName: string, connectionType: string, actionParams?: any): void;
+  actionUpdate(microserviceName: string, connectionType: string, actionParams?: any): any;
 
-  actionDelete(microserviceName: string, connectionType: string, actionParams?: any): void;
+  actionDelete(microserviceName: string, connectionType: string, actionParams?: any): any;
 
   actionCreateMany(
     microserviceName: string,
     connectionType: string,
     actionParams?: any,
     channelParameters?: RoutingKeyParams | undefined
-  ): void;
+  ): any;
 
-  actionUpdateMany(microserviceName: string, connectionType: string, actionParams?: any): void;
+  actionUpdateMany(microserviceName: string, connectionType: string, actionParams?: any): any;
 
-  actionDeleteMany(microserviceName: string, connectionType: string, actionParams?: any): void;
+  actionDeleteMany(microserviceName: string, connectionType: string, actionParams?: any): any;
 
   actionCustom(
     microserviceName: string,
     actionName: string,
     connectionType: string,
     actionParams?: object
-  ): void;
+  ): any;
 
   getModelMetadata(): any;
 
@@ -67,13 +67,13 @@ export interface ModelInterface {
     microserviceName: string,
     connectionType: string,
     actionParams: object
-  ): void;
+  ): any;
 
   actionDeleteManyWithFilter(
     microserviceName: string,
     connectionType: string,
     actionParams: object
-  ): void;
+  ): any;
 
   // getSpecificFields(
   //   fields: string[],
@@ -81,5 +81,5 @@ export interface ModelInterface {
   //   dataToFilter: string | object | object[]
   // ): void;
 
-  setBaseUrl(URL: string, connectionType: string): void;
+  setBaseUrl(URL: string, connectionType: string): any;
 }

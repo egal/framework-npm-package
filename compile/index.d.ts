@@ -137,9 +137,9 @@ declare class EventObserver {
     actionName?: string,
     receivedModelName?: string,
     actionMessage?: string | object
-  ): void;
-  broadcastSocketDisconnect(modelName: string): void;
-  checkObservers(): void;
+  ): any;
+  broadcastSocketDisconnect(modelName: string): any;
+  checkObservers(): any;
   static getInstance(): any;
 }
 
@@ -257,7 +257,7 @@ declare class ActionConstructor {
   call(): Promise<any>;
 }
 
-declare class AuthConstructor {
+declare class EgalAuthConstructor {
   constructor(authParams: { modelName: string; url: string; connectionType: string });
   egalAuth: AuthAction;
   url: string;
@@ -298,8 +298,8 @@ declare class ValidationConstructor {
     name: string;
     callback: (value: string | number | Boolean) => RegExpMatchArray | null;
     message: string;
-  }): void;
-  overrideDefaultMessage(rule: string, message: string, lang?: string): void;
+  }): any;
+  overrideDefaultMessage(rule: string, message: string, lang?: string): any;
   getAllErrorMessages(languageCode: string): any;
   getAllAvailableRules(): any;
 }
@@ -327,8 +327,8 @@ declare class Model {
   allModelsMetadata: string | object;
   tokenUst: string;
   tokenUmt: boolean;
-  setAuthToken(token: string): void;
-  actionGetMetadata(microserviceName: string, connectionType: string): void;
+  setAuthToken(token: string): any;
+  actionGetMetadata(microserviceName: string, connectionType: string): any;
   actionGetItems(
     microserviceName: string,
     connectionType: string,
@@ -338,7 +338,7 @@ declare class Model {
     withs?: string | string[],
     orders?: string[][],
     actionName?: string
-  ): void;
+  ): any;
   actionGetItem(
     microserviceName: string,
     connectionType: string,
@@ -346,20 +346,20 @@ declare class Model {
     filter?: (string | object)[] | undefined,
     withs?: [],
     orders?: string[][]
-  ): void;
-  actionUpdate(microserviceName: string, connectionType: string, actionParams: object): void;
-  actionUpdateMany(microserviceName: string, connectionType: string, actionParams: object): void;
+  ): any;
+  actionUpdate(microserviceName: string, connectionType: string, actionParams: object): any;
+  actionUpdateMany(microserviceName: string, connectionType: string, actionParams: object): any;
   actionUpdateManyWithFilter(
     microserviceName: string,
     connectionType: string,
     actionParams: object
-  ): void;
+  ): any;
   actionCreate(
     microserviceName: string,
     connectionType: string,
     actionParams: object,
     channelParameters?: RoutingKeyParams
-  ): void;
+  ): any;
   actionCreateMany(microserviceName: string, connectionType: string, actionParams: object): void;
   actionDelete(microserviceName: string, connectionType: string, actionParams: string[]): void;
   actionDeleteMany(microserviceName: string, connectionType: string, actionParams: string[]): void;
@@ -367,13 +367,13 @@ declare class Model {
     microserviceName: string,
     connectionType: string,
     actionParams: object
-  ): void;
+  ): any;
   actionCustom(
     microserviceName: string,
     actionName: string,
     connectionType: string,
     actionParams?: object
-  ): void;
+  ): any;
   getModelMetadata(): any;
   getModelActionList(): any;
   getModelValidationRules(): any;
@@ -383,7 +383,7 @@ declare class Model {
   getItems(): any;
   getAllModelsMetadata(): any;
   setBaseUrl(URL: string, connectionType: string): void;
-  socketDisconnect(): void;
+  socketDisconnect(): any;
 }
 
 declare class ModelConnection {
@@ -479,7 +479,7 @@ interface MetaDataInterface {
 }
 
 interface ModelInterface {
-  actionGetMetadata(microserviceName: string, actionName: string, connectionType: string): void;
+  actionGetMetadata(microserviceName: string, actionName: string, connectionType: string): any;
 
   actionGetItem(
     microserviceName: string,
@@ -487,7 +487,7 @@ interface ModelInterface {
     id: string,
     filter?: (string | object)[] | undefined,
     orders?: object[]
-  ): void;
+  ): any;
 
   actionGetItems(
     microserviceName: string,
@@ -498,36 +498,36 @@ interface ModelInterface {
     withs?: string | string[] | undefined,
     orders?: object[],
     actionName?: string
-  ): void;
+  ): any;
 
   actionCreate(
     microserviceName: string,
     connectionType: string,
     actionParams?: any,
     channelParameters?: RoutingKeyParams | undefined
-  ): void;
+  ): any;
 
-  actionUpdate(microserviceName: string, connectionType: string, actionParams?: any): void;
+  actionUpdate(microserviceName: string, connectionType: string, actionParams?: any): any;
 
-  actionDelete(microserviceName: string, connectionType: string, actionParams?: any): void;
+  actionDelete(microserviceName: string, connectionType: string, actionParams?: any): any;
 
   actionCreateMany(
     microserviceName: string,
     connectionType: string,
     actionParams?: any,
     channelParameters?: RoutingKeyParams | undefined
-  ): void;
+  ): any;
 
-  actionUpdateMany(microserviceName: string, connectionType: string, actionParams?: any): void;
+  actionUpdateMany(microserviceName: string, connectionType: string, actionParams?: any): any;
 
-  actionDeleteMany(microserviceName: string, connectionType: string, actionParams?: any): void;
+  actionDeleteMany(microserviceName: string, connectionType: string, actionParams?: any): any;
 
   actionCustom(
     microserviceName: string,
     actionName: string,
     connectionType: string,
     actionParams?: object
-  ): void;
+  ): any;
 
   getModelMetadata(): any;
 
@@ -545,13 +545,13 @@ interface ModelInterface {
     microserviceName: string,
     connectionType: string,
     actionParams: object
-  ): void;
+  ): any;
 
   actionDeleteManyWithFilter(
     microserviceName: string,
     connectionType: string,
     actionParams: object
-  ): void;
+  ): any;
   setBaseUrl(URL: string, connectionType: string): void;
 }
 
@@ -560,8 +560,8 @@ declare let observers: any;
 declare const decipherJWT: any;
 declare const setCookie: any;
 declare const getCookie: any;
-declare const deleteAllCookies: void;
-declare const deleteCookie: void;
+declare const deleteAllCookies: any;
+declare const deleteCookie: any;
 declare let isRefreshing: boolean;
 declare let refreshSubscribers: any[];
 declare let register: string;

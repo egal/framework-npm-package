@@ -12,7 +12,7 @@ import { ActionMessage } from './src/Actions/ActionMessage';
 import { Model } from './src/Model/Model';
 import { GlobalVariables } from './src/GlobalVariables';
 import { EgalConstructor } from './src/Constructors/EgalConstructor';
-import { EgalAuthConstructor } from './src/Constructors/AuthConstructor';
+import { EgalAuthConstructor } from './src/Constructors/EgalAuthConstructor';
 import { ActionConstructor } from './src/Constructors/ActionConstructor';
 import { ValidationConstructor } from './src/Constructors/ValidationConstructor';
 import {

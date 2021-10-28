@@ -10,5 +10,5 @@ export interface ActionMessageInterface {
   httpMethod: Method;
   httpRequest: HttpRequest;
 
-  axiosConnect(): void;
+  axiosConnect(): any;
 }

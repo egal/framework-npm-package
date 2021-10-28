@@ -35,7 +35,7 @@ export const getCookie = function (cname: string): any {
   return '';
 };
 
-export const deleteAllCookies = function (): void {
+export const deleteAllCookies = function (): any {
   let cookies = document.cookie.split(';');
   for (let i = 0; i < cookies.length; i++) {
     let cookie = cookies[i];
@@ -45,6 +45,6 @@ export const deleteAllCookies = function (): void {
   }
 };
 
-export const deleteCookie = function (name: string): void {
+export const deleteCookie = function (name: string): any {
   document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 };

@@ -22,7 +22,7 @@ export class EventObserver {
     actionName?: string,
     receivedModelName?: string,
     actionMessage?: string | object
-  ): void {
+  ): any {
     observers.forEach((subscriber) => {
       if (subscriber.modelName === receivedModelName) {
         subscriber.fn(data, actionName, receivedModelName, actionMessage);
@@ -30,7 +30,7 @@ export class EventObserver {
     });
   }
 
-  broadcastSocketDisconnect(modelName: string): void {
+  broadcastSocketDisconnect(modelName: string): any {
     observers.forEach((subscriber) => {
       if (subscriber.modelName === modelName) {
         subscriber.fn(modelName);
@@ -38,7 +38,7 @@ export class EventObserver {
     });
   }
 
-  checkObservers(): void {
+  checkObservers(): any {
     console.log(observers);
   }
 
