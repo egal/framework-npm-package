@@ -1,6 +1,5 @@
-// import Validator, { ErrorMessages } from 'validatorjs';
-import * as Validator from 'validatorjs';
-import { ErrorMessages } from 'validatorjs';
+import Validator from 'validatorjs';
+// import { ErrorMessages } from 'validatorjs';
 import { rules } from '../Helpers/ValidationRules';
 export let setErrorLang: any = (lang: string) => {
   Validator.useLang(lang);
@@ -10,9 +9,9 @@ export class ValidationConstructor {
   data: object;
   rules: object | undefined;
   validation: any;
-  customMessages: ErrorMessages | undefined;
+  customMessages: any;
 
-  constructor(data: object, rules: object, customMessages?: ErrorMessages) {
+  constructor(data: object, rules: object, customMessages?: any) {
     this.data = data;
     this.rules = rules;
     this.customMessages = customMessages;
@@ -41,11 +40,7 @@ export class ValidationConstructor {
     }
   }
 
-  createValidationRule(ruleObject: {
-    name: string;
-    callback: (value: string | number | Boolean) => RegExpMatchArray | null;
-    message: string;
-  }): void {
+  createValidationRule(ruleObject: { name: string; callback: any; message?: string }): void {
     // @ts-ignore
     Validator.register(ruleObject.name, ruleObject.callback, ruleObject.message);
   }

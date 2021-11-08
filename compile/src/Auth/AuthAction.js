@@ -4,8 +4,8 @@ exports.AuthAction = void 0;
 const HttpRequest_1 = require("../Actions/NetworkRequests/HttpRequest");
 const AuthParams_1 = require("./AuthParams");
 const GlobalVariables_1 = require("../GlobalVariables");
-let register = 'register';
-let auth = 'login';
+let register = 'registerByEmailAndPassword';
+let auth = 'loginByEmailAndPassword';
 let loginIntoService = 'loginToService';
 class AuthAction {
     constructor(modelName, requestType) {

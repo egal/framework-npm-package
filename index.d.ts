@@ -294,11 +294,7 @@ declare class ValidationConstructor {
     validation: any;
     customMessages: any | undefined;
     validate():Promise<any>
-    createValidationRule(ruleObject: {
-        name: string;
-        callback: (value: string | number | Boolean) => RegExpMatchArray | null;
-        message: string;
-    }):any
+    createValidationRule(ruleObject: { name: string; callback: any; message?: string }): any;
     overrideDefaultMessage(rule: string, message: string, lang?: string):any
     getAllErrorMessages(languageCode: string):any
     getAllAvailableRules():any
