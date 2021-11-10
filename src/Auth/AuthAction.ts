@@ -4,8 +4,8 @@ import { AuthParams } from './AuthParams';
 import { GlobalVariables } from '../GlobalVariables';
 import { ActionParameters } from '../Actions/Interfaces/ActionParameters';
 
-let register = 'registerByEmailAndPassword';
-let auth = 'loginByEmailAndPassword';
+let register = 'register';
+let auth = 'login';
 let loginIntoService = 'loginToService';
 export class AuthAction {
   private microserviceName: string;

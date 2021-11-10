@@ -123,8 +123,8 @@ export class HttpRequest {
     let userTokenName = tokenName ? tokenName : GlobalVariables.tokenUST;
     let instance = axios.create();
     if (
-      actionName !== 'registerByEmailAndPassword' &&
-      actionName !== 'loginByEmailAndPassword' &&
+      actionName !== 'register' &&
+      actionName !== 'login' &&
       actionName !== 'loginToService' &&
       actionName !== 'loginAndGetRefreshToken'
     ) {
@@ -171,8 +171,8 @@ export class HttpRequest {
     return new Promise((resolve, reject) => {
       let data;
       switch (actionName) {
-        case 'registerByEmailAndPassword':
-        case 'loginByEmailAndPassword':
+        case 'register':
+        case 'login':
         case 'loginToService':
         case 'loginAndGetRefreshToken':
         case 'getItems':

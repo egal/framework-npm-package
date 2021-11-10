@@ -106,8 +106,8 @@ class HttpRequest {
             : GlobalVariables_1.GlobalVariables.authBaseUrl;
         let userTokenName = tokenName ? tokenName : GlobalVariables_1.GlobalVariables.tokenUST;
         let instance = axios_1.default.create();
-        if (actionName !== 'registerByEmailAndPassword' &&
-            actionName !== 'loginByEmailAndPassword' &&
+        if (actionName !== 'register' &&
+            actionName !== 'login' &&
             actionName !== 'loginToService' &&
             actionName !== 'loginAndGetRefreshToken') {
             instance.defaults.headers.common['Authorization'] = GlobalVariables_1.getCookie(userTokenName);
@@ -149,8 +149,8 @@ class HttpRequest {
         return new Promise((resolve, reject) => {
             let data;
             switch (actionName) {
-                case 'registerByEmailAndPassword':
-                case 'loginByEmailAndPassword':
+                case 'register':
+                case 'login':
                 case 'loginToService':
                 case 'loginAndGetRefreshToken':
                 case 'getItems':
