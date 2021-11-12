@@ -19,10 +19,8 @@ jobs:
       - run: npm run build
       - run: rm -r src .github
       - run: rm nodemon.json .gitignore .prettierrc index.js index.ts
-      - run: ls -la
-      - run: exit 1
-#      - run: |
-#          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}"
-#          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-#      - run: npm whoami
-#      - run: npm publish --access public
+      - run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}"
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+      - run: npm whoami
+      - run: npm publish --access public
