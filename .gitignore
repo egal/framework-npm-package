@@ -9,7 +9,7 @@ compile
 .vscode
 
 # Compiled js files from ts
-/index.js
+#/index.js
 src/*.js
 src/**/*.js
 
