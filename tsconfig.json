@@ -9,10 +9,9 @@
       "es2016.array.include",
       "esnext"
     ],
-    "outDir": "compile/src",
+    "outDir": "compile",
     "strict": true,
     "typeRoots": [
-      "./typings",
       "../node_modules/@types"
     ],
     "esModuleInterop": true,
@@ -22,7 +21,8 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "index.d.ts",
+    "./index.d.ts",
+    "./index.ts",
     "src/*.ts",
     "src/*.tsx",
     "src/**/*.ts",
