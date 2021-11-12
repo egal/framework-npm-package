@@ -15,6 +15,10 @@ jobs:
           sed -i -e "0,/{/ s/{/{\n\t\"version\": \"${GITHUB_REF##*/v}\",/" package.json
       - run: echo package.json
       - run: npm install
+      - run: tsc index
+      - run: npm run build
+      - run: rm -r src .github
+      - run: rm nodemon.json .gitignore .prettierrc index.js index.ts
       - run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}"
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc

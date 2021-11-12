@@ -1,5 +1,5 @@
+// @ts-ignore
 import Validator from 'validatorjs';
-// import { ErrorMessages } from 'validatorjs';
 import { rules } from '../Helpers/ValidationRules';
 export let setErrorLang: any = (lang: string) => {
   Validator.useLang(lang);
