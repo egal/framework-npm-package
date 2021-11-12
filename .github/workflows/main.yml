@@ -17,9 +17,8 @@ jobs:
       - run: npm install
       - run: tsc index
       - run: npm run build
-#      - run: node node_modules/nodemon/bin/nodemon.js
       - run: rm -r src .github
-      - run: rm nodemon.json .gitignore .prettierrc index.js
+      - run: rm nodemon.json .gitignore .prettierrc index.js index.ts
       - run: ls -la
       - run: exit 1
 #      - run: |
