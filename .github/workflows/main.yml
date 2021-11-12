@@ -16,13 +16,12 @@ jobs:
       - run: echo package.json
       - run: npm install
       - run: nodemon
-      - run: rm -r src
-      - run: rm -r .github
-      - run: rm nodemon.json
-      - run: rm .gitignore
-      - run: rm .prettierrc
-      - run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}"
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-      - run: npm whoami
-      - run: npm publish --access public
+      - run: rm -r src .github
+      - run: rm nodemon.json .gitignore .prettierrc
+      - run: ls -la
+      - run: exit 1
+#      - run: |
+#          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}"
+#          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+#      - run: npm whoami
+#      - run: npm publish --access public
