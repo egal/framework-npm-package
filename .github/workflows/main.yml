@@ -16,7 +16,8 @@ jobs:
       - run: echo package.json
       - run: npm install
       - run: tsc index
-      - run: node node_modules/nodemon/bin/nodemon.js
+      - run: npm run build
+#      - run: node node_modules/nodemon/bin/nodemon.js
       - run: rm -r src .github
       - run: rm nodemon.json .gitignore .prettierrc index.js
       - run: ls -la

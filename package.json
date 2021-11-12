@@ -10,7 +10,7 @@
     "dev:watch": "nodemon --watch ./src/**/* -e ts,tsx --exec ts-node index.ts",
     "serve": "vue-cli-service serve",
     "lint": "eslint . --ext .ts",
-    "build": "tsc -w"
+    "build": "tsc"
   },
   "keywords": [
     "actions",
