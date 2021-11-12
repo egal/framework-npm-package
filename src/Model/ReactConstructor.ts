@@ -1,5 +1,5 @@
-import { Model } from "./Model";
-import { EventObserver } from "../Actions/NetworkRequests/SocketConnection/Observer";
+import { Model } from './Model';
+import { EventObserver } from '../Actions/NetworkRequests/SocketConnection/Observer';
 
 export class ReactConstructor extends Model {
   private readonly egalModel: Model;
@@ -8,16 +8,12 @@ export class ReactConstructor extends Model {
   listenerFunction: Function;
   private readonly url: string;
 
-  constructor(modelParams: {
-    modelName: string;
-    url: string;
-    listenerFunction: Function;
-  }) {
-    super(modelParams.modelName, "", "");
+  constructor(modelParams: { modelName: string; url: string; listenerFunction: Function }) {
+    super(modelParams.modelName, '', '');
     this.modelName = modelParams.modelName;
     this.listenerFunction = modelParams.listenerFunction;
     this.url = modelParams.url;
-    this.egalModel = new Model(this.modelName, "", "");
+    this.egalModel = new Model(this.modelName, '', '');
     this.initModel();
   }
 
@@ -29,12 +25,7 @@ export class ReactConstructor extends Model {
   initModelObserver() {
     this.egalObserver.subscribe(
       this.modelName,
-      (
-        data: any,
-        actionName: string,
-        modelName: string,
-        actionMessage: object
-      ) => {
+      (data: any, actionName: string, modelName: string, actionMessage: object) => {
         const receivedData = [data[0], actionName, modelName, actionMessage];
         this.listenerFunction(receivedData);
       }

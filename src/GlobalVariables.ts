@@ -1,5 +1,6 @@
-import storage from "./MMKVStorage";
-import jwtDecode from "jwt-decode";
+import storage from './MMKVStorage';
+// @ts-ignore
+import jwtDecode from 'jwt-decode';
 
 export class GlobalVariables {
   public static httpBaseUrl: string;
@@ -24,7 +25,7 @@ export const getCookie = function (cname: string) {
   if (cname !== undefined) {
     try {
       const token = storage.getString(cname);
-      return token === undefined ? "" : token;
+      return token === undefined ? '' : token;
     } catch (error) {
       return error;
     }

@@ -1,9 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthAction = void 0;
 const HttpRequest_1 = require("../Actions/NetworkRequests/HttpRequest");
 const AuthParams_1 = require("./AuthParams");
 const GlobalVariables_1 = require("../GlobalVariables");
+const MMKVStorage_1 = __importDefault(require("../MMKVStorage"));
 let register = 'register';
 let auth = 'login';
 let loginIntoService = 'loginToService';
@@ -57,8 +61,8 @@ class AuthAction {
         return new Promise((resolve, reject) => {
             this.setNetworkRequest(createdUserData, auth)
                 .then((data) => {
-                localStorage.setItem('umt', data[0].user_master_token);
-                localStorage.setItem('umrt', data[0].user_master_refresh_token);
+                MMKVStorage_1.default.set('umt', data[0].user_master_token);
+                MMKVStorage_1.default.set('umrt', data[0].user_master_refresh_token);
                 resolve(data);
             })
                 .catch((error) => {

@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCookie = exports.deleteAllCookies = exports.getCookie = exports.setCookie = exports.decipherJWT = exports.GlobalVariables = void 0;
 const MMKVStorage_1 = __importDefault(require("./MMKVStorage"));
+// @ts-ignore
 const jwt_decode_1 = __importDefault(require("jwt-decode"));
 class GlobalVariables {
 }
@@ -26,7 +27,7 @@ const getCookie = function (cname) {
     if (cname !== undefined) {
         try {
             const token = MMKVStorage_1.default.getString(cname);
-            return token === undefined ? "" : token;
+            return token === undefined ? '' : token;
         }
         catch (error) {
             return error;

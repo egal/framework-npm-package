@@ -7,6 +7,7 @@ exports.HttpRequest = void 0;
 const axios_1 = __importDefault(require("axios"));
 const ActionError_1 = require("../ActionResponses/ActionError");
 const GlobalVariables_1 = require("../../GlobalVariables");
+const MMKVStorage_1 = __importDefault(require("../../MMKVStorage"));
 let isRefreshing = false;
 let refreshSubscribers = [];
 let initialRequest = undefined;
@@ -26,7 +27,7 @@ class HttpRequest {
             return response;
         }, (error) => {
             const { config } = error;
-            if (error.response.data.action_error.message === 'Token umt expired!') {
+            if (error.response.data.action_error.internal_code === 'umt_expired') {
                 this.refreshMasterToken().then(() => {
                     return new Promise((resolve, reject) => {
                         this.refreshAccessToken(serviceName).then((result) => {
@@ -48,7 +49,7 @@ class HttpRequest {
             }
         });
         return new Promise((resolve, reject) => {
-            if (localStorage.getItem('umt')) {
+            if (MMKVStorage_1.default.getString('umt')) {
                 let domain = GlobalVariables_1.GlobalVariables.httpBaseUrl
                     ? GlobalVariables_1.GlobalVariables.httpBaseUrl
                     : GlobalVariables_1.GlobalVariables.authBaseUrl;
@@ -59,7 +60,7 @@ class HttpRequest {
                     method: 'POST',
                     data: {
                         service_name: serviceName,
-                        token: localStorage.getItem('umt')
+                        token: MMKVStorage_1.default.getString('umt')
                     }
                 })
                     .then((response) => {
@@ -76,19 +77,19 @@ class HttpRequest {
     }
     refreshMasterToken() {
         return new Promise((resolve, reject) => {
-            if (localStorage.getItem('umrt')) {
+            if (MMKVStorage_1.default.getString('umrt')) {
                 let domain = GlobalVariables_1.GlobalVariables.httpBaseUrl;
                 delete axios_1.default.defaults.headers.Authorization;
                 axios_1.default({
                     url: `${domain}/auth/User/refreshUserMasterToken`,
                     method: 'POST',
                     data: {
-                        token: localStorage.getItem('umrt')
+                        token: MMKVStorage_1.default.getString('umrt')
                     }
                 })
                     .then((response) => {
-                    localStorage.setItem('umrt', response.data.action_result.data.user_master_refresh_token);
-                    localStorage.setItem('umt', response.data.action_result.data.user_master_token);
+                    MMKVStorage_1.default.set('umrt', response.data.action_result.data.user_master_refresh_token);
+                    MMKVStorage_1.default.set('umt', response.data.action_result.data.user_master_token);
                     resolve(response.data.action_result.data);
                 })
                     .catch((error) => {
@@ -119,7 +120,7 @@ class HttpRequest {
             const originalRequest = config;
             initialRequest = originalRequest;
             if (error.response.data.action_error.code === 401 &&
-                error.response.data.action_error.message === 'Token ust expired!') {
+                error.response.data.action_error.internal_code === 'ust_expired') {
                 if (!isRefreshing) {
                     isRefreshing = true;
                     this.refreshAccessToken(serviceName).then((newToken) => {

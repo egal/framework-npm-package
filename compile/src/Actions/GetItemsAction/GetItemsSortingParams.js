@@ -14,7 +14,7 @@ class GetItemsSortingParams {
             if (receivedOrderArr.length <= 1) {
                 const orderObj = {
                     column: receivedOrderArr[0][0],
-                    direction: receivedOrderArr[0][1],
+                    direction: receivedOrderArr[0][1]
                 };
                 this.order.push(orderObj);
             }
@@ -22,7 +22,7 @@ class GetItemsSortingParams {
                 for (const i in receivedOrderArr) {
                     const orderObj = {
                         column: receivedOrderArr[i][0],
-                        direction: receivedOrderArr[i][1],
+                        direction: receivedOrderArr[i][1]
                     };
                     this.order.push(orderObj);
                 }

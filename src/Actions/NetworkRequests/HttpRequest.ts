@@ -3,7 +3,7 @@ import { ActionResult } from '../ActionResponses/ActionResult';
 import { ActionError } from '../ActionResponses/ActionError';
 import { ActionParameters } from '../Interfaces/ActionParameters';
 import { getCookie, GlobalVariables, deleteCookie, setCookie } from '../../GlobalVariables';
-
+import storage from '../../MMKVStorage';
 let isRefreshing = false;
 let refreshSubscribers: any[] = [];
 let initialRequest: any = undefined;
@@ -32,7 +32,7 @@ export class HttpRequest {
       },
       (error) => {
         const { config } = error;
-        if (error.response.data.action_error.message === 'Token umt expired!') {
+        if (error.response.data.action_error.internal_code === 'umt_expired') {
           this.refreshMasterToken().then(() => {
             return new Promise((resolve, reject) => {
               this.refreshAccessToken(serviceName).then((result) => {
@@ -54,7 +54,7 @@ export class HttpRequest {
       }
     );
     return new Promise((resolve, reject) => {
-      if (localStorage.getItem('umt')) {
+      if (storage.getString('umt')) {
         let domain = GlobalVariables.httpBaseUrl
           ? GlobalVariables.httpBaseUrl
           : GlobalVariables.authBaseUrl;
@@ -65,7 +65,7 @@ export class HttpRequest {
           method: 'POST',
           data: {
             service_name: serviceName,
-            token: localStorage.getItem('umt')
+            token: storage.getString('umt')
           }
         })
           .then((response) => {
@@ -82,22 +82,19 @@ export class HttpRequest {
 
   refreshMasterToken() {
     return new Promise((resolve, reject) => {
-      if (localStorage.getItem('umrt')) {
+      if (storage.getString('umrt')) {
         let domain = GlobalVariables.httpBaseUrl;
         delete axios.defaults.headers.Authorization;
         axios({
           url: `${domain}/auth/User/refreshUserMasterToken`,
           method: 'POST',
           data: {
-            token: localStorage.getItem('umrt')
+            token: storage.getString('umrt')
           }
         })
           .then((response: any) => {
-            localStorage.setItem(
-              'umrt',
-              response.data.action_result.data.user_master_refresh_token
-            );
-            localStorage.setItem('umt', response.data.action_result.data.user_master_token);
+            storage.set('umrt', response.data.action_result.data.user_master_refresh_token);
+            storage.set('umt', response.data.action_result.data.user_master_token);
             resolve(response.data.action_result.data);
           })
           .catch((error) => {
@@ -140,7 +137,7 @@ export class HttpRequest {
         initialRequest = originalRequest;
         if (
           error.response.data.action_error.code === 401 &&
-          error.response.data.action_error.message === 'Token ust expired!'
+          error.response.data.action_error.internal_code === 'ust_expired'
         ) {
           if (!isRefreshing) {
             isRefreshing = true;

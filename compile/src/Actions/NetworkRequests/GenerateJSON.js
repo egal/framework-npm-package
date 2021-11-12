@@ -20,13 +20,13 @@ class GenerateJSON {
         const parametersDeleteMany = { ids: [] };
         const parametersUpdateManyRaw = {
             filter: [],
-            attributes: [],
+            attributes: []
         };
         const parametersDeleteManyRaw = { filter: [] };
         switch (actionName) {
-            case "create":
-            case "update":
-            case "delete":
+            case 'create':
+            case 'update':
+            case 'delete':
                 parametersCRUD.attributes = actionParameters;
                 return {
                     type: type,
@@ -35,10 +35,10 @@ class GenerateJSON {
                     action_name: actionName,
                     parameters: parametersCRUD,
                     token: token,
-                    uuid: uuid,
+                    uuid: uuid
                 };
-            case "createMany":
-            case "updateMany":
+            case 'createMany':
+            case 'updateMany':
                 parametersMany.objects = actionParameters;
                 return {
                     type: type,
@@ -47,9 +47,9 @@ class GenerateJSON {
                     action_name: actionName,
                     parameters: parametersMany,
                     token: token,
-                    uuid: uuid,
+                    uuid: uuid
                 };
-            case "deleteMany":
+            case 'deleteMany':
                 parametersDeleteMany.ids = actionParameters;
                 return {
                     type: type,
@@ -58,9 +58,9 @@ class GenerateJSON {
                     action_name: actionName,
                     parameters: parametersDeleteMany,
                     token: token,
-                    uuid: uuid,
+                    uuid: uuid
                 };
-            case "updateManyRaw":
+            case 'updateManyRaw':
                 parametersUpdateManyRaw.filter = this.formFilter(actionParameters === null || actionParameters === void 0 ? void 0 : actionParameters.filter);
                 parametersUpdateManyRaw.attributes = actionParameters === null || actionParameters === void 0 ? void 0 : actionParameters.attributes;
                 return {
@@ -70,9 +70,9 @@ class GenerateJSON {
                     action_name: actionName,
                     parameters: parametersUpdateManyRaw,
                     token: token,
-                    uuid: uuid,
+                    uuid: uuid
                 };
-            case "deleteManyRaw":
+            case 'deleteManyRaw':
                 parametersDeleteManyRaw.filter = this.formFilter(actionParameters === null || actionParameters === void 0 ? void 0 : actionParameters.filter);
                 return {
                     type: type,
@@ -81,7 +81,7 @@ class GenerateJSON {
                     action_name: actionName,
                     parameters: parametersDeleteManyRaw,
                     token: token,
-                    uuid: uuid,
+                    uuid: uuid
                 };
             default:
                 return {
@@ -91,7 +91,7 @@ class GenerateJSON {
                     action_name: actionName,
                     parameters: actionParameters,
                     token: token,
-                    uuid: uuid,
+                    uuid: uuid
                 };
         }
     }

@@ -5,12 +5,12 @@ const Model_1 = require("./Model");
 const Observer_1 = require("../Actions/NetworkRequests/SocketConnection/Observer");
 class ReactConstructor extends Model_1.Model {
     constructor(modelParams) {
-        super(modelParams.modelName, "", "");
+        super(modelParams.modelName, '', '');
         this.egalObserver = Observer_1.EventObserver.getInstance();
         this.modelName = modelParams.modelName;
         this.listenerFunction = modelParams.listenerFunction;
         this.url = modelParams.url;
-        this.egalModel = new Model_1.Model(this.modelName, "", "");
+        this.egalModel = new Model_1.Model(this.modelName, '', '');
         this.initModel();
     }
     initModel() {
