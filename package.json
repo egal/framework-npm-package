@@ -2,7 +2,7 @@
   "name": "@egalteam/framework-react-native",
   "description": "Egal",
   "main": "compile/index.js",
-  "types": "compile/index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node index.js",
