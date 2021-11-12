@@ -26,7 +26,7 @@ class HttpRequest {
             return response;
         }, (error) => {
             const { config } = error;
-            if (error.response.data.action_error.message === 'Token umt expired!') {
+            if (error.response.data.action_error.internal_code === 'umt_expired') {
                 this.refreshMasterToken().then(() => {
                     return new Promise((resolve, reject) => {
                         this.refreshAccessToken(serviceName).then((result) => {
@@ -119,7 +119,7 @@ class HttpRequest {
             const originalRequest = config;
             initialRequest = originalRequest;
             if (error.response.data.action_error.code === 401 &&
-                error.response.data.action_error.message === 'Token ust expired!') {
+                error.response.data.action_error.internal_code === 'ust_expired') {
                 if (!isRefreshing) {
                     isRefreshing = true;
                     this.refreshAccessToken(serviceName).then((newToken) => {
