@@ -15,9 +15,8 @@ jobs:
           sed -i -e "0,/{/ s/{/{\n\t\"version\": \"${GITHUB_REF##*/v}\",/" package.json
       - run: echo package.json
       - run: npm install
-#      - run: node node_modules/nodemon/bin/nodemon.js
-      - run: npm install -g nodemon
-      - run: nodemon
+      - run: tsc index
+      - run: node node_modules/nodemon/bin/nodemon.js
       - run: rm -r src .github
       - run: rm nodemon.json .gitignore .prettierrc index.js
       - run: ls -la
