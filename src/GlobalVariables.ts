@@ -13,10 +13,24 @@ export const decipherJWT = function (token: string): any {
   return JSON.parse(Buffer.from(base64, 'base64').toString('binary'));
 };
 
-export const setCookie = async function (name: string, token: string): Promise<any> {
-  let decipheredJWT = await decipherJWT(token);
-  let expirationDate = decipheredJWT.alive_until;
-  document.cookie = name + '=' + token + '; expires=' + expirationDate + ';samesite=strict;secure;';
+export const setCookie = async function (
+  name: string,
+  token: string,
+  flags?: { samesite?: string; secure?: string }
+): Promise<any> {
+  let addedFlags;
+  if (flags) {
+    if (flags.samesite && !flags.secure) {
+      addedFlags = `; samesite=${flags.samesite}`;
+    } else if (!flags.samesite && flags.secure) {
+      addedFlags = `; ${flags.secure}`;
+    } else if (flags.samesite && flags.secure) {
+      addedFlags = `; samesite=${flags.samesite};${flags.secure};`;
+    }
+    document.cookie = name + '=' + token + addedFlags;
+  } else {
+    document.cookie = name + '=' + token;
+  }
 };
 
 export const getCookie = function (cname: string): any {
