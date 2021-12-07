@@ -22,9 +22,18 @@ export class ValidationConstructor {
   async validate() {
     this.validation.passes();
     let errors = [];
+    let returnValues = [];
     errors = this.validation.errors.all();
-    if (Object.keys(errors).length > 0) {
-      return errors;
+    for (const [key, value] of Object.entries(errors)) {
+      let error = {
+        field: key,
+        //@ts-ignore
+        error: value.toString()
+      };
+      returnValues.push(error);
+    }
+    if (returnValues.length) {
+      return returnValues;
     } else {
       return this.validation.passes();
     }
