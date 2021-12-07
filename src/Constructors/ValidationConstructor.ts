@@ -19,21 +19,11 @@ export class ValidationConstructor {
     this.validation = new Validator(this.data, <Validator.Rules>this.rules, this.customMessages);
   }
 
-  async validate(): Promise<any> {
+  async validate() {
     this.validation.passes();
-    let keys = Object.keys(this.data);
     let errors = [];
-    let error: { field: string; error: Boolean };
-    for (let i in keys) {
-      if (this.validation.errors.first(keys[i])) {
-        error = {
-          field: keys[i],
-          error: this.validation.errors.first(keys[i].toString())
-        };
-        errors.push(error);
-      }
-    }
-    if (errors.length) {
+    errors = this.validation.errors.all();
+    if (Object.keys(errors).length > 0) {
       return errors;
     } else {
       return this.validation.passes();
