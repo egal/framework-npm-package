@@ -83,4 +83,6 @@ export interface ModelInterface {
   // ): void;
 
   setBaseUrl(URL: string, connectionType: string): any;
+
+  setErrorInterceptor(errorText: string | number, callback: (...args: any) => any): void
 }

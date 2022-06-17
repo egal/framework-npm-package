@@ -6,6 +6,7 @@ import {CRUDAction} from '../Actions/CRUDActions/CRUDAction';
 import {GetModelMetadataAction} from '../Actions/GetMetadataAction/GetModelMetadataAction';
 import {CustomAction} from '../Actions/CustomAction/CustomAction';
 import {GetItemsAction} from '../Actions/GetItemsAction/GetItemsAction';
+import globalAxios from "../AxiosInstance";
 
 export class ActionConstructor implements ActionConstructorInterface {
     filterArr: (string | object)[];
@@ -37,6 +38,23 @@ export class ActionConstructor implements ActionConstructorInterface {
 
     setBaseUrl(url: string): void {
         GlobalVariables.httpBaseUrl = url;
+    }
+
+    setErrorInterceptor(errorText: string | number, callback: (...args: any) => any): void {
+        globalAxios.interceptors.response.use(
+            (response) => {
+                return response;
+            },
+            (error: any) => {
+                if (
+                    error.response.data.action_error.code === errorText ||
+                    error.response.data.action_error.message === errorText
+                ) {
+                    callback();
+                }
+                return Promise.reject(error);
+            }
+        );
     }
 
     clearParams(): void {

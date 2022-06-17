@@ -1,8 +1,9 @@
-import axios, {Method} from 'axios';
-import {ActionResult} from '../ActionResponses/ActionResult';
-import {ActionError} from '../ActionResponses/ActionError';
-import {ActionParameters} from '../Interfaces/ActionParameters';
-import {getCookie, GlobalVariables, deleteCookie, setCookie} from '../../GlobalVariables';
+import { Method } from 'axios';
+import { ActionResult } from '../ActionResponses/ActionResult';
+import { ActionError } from '../ActionResponses/ActionError';
+import { ActionParameters } from '../Interfaces/ActionParameters';
+import { deleteCookie, getCookie, GlobalVariables, setCookie } from '../../GlobalVariables';
+import globalAxios from "../../AxiosInstance";
 
 let isRefreshing = false;
 let refreshSubscribers: any[] = [];
@@ -26,22 +27,24 @@ export class HttpRequest {
     }
 
     async refreshAccessToken(serviceName: string) {
-        axios.interceptors.response.use(
+        globalAxios.interceptors.response.use(
             (response) => {
                 return response;
             },
             async (error) => {
-                const {config} = error;
+                const { config } = error;
                 if (error.response.data.action_error.internal_code === 'umt_expired') {
-                    this.refreshMasterToken().then(() => {
-                        this.refreshAccessToken(serviceName).then(() => {
-                            initialRequest.headers['Authorization'] = getCookie(serviceName);
-                            axios(initialRequest);
-                            refreshSubscribers = [];
+                    this.refreshMasterToken()
+                        .then(() => {
+                            this.refreshAccessToken(serviceName).then(() => {
+                                initialRequest.headers['Authorization'] = getCookie(serviceName);
+                                globalAxios(initialRequest);
+                                refreshSubscribers = [];
+                            });
                         })
-                    }).catch((error) => {
-                        return error
-                    })
+                        .catch((error) => {
+                            return error;
+                        });
                 } else {
                     return error;
                 }
@@ -51,9 +54,9 @@ export class HttpRequest {
             let domain = GlobalVariables.httpBaseUrl
                 ? GlobalVariables.httpBaseUrl
                 : GlobalVariables.authBaseUrl;
-            delete axios.defaults.headers.Authorization;
+            delete globalAxios.defaults.headers.Authorization;
             deleteCookie(serviceName);
-            await axios({
+            await globalAxios({
                 url: `${domain}/auth/User/loginToService`,
                 method: 'POST',
                 data: {
@@ -63,8 +66,8 @@ export class HttpRequest {
             })
                 .then((response) => {
                     deleteCookie(serviceName);
-                    setCookie(serviceName, response.data.action_result.data)
-                    this.onRefreshed(response.data.action_result.data)
+                    setCookie(serviceName, response.data.action_result.data);
+                    this.onRefreshed(response.data.action_result.data);
                     return response.data.action_result.data;
                 })
                 .catch((error) => {
@@ -78,8 +81,8 @@ export class HttpRequest {
             let domain = GlobalVariables.httpBaseUrl
                 ? GlobalVariables.httpBaseUrl
                 : GlobalVariables.authBaseUrl;
-            delete axios.defaults.headers.Authorization;
-            await axios({
+            delete globalAxios.defaults.headers.Authorization;
+            await globalAxios({
                 url: `${domain}/auth/User/refreshUserMasterToken`,
                 method: 'POST',
                 data: {
@@ -87,18 +90,15 @@ export class HttpRequest {
                 }
             })
                 .then((response: any) => {
-                    localStorage.setItem(
-                        'umrt',
-                        response.data.action_result.data.user_master_refresh_token
-                    );
+                    localStorage.setItem('umrt', response.data.action_result.data.user_master_refresh_token);
                     localStorage.setItem('umt', response.data.action_result.data.user_master_token);
                 })
                 .catch((error) => {
-                    localStorage.removeItem('umrt')
+                    localStorage.removeItem('umrt');
                     return error;
                 });
         } else {
-            return new ActionError('Session expired!', 401).getMessage()
+            return new ActionError('Session expired!', 401).getMessage();
         }
     }
 
@@ -109,27 +109,29 @@ export class HttpRequest {
         httpMethod: Method,
         actionParameters: ActionParameters | undefined,
         customActionParameters?: any,
-        tokenName?: string
+        tokenName?: string,
+        errorText?: string
     ): Promise<any> {
         let domain = GlobalVariables.httpBaseUrl
             ? GlobalVariables.httpBaseUrl
             : GlobalVariables.authBaseUrl;
         let userTokenName = tokenName ? tokenName : GlobalVariables.tokenUST;
-        let instance = axios.create();
+
         if (
             actionName !== 'register' &&
             actionName !== 'login' &&
             actionName !== 'loginToService' &&
             actionName !== 'loginAndGetRefreshToken'
         ) {
-            instance.defaults.headers.common['Authorization'] = getCookie(userTokenName);
+            globalAxios.defaults.headers.common['Authorization'] = getCookie(userTokenName);
         }
-        instance.interceptors.response.use(
+
+        globalAxios.interceptors.response.use(
             (response) => {
                 return response;
             },
             async (error) => {
-                const {config} = error;
+                const { config } = error;
                 const originalRequest = config;
                 initialRequest = originalRequest;
                 if (
@@ -140,7 +142,7 @@ export class HttpRequest {
                         isRefreshing = true;
                         this.refreshAccessToken(serviceName).then(() => {
                             isRefreshing = false;
-                        })
+                        });
                     }
                     return new Promise((resolve, reject) => {
                         this.subscribeTokenRefresh((token: any) => {
@@ -148,7 +150,7 @@ export class HttpRequest {
                             deleteCookie(serviceName);
                             setCookie(serviceName, token)
                                 .then(() => {
-                                    resolve(instance(originalRequest));
+                                    resolve(globalAxios(originalRequest));
                                     refreshSubscribers = [];
                                 })
                                 .catch((error) => {
@@ -161,6 +163,7 @@ export class HttpRequest {
                 }
             }
         );
+
         return new Promise((resolve, reject) => {
             let data;
             switch (actionName) {
@@ -179,16 +182,16 @@ export class HttpRequest {
                     break;
                 case 'createMany':
                 case 'updateMany':
-                    const actionManyParams = {objects: {}};
+                    const actionManyParams = { objects: {} };
                     // @ts-ignore
                     actionManyParams.objects = actionParameters;
                     data = actionManyParams;
                     break;
                 default:
-                    data = {attributes: actionParameters, ...customActionParameters};
+                    data = { attributes: actionParameters, ...customActionParameters };
             }
             if (GlobalVariables.httpBaseUrl || GlobalVariables.authBaseUrl) {
-                instance({
+                globalAxios({
                     url: `${domain}/${serviceName}/${modelName}/${actionName}`,
                     method: httpMethod,
                     data: data
@@ -197,12 +200,11 @@ export class HttpRequest {
                         resolve(response);
                     })
                     .catch((error) => {
-                        if('response' in error) {
+                        if ('response' in error) {
                             reject(error.response);
                         } else {
-                            reject(error)
+                            reject(error);
                         }
-
                     });
             } else {
                 this.actionError = new ActionError('Укажите URL!');
